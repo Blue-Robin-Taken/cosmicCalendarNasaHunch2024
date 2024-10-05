@@ -29,7 +29,7 @@ export default function Navbar() {
         </button>
 
         {/* Desktop Links */}
-        <div className="flex items-center space-x-12 text-2xl text-textLight">
+        <div className="flex flex-grow items-center space-x-12 text-2xl text-textLight">
           <li className="nav-link list-none">
             <Link href="/">Home</Link>
           </li>
@@ -39,8 +39,10 @@ export default function Navbar() {
           <li className="nav-link hidden lg:block">
             <Link href="/calendar">Calendar</Link>
           </li>
-          <li className="nav-link hidden lg:block">
-            <Link href="/login">Login</Link>
+          <li className="flex nav-link list-none flex-grow justify-end justify-items-end">
+            <Link href="/login" className="justify-self-right">
+              Login
+            </Link>
           </li>
         </div>
       </div>
