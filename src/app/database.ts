@@ -21,16 +21,13 @@ db.all("PRAGMA table_info(users)", (error, rows) => {
 
   if (
     !rows.find((row: any) => {
-      console.log(row["name"]);
       if (row["name"] == "email") {
-        console.log(row, row["name"]);
         return true;
       }
     })
   ) {
-    console.log("no email column");
     db.exec("ALTER TABLE users ADD email");
   } else {
-    console.log("there is an email column");
+    // Nothing, there is an email column
   }
 });
