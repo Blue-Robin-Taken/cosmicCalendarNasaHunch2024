@@ -1,20 +1,15 @@
 "use server";
 import { db } from "@/app/database";
 
-export default async function serverSignup(
-  formData: FormData
-): Promise<{
+export default async function serverSignup(formData: FormData): Promise<{
   formLengthInvalid: boolean;
-  loggedIn: boolean;
   userExists: boolean;
 }> {
   var returnData: {
     formLengthInvalid: boolean;
-    loggedIn: boolean;
     userExists: boolean;
   } = {
     formLengthInvalid: false,
-    loggedIn: false,
     userExists: false,
   };
   var rawFormData: {
@@ -35,7 +30,6 @@ export default async function serverSignup(
   if (rawFormData.password.toString().length < 6) {
     // Length of password set is too little
     returnData.formLengthInvalid = true;
-  } else {
   }
 
   db.get(
@@ -44,7 +38,12 @@ export default async function serverSignup(
     (err, row) => {
       console.log(err, row);
       if (row == undefined) {
-        // User does not exist
+        db.run(
+          "INSERT INTO users (username, password, email) VALUES(?, ?, ?)",
+          [rawFormData.username, rawFormData.password, null]
+        );
+      } else {
+        returnData.userExists = true;
       }
     }
   );

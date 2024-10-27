@@ -9,13 +9,18 @@ export default function SignUpForm() {
   async function signupSubmit(formData: FormData) {
     const serverReturn: {
       formLengthInvalid: boolean;
-      loggedIn: boolean;
       userExists: boolean;
     } = await serverSignup(formData);
     if (serverReturn.formLengthInvalid) {
       setPassLengthInvalid(true);
     } else {
       setPassLengthInvalid(false);
+
+      if (serverReturn.userExists) {
+        setInvalid(true);
+      } else {
+        setInvalid(false);
+      }
     }
   }
 
@@ -50,6 +55,9 @@ export default function SignUpForm() {
             <p className="justify-center">
               Password is too small! (Must be &gt;6 characters!)
             </p>
+          )}
+          {showInvalid && (
+            <p className="justify-center">Username already taken!</p>
           )}
         </form>
       </div>
