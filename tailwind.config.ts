@@ -12,6 +12,17 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        sans: [
+          'Lucida Sans',
+          'Lucida Sans Regular',
+          'Lucida Grande',
+          'Lucida Sans Unicode',
+          'Geneva',
+          'Verdana',
+          'sans-serif',
+        ],
+      },
     },
   },
   plugins: [],
