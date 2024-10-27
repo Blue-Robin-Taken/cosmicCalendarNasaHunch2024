@@ -7,11 +7,15 @@ export default function SignUpForm() {
   const [passLengthInvalid, setPassLengthInvalid] = useState(false); // For invalid password length
 
   async function signupSubmit(formData: FormData) {
-    const serverReturn: String = await serverSignup(formData);
-    switch (serverReturn.toString()) {
-      case "InvalidFormLength": {
-        setPassLengthInvalid(true);
-      }
+    const serverReturn: {
+      formLengthInvalid: boolean;
+      loggedIn: boolean;
+      userExists: boolean;
+    } = await serverSignup(formData);
+    if (serverReturn.formLengthInvalid) {
+      setPassLengthInvalid(true);
+    } else {
+      setPassLengthInvalid(false);
     }
   }
 

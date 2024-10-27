@@ -1,7 +1,13 @@
 "use server";
 import { db } from "@/app/database";
 
-export default async function serverSignup(formData: FormData): Promise<any> {
+export default async function serverSignup(
+  formData: FormData
+): Promise<{
+  formLengthInvalid: boolean;
+  loggedIn: boolean;
+  userExists: boolean;
+}> {
   var returnData: {
     formLengthInvalid: boolean;
     loggedIn: boolean;
