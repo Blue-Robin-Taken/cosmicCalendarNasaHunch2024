@@ -1,4 +1,4 @@
-"use client";
+"use client"; // DO NOT REMOVE
 
 import { useState } from "react";
 import serverSignup from "./actions";
