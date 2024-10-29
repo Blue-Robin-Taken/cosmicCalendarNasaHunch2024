@@ -39,11 +39,18 @@ export default function Navbar() {
           <li className="nav-link hidden lg:block">
             <Link href="/calendar">Calendar</Link>
           </li>
-          <li className="flex nav-link list-none flex-grow justify-end justify-items-end">
-            <Link href="/login" className="justify-self-right">
-              Login
-            </Link>
-          </li>
+          <div className="flex flex-grow flex-row space-x-4 justify-end">
+            <li className="nav-link list-none justify-end justify-items-end">
+              <Link href="/login" className="justify-self-right">
+                Login
+              </Link>
+            </li>
+            <li className="nav-link list-none justify-end justify-items-end">
+              <Link href="/signup" className="justify-self-right">
+                Signup
+              </Link>
+            </li>
+          </div>
         </div>
       </div>
 
@@ -64,6 +71,9 @@ export default function Navbar() {
         </li>
         <li className="nav-link hidden lg:block">
           <Link href="/login">Login</Link>
+        </li>
+        <li className="nav-link hidden lg:block">
+          <Link href="/signup">Signup</Link>
         </li>
       </ul>
     </nav>
