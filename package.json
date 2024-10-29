@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
+    "@tubular/time": "^3.9.2",
     "fs": "0.0.1-security",
     "jose": "^5.9.6",
     "jsonwebtoken": "^9.0.2",

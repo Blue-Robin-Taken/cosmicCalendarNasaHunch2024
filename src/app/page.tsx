@@ -11,7 +11,7 @@ export default function Home() {
                 </h1> 
             </div>   
           <h2 className="align-center justify-center text-3xl">
-          A Cosmic Calendar For all your Dates!
+          A Cosmic Calendar for all your Dates!
       </h2>
       </div>
     </div>

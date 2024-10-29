@@ -37,7 +37,7 @@ export default function Navbar() {
             <Link href="/about">About</Link>
           </li>
           <li className="nav-link hidden lg:block">
-            <Link href="/calendar">Calendar</Link>
+            <Link href="/clock">Clock</Link>
           </li>
           <div className="flex flex-grow flex-row space-x-4 justify-end">
             <li className="nav-link list-none justify-end justify-items-end">
@@ -67,7 +67,7 @@ export default function Navbar() {
           <Link href="/about">About</Link>
         </li>
         <li className="py-4 border-b border-gray-700">
-          <Link href="/calendar">Calendar</Link>
+          <Link href="/clock">Clock</Link>
         </li>
         <li className="nav-link hidden lg:block">
           <Link href="/login">Login</Link>
