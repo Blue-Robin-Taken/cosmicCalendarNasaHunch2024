@@ -1,14 +1,12 @@
+"use client";
+import { useState } from "react";
 import { db } from "../../database";
+import loginServerAction from "./actions";
 export default function LoginForm() {
-  async function loginSubmit(formData: FormData) {
-    "use server";
-    const rawFormData = {
-      username: formData.get("username"),
-      password: formData.get("password"),
-    };
-    console.log(rawFormData);
+  const [showInvalid, setInvalid] = useState(false); // For invalid credentials
 
-    console.log();
+  async function loginSubmit(formData: FormData) {
+    loginServerAction(formData);
   }
   return (
     <>

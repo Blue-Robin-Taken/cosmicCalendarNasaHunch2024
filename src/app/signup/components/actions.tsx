@@ -1,4 +1,4 @@
-"use server";
+"use server"; // DO NOT REMOVE, it resolves to client (because there is a function from here that's ran in a client func). All endpoints here MUST be secured.
 import { db } from "@/app/database";
 
 export default async function serverSignup(formData: FormData): Promise<{
