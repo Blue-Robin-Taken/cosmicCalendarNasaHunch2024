@@ -14,7 +14,7 @@ export default function Navbar() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="bg-zinc-950 p-4 relative min-h-[65px]">
+    <nav className="bg-slate-800 p-4 relative min-h-[65px]">
       <div className="flex items-center justify-between mx-10">
         {/* Hamburger Menu, Code from the Mr. Ben Merch Store */}
         <button
