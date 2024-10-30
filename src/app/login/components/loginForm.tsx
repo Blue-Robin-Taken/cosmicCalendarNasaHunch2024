@@ -5,13 +5,13 @@ export default function LoginForm() {
   const [showInvalid, setInvalid] = useState(false); // For invalid credentials
 
   async function loginSubmit(formData: FormData) {
-    
     const loginReturn: boolean = await loginServerAction(formData);
-    console.log(loginReturn)
-    if (loginReturn){
-      setInvalid(true)
+    console.log(loginReturn);
+    if (loginReturn) {
+      setInvalid(true);
+    } else {
+      setInvalid(false);
     }
-    
   }
   return (
     <>
@@ -28,7 +28,8 @@ export default function LoginForm() {
       </form>
 
       {showInvalid && (
-            <p className="justify-center">Incorrect password or username</p>)}
+        <p className="justify-center">Incorrect password or username</p>
+      )}
     </>
   );
 }
