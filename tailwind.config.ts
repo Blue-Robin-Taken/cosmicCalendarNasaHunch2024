@@ -7,11 +7,18 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    
     extend: {
+      
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        'navbar-text': '#575757'
+        'navbar-text': '#575757',
+        'navbar-tctext': '#301B02',
+        'theme-yellowlight': '#E7BA09',
+        'theme-yellowdark': '#CA9503',
+        'theme-graylight': '#D9D9D9',
+        'highlight-yellow': '#ffe770',
       },
       fontFamily: {
         sans: [
@@ -30,6 +37,10 @@ const config: Config = {
 
         CinzelDecorative: [
           'Cinzel-Decorative'
+        ],
+
+        PublicSans: [
+          'Public-Sans'
         ]
   
       },

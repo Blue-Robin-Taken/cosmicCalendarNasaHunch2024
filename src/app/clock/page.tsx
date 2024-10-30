@@ -8,13 +8,31 @@ export default function Clock() {
 
 
   return (
-    <div>
-        <h1 className="text-9xl flex flex-col justify-center items-center text-black font-serif p-16">
+    <div className="selection:bg-highlight-yellow">
+        <h2 className="font-PublicSans text-6xl flex flex-col justify-center items-start text-black ps-16 pt-16">
+            Earth
+        </h2>
+        
+        <p className="font-PublicSans text-3xl flex flex-col justify-center items-start text-black ps-16">
+            {GetTimeCC().format('ZZZ')}
+        </p>
+        
+        <h1 className="font-PublicSans text-[12rem] flex flex-col justify-start items-start text-black ps-16 ">
             {GetTimeCC().format('hh:mm:ss')}
         </h1>
             
-        <p className="text-9xl flex flex-col justify-center items-center text-black font-serif p-16">
-            {GetTimeCC().format('ddd MM/DD')}
+        <p className="font-PublicSans text-3xl flex flex-col justify-center items-start text-black ps-16">
+            {GetTimeCC().format('dddd, LL')}
+        </p>
+        
+        <p className="font-PublicSans text-3xl flex flex-col justify-center items-start text-black ps-16">---------------------------------</p>
+
+        <p className="font-PublicSans text-2xl flex flex-col justify-center items-start text-black ps-16">
+            UTC {GetTimeCC().format('ZZ')}
+        </p>
+        
+        <p className="font-PublicSans text-2xl flex flex-col justify-center items-start text-black ps-16 pb-16">
+            {GetTimeCC().format('zzz').toString()}
         </p>
 
       <Clocks />

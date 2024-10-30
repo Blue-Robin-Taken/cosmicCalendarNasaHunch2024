@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     // https://stackoverflow.com/a/76827457/15982771
-    <div className="-z-10 flex flex-grow align-middle h-screen w-screen top-0 left-0 fixed items-center justify-center flex-col wrapper">
+    <div className="-z-10 flex flex-grow align-middle h-screen w-screen top-0 left-0 fixed items-center justify-center flex-col wrapper select-none ">
       <h1 className="align-middle text-9xl font-bold font-Cinzel mb-4 text-center bg-[url('./images/cosmicYellowBackground.png')] bg-clip-text text-transparent">
         TerraChronos
       </h1>

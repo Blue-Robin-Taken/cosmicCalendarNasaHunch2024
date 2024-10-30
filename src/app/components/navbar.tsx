@@ -25,25 +25,25 @@ export default function Navbar() {
         </button>
 
         {/* Desktop Links */}
-        <div className="flex flex-grow items-center space-x-12 text-2xl text-textLight">
-          <li className="nav-link list-none bg-gradient-to-l from-white to-yellow-400 p-3 rounded-xl">
-            <Link href="/">TerraChronos</Link>
+        <div className="flex flex-grow items-center space-x-12 text-3xl text-textLight">
+          <li className="nav-link list-none bg-gradient-to-l from-white to-theme-yellowlight p-3 rounded-3xl">
+            <Link href="/" className="font-Cinzel text-navbar-tctext text-4xl">TerraChronos</Link>
           </li>
           <li className="nav-link hidden lg:block">
-            <Link href="/about">About</Link>
+            <Link href="/about" className="font-PublicSans">About</Link>
           </li>
           <li className="nav-link hidden lg:block">
-            <Link href="/clock">Clock</Link>
+            <Link href="/clock" className="font-PublicSans">Clock</Link>
           </li>
           <div className="flex flex-grow flex-row space-x-12 justify-end">
             <li className="nav-link list-none justify-end justify-items-end">
-              <Link href="/login" className="justify-self-right">
+              <Link href="/login" className="justify-self-right font-PublicSans">
                 Login
               </Link>
             </li>
             <li className="nav-link list-none justify-end justify-items-end">
-              <Link href="/signup" className="justify-self-right">
-                Signup
+              <Link href="/signup" className="justify-self-right font-PublicSans">
+                Sign-up
               </Link>
             </li>
           </div>

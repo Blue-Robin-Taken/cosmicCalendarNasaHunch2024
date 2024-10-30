@@ -35,3 +35,8 @@ body {
   font-family: "Cinzel-Decorative";
   src: url('./fonts/CinzelDecorative-Regular.ttf');
 }
+
+@font-face {
+  font-family: "Public-Sans";
+  src: url('./fonts/Public_Sans/PublicSans-VariableFont_wght.ttf');
+}

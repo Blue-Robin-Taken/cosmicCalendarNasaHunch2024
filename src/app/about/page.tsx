@@ -3,10 +3,10 @@ import "../about/page.css";
 
 export default function About() {
   return (
-    <div>
+    <div className="selection:bg-highlight-yellow">
       <div className="min-h-screen flex items-center justify-center flex-col wrapper bg-white">
         <div className="bg-gray-200 p-8 rounded-lg shadow-lg max-w-2xl">
-          <h1 className="text-4xl font-bold font-Cinzel mb-4 text-center text-yellow-500">
+          <h1 className="text-4xl font-bold font-Cinzel mb-4 text-center text-theme-yellowlight">
             {tempName}
           </h1>
           <h3 className="text-black text-lg font-CinzelDecorative text-center mb-4">
@@ -25,7 +25,7 @@ export default function About() {
         </div>
 
         <div className="slide ml-10 mt-16">
-          <h2 className="text-2xl font-bold font-Cinzel mb-4 text-yellow-500">
+          <h2 className="text-2xl font-bold font-Cinzel mb-4 text-theme-yellowlight">
             Features:
           </h2>
           <ul className="text-black list-disc">
