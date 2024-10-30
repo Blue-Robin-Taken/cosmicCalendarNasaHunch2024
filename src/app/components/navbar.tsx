@@ -13,7 +13,7 @@ export default function Navbar() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="bg-slate-800 p-4 relative min-h-[65px]">
+    <nav className="bg-white p-4 relative min-h-[65px] text-navbar-text">
       <div className="flex items-center justify-between mx-10">
         {/* Hamburger Menu, Code from the Mr. Ben Merch Store */}
         <button
@@ -30,7 +30,7 @@ export default function Navbar() {
         {/* Desktop Links */}
         <div className="flex flex-grow items-center space-x-12 text-2xl text-textLight">
           <li className="nav-link list-none">
-            <Link href="/">Home</Link>
+            <Link href="/">TerraChronos</Link>
           </li>
           <li className="nav-link hidden lg:block">
             <Link href="/about">About</Link>

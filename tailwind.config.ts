@@ -11,6 +11,7 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        'navbar-text': '#575757'
       },
       fontFamily: {
         sans: [
@@ -22,6 +23,15 @@ const config: Config = {
           'Verdana',
           'sans-serif',
         ],
+
+        Cinzel: [
+            'Cinzel'
+        ],
+
+        CinzelDecorative: [
+          'Cinzel-Decorative'
+        ]
+  
       },
     },
   },
