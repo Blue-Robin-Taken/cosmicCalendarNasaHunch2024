@@ -1,7 +1,0 @@
-.text-image /*h1*/ {  
-    color: transparent; 
-    background: url('../../cosmicYellowBackground.png') no-repeat ; 
-    background-size: cover; 
-    -webkit-background-clip: text; 
-    background-clip: text; 
-}
