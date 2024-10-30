@@ -16,7 +16,7 @@ export default function LoginForm() {
   return (
     <>
       <div className="flex flex-grow flex-col justify-center align-center min-h-screen">
-        <h1 className="text-center text-5xl">Log In</h1>
+        <h1 className="text-center text-5xl text-gray-950">Log In</h1>
         <form
           action={loginSubmit}
           className="m-5 p-5 flex place-items-center flex-col justify-center"
@@ -25,13 +25,13 @@ export default function LoginForm() {
             type="text"
             name="username"
             placeholder="username"
-            className="text-black p-3 m-3 text-lg"
+            className="text-white p-3 m-3 text-lg bg-gray-900 rounded-sm"
           />
           <input
             type="text"
             name="password"
             placeholder="password"
-            className="text-black p-3 m-3 text-lg"
+            className="text-white p-3 m-3 text-lg bg-gray-900 rounded-sm"
           ></input>
           <button
             type="submit"

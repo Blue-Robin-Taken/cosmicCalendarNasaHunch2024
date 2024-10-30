@@ -26,7 +26,7 @@ export default function Navbar() {
 
         {/* Desktop Links */}
         <div className="flex flex-grow items-center space-x-12 text-2xl text-textLight">
-          <li className="nav-link list-none">
+          <li className="nav-link list-none bg-gradient-to-l from-white to-yellow-400 p-3 rounded-xl">
             <Link href="/">TerraChronos</Link>
           </li>
           <li className="nav-link hidden lg:block">
