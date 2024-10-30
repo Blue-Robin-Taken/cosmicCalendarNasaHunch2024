@@ -1,4 +1,7 @@
+"use client";
 import date from "date-and-time";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 export default function Clocks() {
   // Generate all GMT Divs
 
@@ -6,6 +9,14 @@ export default function Clocks() {
   for (let x = -12; x <= 12; x++) {
     divList.push(x);
   }
+  const router = useRouter();
+  useEffect(() => {
+    const interval = setInterval(() => {
+      router.refresh();
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
   const mapped = divList.map((number, index) => {
     function returnNum(n: number) {
       // basically just returns the num with a "+" for positive or nothing for negative, it just looks better
