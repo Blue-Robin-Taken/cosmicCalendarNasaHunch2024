@@ -38,7 +38,7 @@ export default function Navbar() {
           <li className="nav-link hidden lg:block">
             <Link href="/clock">Clock</Link>
           </li>
-          <div className="flex flex-grow flex-row space-x-4 justify-end">
+          <div className="flex flex-grow flex-row space-x-12 justify-end">
             <li className="nav-link list-none justify-end justify-items-end">
               <Link href="/login" className="justify-self-right">
                 Login
