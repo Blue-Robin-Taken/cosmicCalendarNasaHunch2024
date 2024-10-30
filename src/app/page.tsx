@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
     // https://stackoverflow.com/a/76827457/15982771

@@ -1,5 +1,4 @@
 import date from "date-and-time";
-import { setInterval } from "timers/promises";
 export default function Clocks() {
   // Generate all GMT Divs
 
