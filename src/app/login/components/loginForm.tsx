@@ -1,12 +1,17 @@
 "use client";
 import { useState } from "react";
-import { db } from "../../database";
 import loginServerAction from "./actions";
 export default function LoginForm() {
   const [showInvalid, setInvalid] = useState(false); // For invalid credentials
 
   async function loginSubmit(formData: FormData) {
-    loginServerAction(formData);
+    
+    const loginReturn: boolean = await loginServerAction(formData);
+    console.log(loginReturn)
+    if (loginReturn){
+      setInvalid(true)
+    }
+    
   }
   return (
     <>
@@ -21,6 +26,9 @@ export default function LoginForm() {
         </label>
         <button type="submit">Login</button>
       </form>
+
+      {showInvalid && (
+            <p className="justify-center">Incorrect password or username</p>)}
     </>
   );
 }

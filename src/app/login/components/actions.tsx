@@ -1,10 +1,11 @@
 "use server"; // DO NOT REMOVE, it resolves to client. (endpoints must be secured here as well)
 import { db } from "@/app/database";
-import { error } from "console";
 import { SignJWT } from "jose";
 import { cookies } from "next/headers";
 
 export default async function loginServerAction(formData: FormData) {
+  let invalidLoginError: boolean = false;
+
   async function giveToken(user: string) {
     const token = await new SignJWT({
       username: user,
@@ -22,14 +23,21 @@ export default async function loginServerAction(formData: FormData) {
     username: formData.get("username"),
     password: formData.get("password"),
   };
-  console.log(rawFormData.password?.toString());
-  const getDB = db.get(
+  async function callDatabase(){
+  db.get(
     "SELECT * FROM users WHERE username = ? AND password = ?",
     [rawFormData.username?.toString(), rawFormData.password?.toString()],
-    async (err, row: { username: string; password: string }) => {
+    (err, row: { username: string; password: string }) => {
       if (row != null) {
         giveToken(row.username);
+      }else{
+        console.log('how')
+        invalidLoginError = true;
       }
     }
   );
+  console.log('wtf')
+  return invalidLoginError
+}
+return await callDatabase()
 }
