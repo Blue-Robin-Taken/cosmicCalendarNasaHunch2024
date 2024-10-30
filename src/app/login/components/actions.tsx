@@ -3,7 +3,7 @@ import { db } from "@/app/database";
 import { SignJWT } from "jose";
 import { cookies } from "next/headers";
 
-export default function loginServerAction(formData: FormData) {
+export default async function loginServerAction(formData: FormData) {
   let invalidLoginError: boolean = false;
 
   async function giveToken(user: string) {
@@ -19,23 +19,23 @@ export default function loginServerAction(formData: FormData) {
     return Response.json({ loggedIn: true }); // For the redirect
   }
 
-  
-
   const rawFormData = {
     username: formData.get("username"),
     password: formData.get("password"),
   };
-  const dbRetrieve = await new Promise(function(revole, reject) => {db.get(
-    "SELECT * FROM users WHERE username = ? AND password = ?",
-    [rawFormData.username?.toString(), rawFormData.password?.toString()],
-    (err, row: { username: string; password: string }) => {
-      if (row != null) {
-        giveToken(row.username);
-      }else{
-        invalidLoginError = true;
+  const dbRetrieve = await new Promise(function (resolve, reject) {
+    db.get(
+      "SELECT * FROM users WHERE username = ? AND password = ?",
+      [rawFormData.username?.toString(), rawFormData.password?.toString()],
+      (err, row: { username: string; password: string }) => {
+        if (row != null) {
+          giveToken(row.username);
+          resolve(false);
+        } else {
+          resolve(true);
+        }
       }
-    }
-  );
+    );
+  });
+  return dbRetrieve;
 }
-}
-
