@@ -23,7 +23,7 @@ export default async function loginServerAction(
     username: formData.get("username"),
     password: formData.get("password"),
   };
-  const dbRetrieve: boolean = await new Promise(function (resolve, reject) {
+  const dbRetrieve: boolean = await new Promise(function (resolve) {
     db.get(
       "SELECT * FROM users WHERE username = ? AND password = ?",
       [rawFormData.username?.toString(), rawFormData.password?.toString()],

@@ -5,14 +5,14 @@ export default async function serverSignup(formData: FormData): Promise<{
   formLengthInvalid: boolean;
   userExists: boolean;
 }> {
-  var returnData: {
+  const returnData: {
     formLengthInvalid: boolean;
     userExists: boolean;
   } = {
     formLengthInvalid: false,
     userExists: false,
   };
-  var rawFormData: {
+  const rawFormData: {
     username: FormDataEntryValue | null;
     password: FormDataEntryValue | null;
   } = {
