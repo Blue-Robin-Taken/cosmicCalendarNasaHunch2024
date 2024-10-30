@@ -2,10 +2,7 @@
 
 import Link from "next/link";
 import React, { useState } from "react";
-import {
-  Bars3Icon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +10,7 @@ export default function Navbar() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="bg-white p-4 relative min-h-[65px] text-navbar-text">
+    <nav className="bg-white p-3 py-5 relative min-h-[65px] text-navbar-text">
       <div className="flex items-center justify-between mx-10">
         {/* Hamburger Menu, Code from the Mr. Ben Merch Store */}
         <button
