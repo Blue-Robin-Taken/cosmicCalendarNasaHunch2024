@@ -27,7 +27,7 @@ export default function SignUpForm() {
   return (
     <>
       <div className="flex flex-grow flex-col justify-center align-center min-h-screen">
-        <h1 className="text-center text-5xl">Sign Up!</h1>
+        <h1 className="text-center text-5xl text-gray-950">Sign Up!</h1>
 
         <form
           action={signupSubmit}
@@ -37,13 +37,13 @@ export default function SignUpForm() {
             type="text"
             name="username"
             placeholder="username"
-            className="text-black p-3 m-3 text-lg"
+            className="text-white p-3 m-3 text-lg bg-gray-900 rounded-sm"
           />
           <input
             type="text"
             name="password"
             placeholder="password"
-            className="text-black p-3 m-3 text-lg"
+            className="text-white p-3 m-3 text-lg bg-gray-900 rounded-sm"
           ></input>
           <button
             type="submit"
