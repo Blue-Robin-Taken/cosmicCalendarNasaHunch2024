@@ -47,13 +47,13 @@ export default function Clocks() {
 
       <div
         key={index}
-        className="w-60 h-60 rounded-lg bg-slate-600 text-center"
+        className="w-96 h-40 rounded-lg bg-slate-300 text-center text-black"
       >
         <h1 className="justify-center text-lg font-semibold m-3">
           GMT {returnNum(number)}
         </h1>
-        <h1 className="justify-center text-base font-medium m-2">
-          {date.format(d, `hh:mm A [GMT]${number}`, true)}
+        <h1 className="justify-center text-5xl font-medium m-2">
+          {date.format(d, `hh:mm A`, true)}
         </h1>
       </div>
     );
