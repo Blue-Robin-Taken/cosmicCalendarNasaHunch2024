@@ -25,3 +25,13 @@ body {
     text-wrap: balance;
   }
 }
+
+@font-face {
+  font-family: "Cinzel";
+  src: url('./fonts/Cinzel-VariableFont_wght.ttf');
+}
+
+@font-face {
+  font-family: "Cinzel-Decorative";
+  src: url('./fonts/CinzelDecorative-Regular.ttf');
+}
