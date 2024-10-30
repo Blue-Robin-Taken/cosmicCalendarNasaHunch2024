@@ -25,25 +25,29 @@ export default function LoginForm() {
             type="text"
             name="username"
             placeholder="username"
-            className="text-white p-3 m-3 text-lg bg-gray-900 rounded-sm"
+            className="text-black p-3 m-3 text-lg border-2 bg-white border-black rounded-md"
+            onKeyDown={() => {setInvalid(false)}}
           />
           <input
-            type="text"
+            type="password"
             name="password"
             placeholder="password"
-            className="text-white p-3 m-3 text-lg bg-gray-900 rounded-sm"
+            className="text-black p-3 m-3 text-lg border-2 bg-white border-black rounded-md"
+            onKeyDown={() => {setInvalid(false)}}
           ></input>
+
+          {showInvalid && (
+            <p className="justify-center flex align-middle text-lg text-red-400">Incorrect password or username</p>
+          )}
+
           <button
             type="submit"
             className="bg-slate-600 rounded-lg m-2 p-3 w-32"
           >
             Log In
           </button>
+  
         </form>
-
-        {showInvalid && (
-          <p className="justify-center">Incorrect password or username</p>
-        )}
       </div>
     </>
   );

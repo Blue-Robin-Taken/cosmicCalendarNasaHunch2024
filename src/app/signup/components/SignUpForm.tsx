@@ -26,8 +26,8 @@ export default function SignUpForm() {
 
   return (
     <>
-      <div className="flex flex-grow flex-col justify-center align-center min-h-screen">
-        <h1 className="text-center text-5xl text-gray-950">Sign Up!</h1>
+      <div className="bg-white flex flex-grow flex-col justify-center align-center min-h-screen">
+        <h1 className="text-center text-black text-5xl">Sign Up!</h1>
 
         <form
           action={signupSubmit}
@@ -37,28 +37,33 @@ export default function SignUpForm() {
             type="text"
             name="username"
             placeholder="username"
-            className="text-white p-3 m-3 text-lg bg-gray-900 rounded-sm"
+            className="text-black p-3 m-3 text-lg border-2 border-black rounded-md"
+            onKeyDown={() => {setInvalid(false); setPassLengthInvalid(false)}}
           />
           <input
-            type="text"
+            type="password"
             name="password"
             placeholder="password"
-            className="text-white p-3 m-3 text-lg bg-gray-900 rounded-sm"
+            className="text-black p-3 m-3 text-lg border-2 border-black rounded-md"
+            onKeyDown={() => {setInvalid(false); setPassLengthInvalid(false)}}
           ></input>
+
+          {passLengthInvalid && (
+            <p className="justify-center flex align-middle text-lg text-red-400">
+              Password is too small! (Must be &gt;6 characters!)
+            </p>
+          )}
+          {showInvalid && (
+            <p className="justify-center flex align-middle text-lg text-red-400">Username already taken!</p>
+          )}
+
           <button
             type="submit"
             className="bg-slate-600 rounded-lg m-2 p-3 w-32"
           >
             Sign Up
           </button>
-          {passLengthInvalid && (
-            <p className="justify-center">
-              Password is too small! (Must be &gt;6 characters!)
-            </p>
-          )}
-          {showInvalid && (
-            <p className="justify-center">Username already taken!</p>
-          )}
+          
         </form>
       </div>
     </>
