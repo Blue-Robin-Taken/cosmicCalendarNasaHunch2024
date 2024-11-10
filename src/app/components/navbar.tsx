@@ -30,9 +30,6 @@ export default function Navbar() {
             <Link href="/" className="font-Cinzel text-navbar-tctext text-4xl">TerraChronos</Link>
           </li>
           <li className="nav-link hidden lg:block">
-            <Link href="/about" className="font-PublicSans">About</Link>
-          </li>
-          <li className="nav-link hidden lg:block">
             <Link href="/clock" className="font-PublicSans">Clock</Link>
           </li>
           <div className="flex flex-grow flex-row space-x-12 justify-end">
@@ -58,9 +55,6 @@ export default function Navbar() {
       >
         <li className="py-4 border-b border-gray-700">
           <Link href="/">Home</Link>
-        </li>
-        <li className="py-4 border-b border-gray-700">
-          <Link href="/about">About</Link>
         </li>
         <li className="py-4 border-b border-gray-700">
           <Link href="/clock">Clock</Link>
