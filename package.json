@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@heroicons/react": "^2.1.5",
+    "@heroicons/react": "^2.2.0",
     "@tubular/time": "^3.9.2",
     "date-and-time": "^3.6.0",
     "fs": "0.0.1-security",
@@ -21,14 +21,14 @@
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
-    "@types/node": "^20.17.3",
+    "@types/node": "^20.17.8",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "eslint": "^8.57.1",
     "eslint-config-next": "14.2.13",
-    "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.14",
-    "typescript": "^5.6.3"
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
+    "typescript": "^5.7.2"
   },
   "packageManager": "pnpm@8.12.1+sha1.aa961ffce9b6eaa56307d9b5ff7e984f25b7eb58"
 }
