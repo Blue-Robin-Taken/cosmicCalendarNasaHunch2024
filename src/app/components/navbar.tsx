@@ -4,13 +4,15 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
+//https://blog.hubspot.com/website/screen-reader-accessibility add AVIA tags and alt text to imgs
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="bg-white p-3 py-5 relative min-h-[65px] text-navbar-text">
+    <nav className="bg-lm-back dark:bg-dm-back p-3 py-5 relative min-h-[65px] text-navbar-text">
       <div className="flex items-center justify-between mx-10">
         {/* Hamburger Menu, Code from the Mr. Ben Merch Store */}
         <button
@@ -25,21 +27,32 @@ export default function Navbar() {
         </button>
 
         {/* Desktop Links */}
-        <div className="flex flex-grow items-center space-x-12 text-3xl text-textLight">
-          <li className="nav-link list-none bg-gradient-to-l from-white to-theme-yellowlight p-3 rounded-3xl">
-            <Link href="/" className="font-Cinzel text-navbar-tctext text-4xl">TerraChronos</Link>
+        <div className="flex flex-grow items-center space-x-12 text-3xl text-lm-navbar-txt dark:text-dm-navbar-text">
+          <li className="nav-link list-none"> {/* bg-gradient-to-l from-white to-theme-yellowlight p-3 rounded-3xl */}
+            <Link href="/" className="font-Chocolate text-lm-navbar-tctext dark:text-dm-navbar-tctext 
+              text-nb-tc mr-8">T<span className="text-nb-tc-sm">ERRA</span>C<span className="text-nb-tc-sm">RONOS</span></Link>
           </li>
-          <li className="nav-link hidden lg:block">
-            <Link href="/clock" className="font-PublicSans">Clock</Link>
-          </li>
-          <div className="flex flex-grow flex-row space-x-12 justify-end">
-            <li className="nav-link list-none justify-end justify-items-end">
-              <Link href="/login" className="justify-self-right font-PublicSans">
+          
+          {[
+            ['Clock', '/clock' , '1'],
+            ['Calendar', '/calendar', '2'],
+            ['Conversion', '/conversion', '3'],
+            ['Settings', '/settings', '4'],
+            ].map(([title, url, id]) => (
+              <Link href={url} key={id} className="nav-link lg:block font-Lato text-nb-val">{title}</Link>
+            ))}
+          
+          {/* someone figure out how to center these i give up (these are too low, making the navbar look uneven) */}
+          <div className="flex flex-grow space-x-12 justify-end items-center">
+            <li className="nav-link list-none">
+              <Link href="/login" className="justify-self-right self-center self-stretch font-Lato text-nb-val 
+                rounded-3xl py-2 px-8 border">
                 Login
               </Link>
             </li>
-            <li className="nav-link list-none justify-end justify-items-end">
-              <Link href="/signup" className="justify-self-right font-PublicSans">
+            <li className="list-none">
+              <Link href="/signup" className="justify-self-right self-center font-Lato text-nb-val 
+                text-black rounded-3xl py-2 px-8 border border-lm-yellow bg-lm-yellow">
                 Sign-up
               </Link>
             </li>
