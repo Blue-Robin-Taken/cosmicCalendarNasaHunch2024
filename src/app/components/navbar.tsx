@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 //https://blog.hubspot.com/website/screen-reader-accessibility add AVIA tags and alt text to imgs
+//also need to add aminations
+//theres more todo comments hanging around everywhere gl finding them
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
