@@ -2,13 +2,14 @@
 import ttime from "@tubular/time";
 import { useState } from 'react';
 import { earthMonths } from "./earthMonths";
+import YearDropdown from "./components/yearDropdown";
 
     // discuss the fact that the Gregorian calendar 
 
 export default function Calendar() {
     const typeCalendar = 'Earth';
-    const [calMonth, setCalMonth] = useState(Number(ttime().toLocale('es').format('M')));
-    const initYear = Number(ttime().toLocale('es').format('YYYY'));
+    const [calMonth, setCalMonth] = useState(Number(ttime().toLocale('en-us').format('M')));
+    const initYear = Number(ttime().toLocale('en-us').format('YYYY'));
 
     function clickMonthAdd() {
         setCalMonth(calMonth + 1);
@@ -36,8 +37,9 @@ export default function Calendar() {
         <div>
             <div className="flex flex-grow relative">
 
-                <h2 className="my-6 mx-8 text-lm-p-text dark:text-dm-p-text 
-                    text-4xl font-CommeReg z-10">{typeCalendar} - {initYear}</h2>
+                <h2 className="my-6 ml-8 text-lm-p-text dark:text-dm-p-text 
+                    text-4xl font-CommeReg z-10">{typeCalendar} -&nbsp; </h2>
+                <YearDropdown />
                 <div className="flex w-full justify-center self-end absolute space-x-4">
                     
                     {/* TODO: probably change these < and > into icons i think theres a resource called "react icons" */}
@@ -45,7 +47,8 @@ export default function Calendar() {
                         bc the positions of the <> icons are dependent on the middle month name size.
                         (we could maybe do something by rendering both buttons within the <h2> using <span>) */}
 
-                    <button onClick={clickMonthSub} className="p-2 h-14 self-center rounded-xl text-lm-p-text dark:text-dm-p-text text-4xl font-CommeReg">
+                    <button onClick={clickMonthSub} className="p-2 h-14 self-center rounded-xl text-lm-p-text 
+                        dark:text-dm-p-text text-4xl font-CommeReg">
                         &lt;
                     </button>
                     <h2 className=" my-6 text-lm-p-text dark:text-dm-p-text 

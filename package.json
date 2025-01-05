@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
     "@tubular/time": "^3.9.2",
+    "clsx": "^2.1.1",
     "date-and-time": "^3.6.0",
     "fs": "0.0.1-security",
     "jose": "^5.9.6",
