@@ -26,10 +26,9 @@ export default function Calendar() {
     }
 
     // guys we'll have to write our own custom mars calendar generation code...
-    const tupleDates = Object.entries(ttime(('2025-'+calMonth), null, 'en-us').getCalendarMonth().map(date => date.m === ttime.JANUARY ? date.d : date.d));
+    const tupleDates = Object.entries(ttime(('2025-'+calMonth), null, 'en-us').getCalendarMonth().map(date => date.d));
 
     console.log(calMonth);
-
     
 
     // TODO: Check all pages and make sure we have at maximum two instances where we use the h1 element
@@ -51,8 +50,8 @@ export default function Calendar() {
                         dark:text-dm-p-text text-4xl font-CommeReg">
                         &lt;
                     </button>
-                    <h2 className=" my-6 text-lm-p-text dark:text-dm-p-text 
-                        text-3xl font-CommeReg ">{earthMonths[calMonth - 1]}</h2>
+                    <h2 className="min-w-40 my-6 text-lm-p-text dark:text-dm-p-text 
+                        text-3xl font-CommeReg text-center">{earthMonths[calMonth - 1]}</h2>
                     <button onClick={clickMonthAdd} className="p-2 h-14 self-center rounded-xl text-lm-p-text dark:text-dm-p-text text-4xl font-CommeReg">
                         &gt;
                     </button>
@@ -65,7 +64,7 @@ export default function Calendar() {
 
                 
                 {tupleDates.map(([id, date]) => (
-                    <div key={id} className="bg-dm-grey text-white">{date}</div>
+                    <div key={id} className="bg-dm-grey text-white min-h-14">{date}</div>
                 ))}
             </div>
         </div>
