@@ -17,13 +17,13 @@ const config: Config = {
                 'theme-yellowdark': '#CA9503',
                 'theme-graylight': '#D9D9D9',
                 'highlight-yellow': '#ffe770',
-                'darkmode-bg': '#202020',
+                darkmode: '#202020',
                 'darkmode-main': '#DAAE01',
                 'darkmode-shadow': '#CA9503',
-                'darkmode-text-yellowlight': '#FFF9E3',
-                'darkmode-text-lightpink': '#FFE8E8',
-                'darkmode-text-lightblue': '#E4E4E4',
-                'darkmode-box-darklight': '#323232',
+                'darkmode-textyellowlight': '#FFF9E3',
+                'darkmode-textlightlight': '#D9D9D9',
+                'darkmode-textlightblue': '#E4E4E4',
+                'darkmode-boxdarklight': '#323232',
             },
             fontFamily: {
                 sans: [
