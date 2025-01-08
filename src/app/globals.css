@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -12,11 +12,11 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  /* color: var(--foreground);
+  background: var(--background); */
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -24,6 +24,26 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+@font-face {
+  font-family: "Chocolate-Classical-Sans";
+  src: url('./fonts/ChocolateClassicalSans-Regular.ttf');
+}
+
+@font-face {
+  font-family: "Comme-Reg";
+  src: url('./fonts/Comme/static/Comme-Regular.ttf');
+}
+
+@font-face {
+  font-family: "Comme-Semibold";
+  src: url('./fonts/Comme/static/Comme-Light.ttf');
+}
+
+@font-face {
+  font-family: "Lato-Regular";
+  src: url('./fonts/Lato/Lato-Regular.ttf');
 }
 
 @font-face {

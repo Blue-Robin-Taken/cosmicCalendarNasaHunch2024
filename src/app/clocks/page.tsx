@@ -47,7 +47,7 @@ export default function Clocks() {
 
       <div
         key={index}
-        className="w-96 h-40 rounded-lg bg-theme-graylight text-center text-black"
+        className="w-96 h-40 rounded-lg bg-theme-graylight text-center lm-h1-text dark:text-dm-h1-text"
       >
         <h1 className="justify-center text-lg font-semibold m-3">
           GMT {returnNum(number)}
