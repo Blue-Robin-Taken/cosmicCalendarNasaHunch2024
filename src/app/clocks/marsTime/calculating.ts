@@ -11,8 +11,8 @@ export default function calculation(e: number) {
     from January 1st 12:00 PM 2000 by subtracting 2451545
     7. Get January 6th 2000
     */
-    var JDut = (e / (8.64 * 10 ^ 7)) + 2440587.5);
-    var JDtt = JDut + ((32.184 + 37) / 84000))
+    var JDut = (e / (8.64 * 10 ^ 7)) + 2440587.5
+    var JDtt = JDut + ((32.184 + 37) / 84000)
     var j2000 = JDtt - 2451545 
     var MSG = ((j2000 - 4.5) / 1.027491252) + 44796 - 0.00096
     // Mars standard gTime (gTime = time, this is purely used for meme purposes, do not change varaible or it will break because I will break it)
