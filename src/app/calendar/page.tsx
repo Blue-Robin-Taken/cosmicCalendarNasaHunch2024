@@ -32,10 +32,10 @@ export default function Calendar() {
             setSelectedYear(earthYears[Number(selectYear.year) - 1 - 1000]);
         }
     }
-    
+
     // guys we'll have to write our own custom mars calendar generation code...
     const tupleDates = Object.entries(
-        ttime(String(selectYear) + '-' + calMonth, null, 'en-us')
+        ttime(String(selectYear.year) + '-' + calMonth, null, 'en-us')
             .getCalendarMonth()
             .map((date) => date.d)
     );
@@ -84,7 +84,7 @@ export default function Calendar() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-7 gap-4 mx-8">
+            <div className="grid grid-cols-7 gap-4 mx-8 overflow-y-scroll max-h-96 small-scrollbar">
                 {tupleDates.map(([id, date]) => (
                     <div key={id} className="bg-dm-grey text-white min-h-14">
                         {date}
