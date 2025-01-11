@@ -11,15 +11,16 @@ import clsx from 'clsx';
 import { useState } from 'react';
 import ttime from '@tubular/time';
 
-export default function YearDropdown({selected, setSelected}: any) {
+export default function YearDropdown({ selected, setSelected }: any) {
     const [query, setQuery] = useState('');
-    
 
     const filteredYears =
         query === ''
             ? earthYears
-            : earthYears.filter((yyear) => {
-                  return yyear.year.toLowerCase().includes(query.toLowerCase());
+            : earthYears.filter((yearYear) => {
+                  return yearYear.year
+                      .toLowerCase()
+                      .includes(query.toLowerCase());
               });
 
     return (
@@ -36,7 +37,7 @@ export default function YearDropdown({selected, setSelected}: any) {
                             'w-full rounded-lg border-none bg-black/5 dark:bg-white/5 py-1.5 pr-8 pl-3 text-3xl text-lm-h1-text dark:text-dm-h1-text font-CommeReg',
                             'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-black/25 data-[focus]:dark:outline-white/25'
                         )}
-                        displayValue={(yyear) => yyear?.year}
+                        displayValue={(yearYear) => yearYear?.year}
                         onChange={(event) => setQuery(event.target.value)}
                     />
 

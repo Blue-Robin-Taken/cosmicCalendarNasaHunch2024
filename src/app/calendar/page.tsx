@@ -35,7 +35,7 @@ export default function Calendar() {
 
     // guys we'll have to write our own custom mars calendar generation code...
     const tupleDates = Object.entries(
-        ttime('2025-' + calMonth, null, 'en-us')
+        ttime(String(selectYear) + '-' + calMonth, null, 'en-us')
             .getCalendarMonth()
             .map((date) => date.d)
     );
