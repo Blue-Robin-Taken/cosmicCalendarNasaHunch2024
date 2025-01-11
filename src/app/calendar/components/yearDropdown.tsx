@@ -34,7 +34,7 @@ export default function YearDropdown({ selected, setSelected }: any) {
                 <div className="relative">
                     <ComboboxInput
                         className={clsx(
-                            'w-full rounded-lg border-none bg-black/5 dark:bg-white/5 py-1.5 pr-8 pl-3 text-3xl text-lm-h1-text dark:text-dm-h1-text font-CommeReg',
+                            'w-full rounded-lg border-none bg-black/5 dark:bg-white/5 py-1.5 pr-8 pl-3 text-2xl text-lm-h1-text dark:text-dm-h1-text font-CommeReg',
                             'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-black/25 data-[focus]:dark:outline-white/25'
                         )}
                         displayValue={(yearYear) => yearYear?.year}

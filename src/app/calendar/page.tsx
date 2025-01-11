@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { earthMonths } from './earthMonths';
 import YearDropdown from './components/yearDropdown';
 import { earthYears } from './data/earthYears';
+import { ChevronLeftIcon } from '@heroicons/react/20/solid';
+import { ChevronRightIcon } from '@heroicons/react/20/solid';
 
 // discuss the fact that the Gregorian calendar
 
@@ -34,13 +36,12 @@ export default function Calendar() {
     }
 
     // guys we'll have to write our own custom mars calendar generation code...
-    const tupleDates = Object.entries(
-        ttime(String(selectYear.year) + '-' + calMonth, null, 'en-us')
+    var tupleDates = Object.entries(
+        ttime(selectYear.year + '-' + calMonth, null, 'en-us')
             .getCalendarMonth()
             .map((date) => date.d)
     );
-
-    console.log(calMonth);
+    console.log(tupleDates);
 
     // TODO: Check all pages and make sure we have at maximum two instances where we use the h1 element
     return (
@@ -56,7 +57,7 @@ export default function Calendar() {
                     selected={selectYear}
                     setSelected={setSelectedYear}
                 />
-                <div className="flex w-full justify-center self-end absolute space-x-4">
+                <div className="flex w-full justify-center self-end absolute space-x-1">
                     {/* TODO: probably change these < and > into icons i think theres a resource called "react icons" */}
                     {/* !!TODO!!: i also need help with making the <> icons not move when the middle month name changes
                         bc the positions of the <> icons are dependent on the middle month name size.
@@ -64,30 +65,35 @@ export default function Calendar() {
 
                     <button
                         onClick={clickMonthSub}
-                        className="p-2 h-14 self-center rounded-xl text-lm-p-text 
+                        className="h-14 self-center rounded-xl text-lm-p-text 
                         dark:text-dm-p-text text-4xl font-CommeReg"
                     >
-                        &lt;
+                        <ChevronLeftIcon className="size-5 fill-white/60" />
                     </button>
                     <h2
                         className="min-w-40 my-6 text-lm-p-text dark:text-dm-p-text 
-                        text-3xl font-CommeReg text-center"
+                        text-2xl font-CommeReg text-center"
                     >
                         {earthMonths[calMonth - 1]}
                     </h2>
                     <button
                         onClick={clickMonthAdd}
-                        className="p-2 h-14 self-center rounded-xl text-lm-p-text dark:text-dm-p-text text-4xl font-CommeReg"
+                        className="h-14 self-center rounded-xl text-lm-p-text dark:text-dm-p-text text-4xl font-CommeReg"
                     >
-                        &gt;
+                        <ChevronRightIcon className="size-5 fill-white/60" />
                     </button>
                 </div>
             </div>
 
-            <div className="grid grid-cols-7 gap-4 mx-8 overflow-y-scroll max-h-96 small-scrollbar">
+            <div className="grid grid-cols-7 px-8 pb-8">
                 {tupleDates.map(([id, date]) => (
-                    <div key={id} className="bg-dm-grey text-white min-h-14">
-                        {date}
+                    <div
+                        key={id}
+                        className="bg-dm-grey border-b border-r dark:border-black/[.75] text-[#f0f0f0] min-h-[8rem]"
+                    >
+                        <p className="w-full pl-2 py-1 font-Lato text-sm">
+                            {date}
+                        </p>
                     </div>
                 ))}
             </div>
