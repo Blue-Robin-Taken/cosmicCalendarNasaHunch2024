@@ -17,7 +17,6 @@ export default function Calendar() {
     const [selectYear, setSelectedYear] = useState(
         earthYears[Number(ttime().toLocale('en-us').format('YYYY')) - 1000]
     );
-    const initYear = Number(ttime().toLocale('en-us').format('YYYY'));
 
     function clickMonthAdd() {
         setCalMonth(calMonth + 1);
@@ -84,8 +83,16 @@ export default function Calendar() {
                     </button>
                 </div>
             </div>
-
-            <div className="grid grid-cols-7 px-8 pb-8">
+            {/* https://preline.co/docs/custom-scrollbar.html */}
+            <div
+                className="grid grid-cols-7 px-8 pb-8 overflow-y-scroll max-h-[45rem] [&::-webkit-scrollbar]:w-2
+                        [&::-webkit-scrollbar-track]:rounded-full
+                        [&::-webkit-scrollbar-track]:bg-gray-100
+                        [&::-webkit-scrollbar-thumb]:rounded-full
+                        [&::-webkit-scrollbar-thumb]:bg-gray-300
+                        dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+                        dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
+            >
                 {tupleDates.map(([id, date]) => (
                     <div
                         key={id}
