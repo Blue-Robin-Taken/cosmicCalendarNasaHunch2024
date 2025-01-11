@@ -8,7 +8,8 @@ export function getJulianDate(epochTime: number) {
     // 1. Number of seconds in a day is ((8.64 * 10) ^ 7), use that to get the number of days since the unix epoch
     // 2. Add the difference in epoch from the Julian Date and the Unix epoch.
     // 3. Return the Julian date in days
-    return epochTime / ((8.64 * 10) ^ 7) + 2440587.5;
+    const inDays = epochTime / 86400000;
+    return inDays + 2440587.5;
 }
 
 export function getJulianDateTerrestrialTime(epochTime: number) {
@@ -18,8 +19,10 @@ export function getJulianDateTerrestrialTime(epochTime: number) {
     // 2. Get TAI time in reference to the Julian Date by adding the difference from UTC which is 37 seconds
     // 3. Get the Terrestrial Time by adding the difference between terrestrial time and TAI time which is 32.184 seconds
     const julianDate: number = getJulianDate(epochTime); // Epoch here is still in unix time
-    const TAItime: number = julianDate + 37 / 84000;
-    const TTime: number = TAItime + 32.184 / 84000; // Terrestrial Time from TAI time
+    const deltaTAItime: number = 37 / 86400;
+    const TAItime: number = julianDate + deltaTAItime;
+    const deltaTTime: number = 32.184 / 86400;
+    const TTime: number = TAItime + deltaTTime; // Terrestrial Time from TAI time
     return TTime;
 }
 

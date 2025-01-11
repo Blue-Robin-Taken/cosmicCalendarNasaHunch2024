@@ -78,13 +78,30 @@ export default function Clock() {
                     </p>
 
                     <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pb-16">
-                        {EarthTime[5]}
+                        {getTimeCC.epochMillis.toLocaleString(undefined, {
+                            minimumFractionDigits: 0, // https://stackoverflow.com/questions/24758817/javascript-number-tolocalestring-with-4-digits-after-separator
+                        })}
                     </p>
+                    {/* Julian Date */}
                     <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pb-16">
-                        {EarthTime[6]}
+                        Julian Date:{' '}
+                        {EarthTime[5].toLocaleString(undefined, {
+                            minimumFractionDigits: 5,
+                        })}
                     </p>
+                    {/* Julian Date Terrestrial Time */}
                     <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pb-16">
-                        {EarthTime[7]}
+                        Julian Date Terrestrial Time:{' '}
+                        {EarthTime[6].toLocaleString(undefined, {
+                            minimumFractionDigits: 5,
+                        })}
+                    </p>
+                    {/* Julian Date epoch of Jan 1st 2000 */}
+                    <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pb-16">
+                        Julian Date Epoch of Jan 1st 2000:{' '}
+                        {EarthTime[7].toLocaleString(undefined, {
+                            minimumFractionDigits: 5,
+                        })}
                     </p>
                 </div>
             )}
