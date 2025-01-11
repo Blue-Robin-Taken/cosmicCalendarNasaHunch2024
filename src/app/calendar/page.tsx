@@ -32,7 +32,7 @@ export default function Calendar() {
             setSelectedYear(earthYears[Number(selectYear.year) - 1 - 1000]);
         }
     }
-
+    
     // guys we'll have to write our own custom mars calendar generation code...
     const tupleDates = Object.entries(
         ttime(String(selectYear) + '-' + calMonth, null, 'en-us')

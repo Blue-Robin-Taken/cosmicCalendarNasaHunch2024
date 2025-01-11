@@ -32,33 +32,74 @@ export default function Clock() {
                     <h2 className="font-Lato text-6xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pt-16">
                         Earth
                     </h2>
-
+                    
+                    {/* timezone */}
                     <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
                         {ZZZtime}
                     </p>
 
+                    {/* clock */}
                     <h1 className="font-CommeReg text-[12rem] flex flex-col justify-start items-start text-lm-h1-text dark:text-dm-h1-text ps-16 ">
                         {hhmmssTime}
                     </h1>
 
+                    {/* date */}
                     <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
                         {ddddLLTime}
                     </p>
-
+                    
                     <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
                         ---------------------------------
                     </p>
 
+                    {/* difference from meridian */}
                     <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
                         UTC {ZZTime}
                     </p>
 
+                    {/* common name for difference from meridian */}
                     <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pb-16">
                         {zzzTime}
                     </p>
                 </div>
             )}
             {/* add am/pm or 24hr support */}
+            {getPlanetState == 'Mars' && (
+                <div>
+                    <h2 className="font-Lato text-6xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pt-16">
+                        Mars
+                    </h2>
+                    
+                    {/* timezone */}
+                    <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
+                        Default: Airy-0
+                    </p>
+
+                    {/* clock */}
+                    <h1 className="font-CommeReg text-[12rem] flex flex-col justify-start items-start text-lm-h1-text dark:text-dm-h1-text ps-16 ">
+                        //{hhmmssTime}
+                    </h1>
+
+                    {/* date */}
+                    <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
+                        //{ddddLLTime}
+                    </p>
+                    
+                    <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
+                        ---------------------------------
+                    </p>
+
+                    {/* difference from meridian */}
+                    <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
+                        //UTC {ZZTime}
+                    </p>
+
+                    {/* common name for difference from meridian */}
+                    <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pb-16">
+                        //{zzzTime}
+                    </p>
+                </div>
+            )}
 
             <Clocks planet={getPlanetState} />
         </div>
