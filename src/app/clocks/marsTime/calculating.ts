@@ -1,5 +1,5 @@
 import { getJulianDate2000Epoch } from '../earthTime/calculating';
-export default function marsStandardDate(e: number) {
+export function marsStandardDate(e: number) {
     // Calculates time to marsStandardDate using epoch time (unix epoch time, mills starting from Jan 1st 1970 00:00 UTC)
     /*
     Steps, retrieved from https://marsclock.com/ partly because I'm lazy but also partly because it was the easiest and most accessible way to understand it:
@@ -20,3 +20,18 @@ export default function marsStandardDate(e: number) {
     return MSD;
 } // Thank you James Tauber!!!!!!!!!!!!!!!!!!!!
 // https://github.com/jtauber/mars-clock?tab=readme-ov-file
+
+export function marsUniversalTime(e: number) {
+    // Returns the Mars Universal Time (a string) from the epoch time (unix epoch, mills)
+    const MSD = marsStandardDate(e);
+    const MTCHours = (MSD * 24) % 24;
+    const MTCMinutes = (MSD * 24 * 60) % 60;
+    const MTCSeconds = (MTCMinutes * 60) % 60;
+    return `${MTCHours.toLocaleString(undefined, {
+        maximumSignificantDigits: 2,
+    })}:${MTCMinutes.toLocaleString(undefined, {
+        maximumSignificantDigits: 2,
+    })}:${MTCSeconds.toLocaleString(undefined, {
+        maximumSignificantDigits: 2,
+    })}`;
+}

@@ -17,7 +17,6 @@ export default function Calendar() {
     const [selectYear, setSelectedYear] = useState(
         earthYears[Number(ttime().toLocale('en-us').format('YYYY')) - 1000]
     );
-    const initYear = Number(ttime().toLocale('en-us').format('YYYY'));
 
     function clickMonthAdd() {
         setCalMonth(calMonth + 1);
@@ -34,14 +33,17 @@ export default function Calendar() {
             setSelectedYear(earthYears[Number(selectYear.year) - 1 - 1000]);
         }
     }
-    
+
     // guys we'll have to write our own custom mars calendar generation code...
     var tupleDates = Object.entries(
         ttime(selectYear.year + '-' + calMonth, null, 'en-us')
             .getCalendarMonth()
-            .map((date) => date.d)
-        
+            .map((date) => date)
     );
+<<<<<<< HEAD
+=======
+    console.log(tupleDates);
+>>>>>>> 6b5b0cd7e77f2eec280f9dd9e21eec40f3c20230
 
     // TODO: Check all pages and make sure we have at maximum two instances where we use the h1 element
     return (
@@ -84,11 +86,32 @@ export default function Calendar() {
                     </button>
                 </div>
             </div>
-
-            <div className="grid grid-cols-7 px-8 pb-8">
+            {/* https://preline.co/docs/custom-scrollbar.html */}
+            <div
+                className="grid grid-cols-7 px-8 pb-8 overflow-y-scroll max-h-[45rem] [&::-webkit-scrollbar]:w-2
+                        [&::-webkit-scrollbar-track]:rounded-full
+                        [&::-webkit-scrollbar-track]:bg-gray-100
+                        [&::-webkit-scrollbar-thumb]:rounded-full
+                        [&::-webkit-scrollbar-thumb]:bg-gray-300
+                        dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+                        dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
+            >
                 {tupleDates.map(([id, date]) => (
+<<<<<<< HEAD
                     <div key={id} className="bg-dm-grey border-b border-r dark:border-black/[.75] text-[#f0f0f0] min-h-[8rem]">
                         <h3 className="w-full pl-2 py-1 font-Lato text-sm">{date}</h3>
+=======
+                    <div
+                        key={id}
+                        className={
+                            (date.m == calMonth ? 'bg-dm-grey' : 'bg-dm-back') +
+                            ' border-b border-r dark:border-black/[.75] text-[#f0f0f0] min-h-[8rem]'
+                        }
+                    >
+                        <p className="w-full pl-2 py-1 font-Lato text-sm">
+                            {date.d}
+                        </p>
+>>>>>>> 6b5b0cd7e77f2eec280f9dd9e21eec40f3c20230
                     </div>
                 ))}
             </div>

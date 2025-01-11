@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+/* https://dev.to/derick1530/how-to-create-scrollable-element-in-tailwind-without-a-scrollbar-4mbd */
+@layer utilities {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+}
+
+/* https://dev.to/derick1530/how-to-create-scrollable-element-in-tailwind-without-a-scrollbar-4mbd */
+
+.small-scrollbar::-webkit-scrollbar {
+    /* background-color: black; */
+    color: grey;
+    width: 2px;
+}
+
 /* :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -15,48 +36,48 @@
 } */
 
 body {
-  /* color: var(--foreground);
+    /* color: var(--foreground);
   background: var(--background); */
-  font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+    .text-balance {
+        text-wrap: balance;
+    }
 }
 
 @font-face {
-  font-family: "Chocolate-Classical-Sans";
-  src: url('./fonts/ChocolateClassicalSans-Regular.ttf');
+    font-family: 'Chocolate-Classical-Sans';
+    src: url('./fonts/ChocolateClassicalSans-Regular.ttf');
 }
 
 @font-face {
-  font-family: "Comme-Reg";
-  src: url('./fonts/Comme/static/Comme-Regular.ttf');
+    font-family: 'Comme-Reg';
+    src: url('./fonts/Comme/static/Comme-Regular.ttf');
 }
 
 @font-face {
-  font-family: "Comme-Semibold";
-  src: url('./fonts/Comme/static/Comme-Light.ttf');
+    font-family: 'Comme-Semibold';
+    src: url('./fonts/Comme/static/Comme-Light.ttf');
 }
 
 @font-face {
-  font-family: "Lato-Regular";
-  src: url('./fonts/Lato/Lato-Regular.ttf');
+    font-family: 'Lato-Regular';
+    src: url('./fonts/Lato/Lato-Regular.ttf');
 }
 
 @font-face {
-  font-family: "Cinzel";
-  src: url('./fonts/Cinzel-VariableFont_wght.ttf');
+    font-family: 'Cinzel';
+    src: url('./fonts/Cinzel-VariableFont_wght.ttf');
 }
 
 @font-face {
-  font-family: "Cinzel-Decorative";
-  src: url('./fonts/CinzelDecorative-Regular.ttf');
+    font-family: 'Cinzel-Decorative';
+    src: url('./fonts/CinzelDecorative-Regular.ttf');
 }
 
 @font-face {
-  font-family: "Public-Sans";
-  src: url('./fonts/Public_Sans/PublicSans-VariableFont_wght.ttf');
+    font-family: 'Public-Sans';
+    src: url('./fonts/Public_Sans/PublicSans-VariableFont_wght.ttf');
 }

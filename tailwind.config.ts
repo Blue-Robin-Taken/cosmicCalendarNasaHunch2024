@@ -11,24 +11,34 @@ const config: Config = {
             colors: {
                 'lm-back': '#FFFFFF',
                 'dm-back': '#020202',
+
                 'lm-navbar-text': '#000000',
                 'dm-navbar-text': '#FFFFFF',
+
                 'lm-navbar-text-hl': '#575757',
                 'dm-navbar-text-hl': '#D9D9D9',
+
                 'lm-navbar-tctext': '#000000',
                 'dm-navbar-tctext': '#FFFFFF',
+
                 'lm-yellow': '#E7BA09',
                 'dm-yellow': '#DAAE01',
+
                 'lm-yellow-hl': '#CA9503',
                 'dm-yellow-hl': '#CA9503',
+
                 'lm-brown': '#301B02',
                 'dm-lightyellow': '#FFF9E3',
+
                 'lm-grey': '#D9D9D9',
                 'dm-grey': '#1c1c1c',
+                
                 'lm-h1-text': '#000000',
                 'dm-h1-text': '#FFFFFF',
+
                 'lm-p-text': '#000000',
                 'dm-p-text': '#FFFFFF',
+                
                 'highlight-yellow-lm': '#ffe770',
                 'highlight-yellow-dm': '#7d6905',
             },
