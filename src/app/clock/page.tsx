@@ -4,6 +4,12 @@ import { useState, useEffect } from 'react';
 import GetTimeCC from './tpsecond';
 import Clocks from '../clocks/page';
 import { ChangeEvent } from 'react';
+import marsStandardDate from '../clocks/marsTime/calculating';
+import {
+    getJulianDate2000Epoch,
+    getJulianDateTerrestrialTime,
+    getJulianDate,
+} from '../clocks/earthTime/calculating';
 
 export default function Clock() {
     const [getPlanetState, setPlanetState] = useState('Earth');
@@ -11,11 +17,20 @@ export default function Clock() {
         // current_page = formData.keys().;
         setPlanetState(event.target.value);
     }
-    var ZZZtime = GetTimeCC().format('ZZZ');
-    var hhmmssTime = GetTimeCC().format('hh:mm:ss');
-    var ddddLLTime = GetTimeCC().format('dddd, LL');
-    var ZZTime = GetTimeCC().format('ZZ');
-    var zzzTime = GetTimeCC().format('zzz').toString();
+    var getTimeCC = GetTimeCC(); // Only run this once
+    var EarthTime = [
+        getTimeCC.format('ZZZ'), // 0
+        getTimeCC.format('hh:mm:ss'), // 1
+        getTimeCC.format('dddd, LL'), // 2
+        getTimeCC.format('ZZ'), // 3
+        getTimeCC.format('zzz').toString(), // 4
+        getJulianDate(getTimeCC.epochMillis), // 5
+        getJulianDateTerrestrialTime(getTimeCC.epochMillis), // 6
+        getJulianDate2000Epoch(getTimeCC.epochMillis), // 7
+    ];
+
+    var MarsTime = [marsStandardDate(getTimeCC.epochMillis)];
+
     return (
         <div className="selection:bg-highlight-yellow-lm dark:selection:bg-highlight-yellow-dm ">
             {/*Form for changing the selected clock*/}
@@ -32,34 +47,44 @@ export default function Clock() {
                     <h2 className="font-Lato text-6xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pt-16">
                         Earth
                     </h2>
-                    
+
                     {/* timezone */}
                     <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
-                        {ZZZtime}
+                        {EarthTime[0]}
                     </p>
 
                     {/* clock */}
                     <h1 className="font-CommeReg text-[12rem] flex flex-col justify-start items-start text-lm-h1-text dark:text-dm-h1-text ps-16 ">
-                        {hhmmssTime}
+                        {EarthTime[1]}
                     </h1>
 
                     {/* date */}
                     <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
-                        {ddddLLTime}
+                        {EarthTime[2]}
                     </p>
-                    
+
                     <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
                         ---------------------------------
                     </p>
 
                     {/* difference from meridian */}
                     <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
-                        UTC {ZZTime}
+                        UTC {EarthTime[3]}
                     </p>
 
                     {/* common name for difference from meridian */}
                     <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pb-16">
-                        {zzzTime}
+                        {EarthTime[4]}
+                    </p>
+
+                    <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pb-16">
+                        {EarthTime[5]}
+                    </p>
+                    <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pb-16">
+                        {EarthTime[6]}
+                    </p>
+                    <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pb-16">
+                        {EarthTime[7]}
                     </p>
                 </div>
             )}
@@ -69,34 +94,34 @@ export default function Clock() {
                     <h2 className="font-Lato text-6xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pt-16">
                         Mars
                     </h2>
-                    
+
                     {/* timezone */}
                     <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
-                        Default: Airy-0
+                        Default: Airy-0 (crater)
                     </p>
 
-                    {/* clock */}
-                    <h1 className="font-CommeReg text-[12rem] flex flex-col justify-start items-start text-lm-h1-text dark:text-dm-h1-text ps-16 ">
-                        //{hhmmssTime}
+                    {/* MSD (mars standard date) */}
+                    <h1 className="font-CommeReg text-[6rem] flex flex-col justify-start items-start text-lm-h1-text dark:text-dm-h1-text ps-16 ">
+                        Mars Sol Date: {MarsTime[0]}
                     </h1>
 
                     {/* date */}
                     <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
-                        //{ddddLLTime}
+                        {}
                     </p>
-                    
+
                     <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
                         ---------------------------------
                     </p>
 
                     {/* difference from meridian */}
                     <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
-                        //UTC {ZZTime}
+                        MSD{}
                     </p>
 
                     {/* common name for difference from meridian */}
                     <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pb-16">
-                        //{zzzTime}
+                        {}
                     </p>
                 </div>
             )}
