@@ -5,8 +5,23 @@ import GetTimeCC from './tpsecond';
 import Clocks from '../clocks/page';
 
 export default function Clock() {
+    var current_page: any = 'earth';
+    function changePage(formData: FormData) {
+        // current_page = formData.keys().;
+        alert(current_page);
+    }
     return (
-        <div className="selection:bg-highlight-yellow-lm dark:selection:bg-highlight-yellow-dm">
+        <div className="selection:bg-highlight-yellow-lm dark:selection:bg-highlight-yellow-dm ">
+            {/*Form for changing the selected clock*/}
+
+            <div>
+                <h1>Current Planet:</h1>
+                <select>
+                    <option onChange={}>Earth</option>
+                    <option>Mars</option>
+                </select>
+            </div>
+
             <h2 className="font-Lato text-6xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pt-16">
                 Earth
             </h2>

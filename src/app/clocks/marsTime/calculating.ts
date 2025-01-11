@@ -20,3 +20,5 @@ export default function calculation(e: number) {
     return MSG;
 } // Thank you James Tauber!!!!!!!!!!!!!!!!!!!!
 // https://github.com/jtauber/mars-clock?tab=readme-ov-file
+
+export default function getJ
