@@ -6,15 +6,20 @@ import Clocks from '../clocks/page';
 import { ChangeEvent } from 'react';
 
 export default function Clock() {
-    var [getPlanetState, setPlanetState] = useState('Earth');
+    const [getPlanetState, setPlanetState] = useState('Earth');
     function changePage(event: ChangeEvent<HTMLSelectElement>) {
         // current_page = formData.keys().;
         setPlanetState(event.target.value);
     }
+    var ZZZtime = GetTimeCC().format('ZZZ');
+    var hhmmssTime = GetTimeCC().format('hh:mm:ss');
+    var ddddLLTime = GetTimeCC().format('dddd, LL');
+    var ZZTime = GetTimeCC().format('ZZ');
+    var zzzTime = GetTimeCC().format('zzz').toString();
     return (
         <div className="selection:bg-highlight-yellow-lm dark:selection:bg-highlight-yellow-dm ">
             {/*Form for changing the selected clock*/}
-            
+
             <div>
                 <h1>Current Planet:</h1>
                 <select onChange={changePage}>
@@ -29,15 +34,15 @@ export default function Clock() {
                     </h2>
 
                     <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
-                        {GetTimeCC().format('ZZZ')}
+                        {ZZZtime}
                     </p>
 
                     <h1 className="font-CommeReg text-[12rem] flex flex-col justify-start items-start text-lm-h1-text dark:text-dm-h1-text ps-16 ">
-                        {GetTimeCC().format('hh:mm:ss')}
+                        {hhmmssTime}
                     </h1>
 
                     <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
-                        {GetTimeCC().format('dddd, LL')}
+                        {ddddLLTime}
                     </p>
 
                     <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
@@ -45,11 +50,11 @@ export default function Clock() {
                     </p>
 
                     <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
-                        UTC {GetTimeCC().format('ZZ')}
+                        UTC {ZZTime}
                     </p>
 
                     <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pb-16">
-                        {GetTimeCC().format('zzz').toString()}
+                        {zzzTime}
                     </p>
                 </div>
             )}
