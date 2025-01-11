@@ -22,7 +22,7 @@ export default function Clock() {
                     <option>Mars</option>
                 </select>
             </div>
-
+            {
             <h2 className="font-Lato text-6xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pt-16">
                 Earth
             </h2>
@@ -50,6 +50,7 @@ export default function Clock() {
             <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pb-16">
                 {GetTimeCC().format('zzz').toString()}
             </p>
+}
 
             <Clocks planet={getPlanetState} />
         </div>
