@@ -42,8 +42,6 @@ export default function Calendar() {
             .map((date) => date.d)
         
     );
-    console.log(tupleDates)
-    
 
     // TODO: Check all pages and make sure we have at maximum two instances where we use the h1 element
     return (
@@ -90,7 +88,7 @@ export default function Calendar() {
             <div className="grid grid-cols-7 px-8 pb-8">
                 {tupleDates.map(([id, date]) => (
                     <div key={id} className="bg-dm-grey border-b border-r dark:border-black/[.75] text-[#f0f0f0] min-h-[8rem]">
-                        <p className="w-full pl-2 py-1 font-Lato text-sm">{date}</p>
+                        <h3 className="w-full pl-2 py-1 font-Lato text-sm">{date}</h3>
                     </div>
                 ))}
             </div>
