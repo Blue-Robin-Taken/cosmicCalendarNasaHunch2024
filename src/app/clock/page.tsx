@@ -4,7 +4,10 @@ import { useState, useEffect } from 'react';
 import GetTimeCC from './tpsecond';
 import Clocks from '../clocks/page';
 import { ChangeEvent } from 'react';
-import marsStandardDate from '../clocks/marsTime/calculating';
+import {
+    marsStandardDate,
+    marsUniversalTime,
+} from '../clocks/marsTime/calculating';
 import {
     getJulianDate2000Epoch,
     getJulianDateTerrestrialTime,
@@ -29,7 +32,10 @@ export default function Clock() {
         getJulianDate2000Epoch(getTimeCC.epochMillis), // 7
     ];
 
-    var MarsTime = [marsStandardDate(getTimeCC.epochMillis)];
+    var MarsTime = [
+        marsStandardDate(getTimeCC.epochMillis),
+        marsUniversalTime(getTimeCC.epochMillis),
+    ];
 
     return (
         <div className="selection:bg-highlight-yellow-lm dark:selection:bg-highlight-yellow-dm ">
@@ -119,12 +125,12 @@ export default function Clock() {
 
                     {/* MSD (mars standard date) */}
                     <h1 className="font-CommeReg text-[6rem] flex flex-col justify-start items-start text-lm-h1-text dark:text-dm-h1-text ps-16 ">
-                        Mars Sol Date: {MarsTime[0]}
+                        Mars Sol Date (MSD): {MarsTime[0]}
                     </h1>
 
-                    {/* date */}
+                    {/* Mars Universal Time MTC */}
                     <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
-                        {}
+                        Mars Universal Time (MTC): {MarsTime[1]}
                     </p>
 
                     <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
@@ -133,7 +139,7 @@ export default function Clock() {
 
                     {/* difference from meridian */}
                     <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
-                        MSD{}
+                        {}
                     </p>
 
                     {/* common name for difference from meridian */}
