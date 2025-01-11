@@ -1,14 +1,15 @@
 'use client';
-import React from 'react';
+import React, { ChangeEventHandler } from 'react';
 import { useState, useEffect } from 'react';
 import GetTimeCC from './tpsecond';
 import Clocks from '../clocks/page';
+import { ChangeEvent } from 'react';
 
 export default function Clock() {
-    var current_page: any = 'earth';
-    function changePage(formData: FormData) {
+    var [getPlanetState, setPlanetState] = useState('Earth');
+    function changePage(event: ChangeEvent<HTMLSelectElement>) {
         // current_page = formData.keys().;
-        alert(current_page);
+        setPlanetState(event.target.value);
     }
     return (
         <div className="selection:bg-highlight-yellow-lm dark:selection:bg-highlight-yellow-dm ">
@@ -16,8 +17,8 @@ export default function Clock() {
 
             <div>
                 <h1>Current Planet:</h1>
-                <select>
-                    <option onChange={}>Earth</option>
+                <select onChange={changePage}>
+                    <option>Earth</option>
                     <option>Mars</option>
                 </select>
             </div>
@@ -50,7 +51,7 @@ export default function Clock() {
                 {GetTimeCC().format('zzz').toString()}
             </p>
 
-            <Clocks />
+            <Clocks planet={getPlanetState} />
         </div>
     );
 }

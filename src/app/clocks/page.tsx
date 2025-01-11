@@ -2,9 +2,10 @@
 import date from 'date-and-time';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-export default function Clocks() {
-    // Generate all GMT Divs
+export default function Clocks({ planet }: any) {
+    // Fix the parameters later... idk how to type this lmao
 
+    // Generate all GMT Divs
     const divList = [];
     for (let x = -12; x <= 12; x++) {
         divList.push(x);
@@ -42,21 +43,23 @@ export default function Clocks() {
         let d = new Date(Date.now());
         d = date.addHours(d, number);
 
-        return (
-            // For the GMT divs
+        if (planet == 'Earth') {
+            return (
+                // For the GMT Earth divs
 
-            <div
-                key={index}
-                className="w-96 h-40 rounded-lg bg-theme-graylight text-center lm-h1-text dark:text-dm-h1-text"
-            >
-                <h1 className="justify-center text-lg font-semibold m-3">
-                    GMT {returnNum(number)}
-                </h1>
-                <h1 className="justify-center text-5xl font-medium m-2">
-                    {date.format(d, `hh:mm A`, true)}
-                </h1>
-            </div>
-        );
+                <div
+                    key={index}
+                    className="w-96 h-40 rounded-lg bg-theme-graylight text-center lm-h1-text dark:text-dm-h1-text"
+                >
+                    <h1 className="justify-center text-lg font-semibold m-3">
+                        GMT {returnNum(number)}
+                    </h1>
+                    <h1 className="justify-center text-5xl font-medium m-2">
+                        {date.format(d, `hh:mm A`, true)}
+                    </h1>
+                </div>
+            );
+        }
     });
 
     return (
