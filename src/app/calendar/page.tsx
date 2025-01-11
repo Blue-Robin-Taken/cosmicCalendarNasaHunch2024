@@ -38,7 +38,7 @@ export default function Calendar() {
     var tupleDates = Object.entries(
         ttime(selectYear.year + '-' + calMonth, null, 'en-us')
             .getCalendarMonth()
-            .map((date) => date.d)
+            .map((date) => date)
     );
     console.log(tupleDates);
 
@@ -96,10 +96,13 @@ export default function Calendar() {
                 {tupleDates.map(([id, date]) => (
                     <div
                         key={id}
-                        className="bg-dm-grey border-b border-r dark:border-black/[.75] text-[#f0f0f0] min-h-[8rem]"
+                        className={
+                            (date.m == calMonth ? 'bg-dm-grey' : 'bg-dm-back') +
+                            ' border-b border-r dark:border-black/[.75] text-[#f0f0f0] min-h-[8rem]'
+                        }
                     >
                         <p className="w-full pl-2 py-1 font-Lato text-sm">
-                            {date}
+                            {date.d}
                         </p>
                     </div>
                 ))}
