@@ -28,7 +28,9 @@ export default function YearDropdown() {
             displayValue={(yyear) => yyear?.year}
             onChange={(event) => setQuery(event.target.value)}
             
+            
           />
+          
           <ComboboxButton className="group absolute inset-y-0 right-0 px-2.5">
             <ChevronDownIcon className="size-4 fill-white/60 group-data-[hover]:fill-white" />
           </ComboboxButton>
@@ -45,7 +47,8 @@ export default function YearDropdown() {
         </ComboboxOptions>
 
       </Combobox>
-
+      
     </div>
+    
   )
 }
