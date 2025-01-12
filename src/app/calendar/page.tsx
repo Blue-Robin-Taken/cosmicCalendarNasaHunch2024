@@ -1,7 +1,8 @@
 'use client';
 import ttime from '@tubular/time';
 import { useState } from 'react';
-import { earthMonths } from './earthMonths';
+import { earthMonths } from './data/earthMonths';
+import { earthDaysTrunc } from './data/earthDaysTrunc';
 import YearDropdown from './components/yearDropdown';
 import { earthYears } from './data/earthYears';
 import { ChevronLeftIcon } from '@heroicons/react/20/solid';
@@ -10,7 +11,9 @@ import { ChevronRightIcon } from '@heroicons/react/20/solid';
 // discuss the fact that the Gregorian calendar
 
 export default function Calendar() {
+    
     const typeCalendar = 'Earth';
+
     const [calMonth, setCalMonth] = useState(
         Number(ttime().toLocale('en-us').format('M'))
     );
@@ -40,10 +43,9 @@ export default function Calendar() {
             .getCalendarMonth()
             .map((date) => date)
     );
-<<<<<<< HEAD
-=======
-    console.log(tupleDates);
->>>>>>> 6b5b0cd7e77f2eec280f9dd9e21eec40f3c20230
+    
+    console.log(earthDaysTrunc)
+    console.log(typeof earthDaysTrunc)
 
     // TODO: Check all pages and make sure we have at maximum two instances where we use the h1 element
     return (
@@ -96,22 +98,33 @@ export default function Calendar() {
                         dark:[&::-webkit-scrollbar-track]:bg-neutral-700
                         dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
             >
+                {earthDaysTrunc.map(({id, weekday}) => (
+                    
+                    <div key={id}> <p className='dark:text-white'>{weekday}</p> </div>))}
+                
                 {tupleDates.map(([id, date]) => (
-<<<<<<< HEAD
-                    <div key={id} className="bg-dm-grey border-b border-r dark:border-black/[.75] text-[#f0f0f0] min-h-[8rem]">
-                        <h3 className="w-full pl-2 py-1 font-Lato text-sm">{date}</h3>
-=======
                     <div
                         key={id}
                         className={
-                            (date.m == calMonth ? 'bg-dm-grey' : 'bg-dm-back') +
-                            ' border-b border-r dark:border-black/[.75] text-[#f0f0f0] min-h-[8rem]'
+                            (date.m == calMonth ? 'text-[#ffffff]' : 'text-[#7a7a7a]') +
+                            ' border-b border-r dark:border-black/[.75] dark:bg-dm-grey min-h-[8rem]'
                         }
                     >
-                        <p className="w-full pl-2 py-1 font-Lato text-sm">
+                            
+                        <p className={((
+                            (ttime().toLocale('us-en').format("D M YYYY"))
+                            .localeCompare
+                            ((date.d).toString() + " " + (calMonth.toString()) + " " + (selectYear.year.toString()))
+                            ) == 0 ? 
+                            ' bg-dm-yellow rounded-md ml-2 my-1 py-0.5 px-0.5 font-Lato text-sm' : '') + 
+                            "ml-2 my-1 py-0.5 px-0.5 grid place-content-center transition-all cursor-pointer max-w-6 max-h-6 font-Lato text-sm hover:bg-white hover:text-black rounded-md"}>
                             {date.d}
+                            {/* need to center double digits */}
                         </p>
->>>>>>> 6b5b0cd7e77f2eec280f9dd9e21eec40f3c20230
+                        
+                        <p>
+                            
+                        </p>
                     </div>
                 ))}
             </div>
