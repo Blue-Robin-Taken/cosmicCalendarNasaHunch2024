@@ -35,3 +35,9 @@ export function marsUniversalTime(e: number) {
         maximumSignificantDigits: 2,
     })}`;
 }
+
+export function marsConvertDate(e: number) {
+    const MSD = marsStandardDate(e);
+    return "temp#";
+
+}

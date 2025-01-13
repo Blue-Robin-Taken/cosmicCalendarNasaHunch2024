@@ -72,7 +72,7 @@ export default function Calendar() {
                         className="h-14 self-center rounded-xl text-lm-p-text 
                         dark:text-dm-p-text text-4xl font-CommeReg"
                     >
-                        <ChevronLeftIcon className="size-5 fill-white/60" />
+                        <ChevronLeftIcon className="size-5 fill-black/60 dark:fill-white/60" />
                     </button>
                     <h2
                         className="min-w-40 my-6 text-lm-p-text dark:text-dm-p-text 
@@ -84,7 +84,7 @@ export default function Calendar() {
                         onClick={clickMonthAdd}
                         className="h-14 self-center rounded-xl text-lm-p-text dark:text-dm-p-text text-4xl font-CommeReg"
                     >
-                        <ChevronRightIcon className="size-5 fill-white/60" />
+                        <ChevronRightIcon className="size-5 fill-black/60 dark:fill-white/60" />
                     </button>
                 </div>
             </div>
@@ -100,14 +100,16 @@ export default function Calendar() {
             >
                 {earthDaysTrunc.map(({id, weekday}) => (
                     
-                    <div key={id}> <p className='dark:text-white'>{weekday}</p> </div>))}
+                    <div key={id} className='bg-lm-grey py-1 dark:bg-dm-grey border-b border-r border-white/[.75] dark:border-black/[.75]'> 
+                        <p className='text-black dark:text-white font-Lato flex justify-center'>{weekday}</p> 
+                    </div>))}
                 
                 {tupleDates.map(([id, date]) => (
                     <div
-                        key={id}
+                        key={id} id={id}
                         className={
-                            (date.m == calMonth ? 'text-[#ffffff]' : 'text-[#7a7a7a]') +
-                            ' border-b border-r dark:border-black/[.75] dark:bg-dm-grey min-h-[8rem]'
+                            (date.m == calMonth ? 'text-black dm:text-[#ffffff]' : 'text-[#7a7a7a]') +
+                            ' border-b border-r bg-lm-grey border-white/[.75] dark:border-black/[.75] dark:bg-dm-grey min-h-[8rem]'
                         }
                     >
                             
