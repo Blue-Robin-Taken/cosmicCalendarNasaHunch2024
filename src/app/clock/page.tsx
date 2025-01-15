@@ -6,8 +6,9 @@ import Clocks from '../clocks/page';
 import { ChangeEvent } from 'react';
 import {
     marsStandardDate,
-    marsUniversalTime,
-    marsConvertDate,
+    marsTimeMSD,
+    marsConvertDecade,
+    marsConvertDecYear,
 } from '../clocks/marsTime/calculating';
 import {
     getJulianDate2000Epoch,
@@ -35,8 +36,8 @@ export default function Clock() {
 
     var MarsTime = [
         marsStandardDate(getTimeCC.epochMillis),
-        marsUniversalTime(getTimeCC.epochMillis),
-        marsConvertDate(getTimeCC.epochMillis),
+        marsTimeMSD(getTimeCC.epochMillis),
+        marsConvertDecade(getTimeCC.epochMillis),
     ];
 
     return (
@@ -136,7 +137,7 @@ export default function Clock() {
                     </p>
 
                     <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
-                        Mars Convert Date (MTC): {MarsTime[2]}
+                        Mars Convert Decyear (MTC): {MarsTime[3]}
                     </p>
 
                     <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">

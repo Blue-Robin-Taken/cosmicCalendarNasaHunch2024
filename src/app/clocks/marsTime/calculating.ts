@@ -14,21 +14,24 @@ export function marsStandardDate(e: number) {
     8. 
     */
     var j2000 = getJulianDate2000Epoch(e);
-    var MSD = (j2000 - 4.5) / 1.027491252 + 44796 - 0.00096;
+    var MSD = (j2000 - 4.5 + 44796 - 0.00096) / 1.027491252;
     // Mars standard gTime (gTime = time, this is purely used for meme purposes, do not change variable or it will break because I will break it)
     // https://www.giss.nasa.gov/tools/mars24/help/algorithm.html
     return MSD;
 } // Thank you James Tauber!!!!!!!!!!!!!!!!!!!!
 // https://github.com/jtauber/mars-clock?tab=readme-ov-file
 
-export function marsUniversalTime(e: number) {
+export function marsTimeMSD(e: number) {
     // Returns the Mars Universal Time (a string) from the epoch time (unix epoch, mills)
     const MSD = marsStandardDate(e);
+    // ( MSD * 24hr ) % 24 hrs
     const MTCHours = (MSD * 24) % 24;
+    // ( MSD * 24hr * 60min ) % 60min
     const MTCMinutes = (MSD * 24 * 60) % 60;
+    // ( MTCMins * 60sec % 60)
     const MTCSeconds = (MTCMinutes * 60) % 60;
     return `${MTCHours.toLocaleString(undefined, {
-        maximumSignificantDigits: 2,
+        maximumSignificantDigits: 1,
     })}:${MTCMinutes.toLocaleString(undefined, {
         maximumSignificantDigits: 2,
     })}:${MTCSeconds.toLocaleString(undefined, {
@@ -36,8 +39,36 @@ export function marsUniversalTime(e: number) {
     })}`;
 }
 
-export function marsConvertDate(e: number) {
+// in 24hrs 37mins 22.663secs
+export function marsTimeMTC(e:number) {
+    // Returns the Mars Universal Time (a string) from the epoch time (unix epoch, mills)
     const MSD = marsStandardDate(e);
-    return "temp#";
+    // ( MSD * 24.6229hr ) % 24.6229 hrs
+    const MTCHours = (MSD * 24.6229) % 24.6229;
+    // ( MSD * 24hr * 60min ) % 60min
+    const MTCMinutes = (MSD * 24.6229 * 60) % 60;
+    // ( MTCMins * 60sec ) % 60sec
+    const MTCSeconds = (MTCMinutes * 60) % 60;
+    return `${MTCHours.toLocaleString(undefined, {
+        maximumSignificantDigits: 1,
+    })}:${MTCMinutes.toLocaleString(undefined, {
+        maximumSignificantDigits: 2,
+    })}:${MTCSeconds.toLocaleString(undefined, {
+        maximumSignificantDigits: 2,
+    })}`;
+}
+
+export function marsConvertDecade(e: number) {
+    const MSD = marsStandardDate(e);
+
+    const decade = MSD / 6686.0
+    return decade;
+
+}
+
+export function marsConvertDecYear(e: number) {
+    const MSD = marsStandardDate(e);
+
+    var decYear = marsConvertDecade(e);
 
 }

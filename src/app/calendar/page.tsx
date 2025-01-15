@@ -108,7 +108,7 @@ export default function Calendar() {
                     <div
                         key={id} id={id}
                         className={
-                            (date.m == calMonth ? 'text-black dm:text-[#ffffff]' : 'text-[#7a7a7a]') +
+                            (date.m == calMonth ? 'text-black dark:text-[#ffffff]' : 'text-[#7a7a7a]') +
                             ' border-b border-r bg-lm-grey border-white/[.75] dark:border-black/[.75] dark:bg-dm-grey min-h-[8rem]'
                         }
                     >
