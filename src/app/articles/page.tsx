@@ -24,7 +24,7 @@ export default function articles() {
                         (
                             article: any // Note: remove any later or not hehe
                         ) => (
-                            <div id={article.title}>
+                            <div key={article.title}>
                                 <h3>
                                     <a href={`./articles/${article.title}`}>
                                         {article.title}
