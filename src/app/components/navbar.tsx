@@ -48,6 +48,7 @@ export default function Navbar() {
                         ['Calendar', '/calendar', '2'],
                         ['Conversion', '/conversion', '3'],
                         ['Settings', '/settings', '4'],
+                        ['Articles', 'articles', '5'],
                     ].map(([title, url, id]) => (
                         <Link
                             href={url}

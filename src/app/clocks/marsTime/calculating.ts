@@ -15,7 +15,6 @@ export function marsStandardDate(e: number) {
     */
     var j2000 = getJulianDate2000Epoch(e);
     var MSD = (j2000 - 4.5 + 44796 - 0.00096) / 1.027491252;
-    // Mars standard gTime (gTime = time, this is purely used for meme purposes, do not change variable or it will break because I will break it)
     // https://www.giss.nasa.gov/tools/mars24/help/algorithm.html
     return MSD;
 } // Thank you James Tauber!!!!!!!!!!!!!!!!!!!!
@@ -40,7 +39,7 @@ export function marsTimeMSD(e: number) {
 }
 
 // in 24hrs 37mins 22.663secs
-export function marsTimeMTC(e:number) {
+export function marsTimeMTC(e: number) {
     // Returns the Mars Universal Time (a string) from the epoch time (unix epoch, mills)
     const MSD = marsStandardDate(e);
     // ( MSD * 24.6229hr ) % 24.6229 hrs
@@ -61,14 +60,12 @@ export function marsTimeMTC(e:number) {
 export function marsConvertDecade(e: number) {
     const MSD = marsStandardDate(e);
 
-    const decade = MSD / 6686.0
+    const decade = MSD / 6686.0;
     return decade;
-
 }
 
 export function marsConvertDecYear(e: number) {
     const MSD = marsStandardDate(e);
 
     var decYear = marsConvertDecade(e);
-
 }
