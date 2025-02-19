@@ -44,8 +44,8 @@ export default function Calendar() {
             .map((date) => date)
     );
     
-    console.log(earthDaysTrunc)
-    console.log(typeof earthDaysTrunc)
+    var yyyy_mm = selectYear.year + "/" + calMonth;
+    console.log(yyyy_mm)
 
     // TODO: Check all pages and make sure we have at maximum two instances where we use the h1 element
     return (
