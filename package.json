@@ -9,15 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@geist-ui/core": "^2.3.8",
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
     "@tubular/time": "^3.9.2",
     "clsx": "^2.1.1",
+    "darian-system": "^1.1.2",
     "date-and-time": "^3.6.0",
     "fs": "0.0.1-security",
     "jose": "^5.9.6",
     "jsonwebtoken": "^9.0.2",
-    "next": "14.2.13",
+    "next": "^14.2.24",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "sqlite3": "^5.1.7"
