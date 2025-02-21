@@ -1,5 +1,5 @@
 'use client';
-import ttime from '@tubular/time';
+import ttime, { YMDDate } from '@tubular/time';
 import { useState } from 'react';
 import { earthMonths } from './data/earthMonths';
 import { earthDaysTrunc } from './data/earthDaysTrunc';
@@ -8,19 +8,13 @@ import { earthYears } from './data/earthYears';
 import { ChevronLeftIcon } from '@heroicons/react/20/solid';
 import { ChevronRightIcon } from '@heroicons/react/20/solid';
 
+import { Tooltip } from '@geist-ui/core';
+import { Darian_Date } from 'darian-system';
+
 // discuss the fact that the Gregorian calendar
 
 export default function Calendar() {
     
-    interface Monkey {
-        year: number,
-        month: number,
-        day: number,
-        data: Array<string>,
-    }
-
-    const monkey : Array<Monkey> = useState([]);
-
     const typeCalendar = 'Earth';
 
     const [calMonth, setCalMonth] = useState(
@@ -53,8 +47,11 @@ export default function Calendar() {
             .map((date) => date)
     );
     
-    var current_mm_yy = selectYear.year + "/" + String(calMonth);
-    console.log(current_mm_yy);
+    const convertToMarsTime = (date: YMDDate) => {
+        const marsTime = new Darian_Date(date.year, date.month, date.day, 1, 1, 1)
+
+        return `${marsTime.mDay} ${marsTime.mMonthName}`
+    }
 
     // TODO: Check all pages and make sure we have at maximum two instances where we use the h1 element
     return (
@@ -115,27 +112,28 @@ export default function Calendar() {
                 
                 {tupleDates.map(([id, date]) => (
                     <div
+
                         key={id} id={id}
                         className={
                             (date.m == calMonth ? 'text-black dark:text-[#ffffff]' : 'text-[#7a7a7a]') +
                             ' border-b border-r bg-lm-grey border-white/[.75] dark:border-black/[.75] dark:bg-dm-grey min-h-[8rem]'
                         }
                     >
+                    <div className={((
                             
-                        <p className={((
                             (ttime().toLocale('us-en').format("D M YYYY"))
                             .localeCompare
                             ((date.d).toString() + " " + (calMonth.toString()) + " " + (selectYear.year.toString()))
                             ) == 0 ? 
                             ' bg-dm-yellow rounded-md ml-2 my-1 py-0.5 px-0.5 font-Lato text-sm' : '') + 
                             "ml-2 my-1 py-0.5 px-0.5 grid place-content-center transition-all cursor-pointer max-w-6 max-h-6 font-Lato text-sm hover:bg-white hover:text-black rounded-md"}>
-                            {date.d}
+                            <Tooltip text={convertToMarsTime(date)}>
+                                    <span>{date.d}</span>
+                            </Tooltip>
                             {/* need to center double digits */}
-                        </p>
-                        
-                        <p>
+                        </div>
                             
-                        </p>
+                        
                     </div>
                 ))}
             </div>

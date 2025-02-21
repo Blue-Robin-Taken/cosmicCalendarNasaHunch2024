@@ -48,6 +48,7 @@ export default function Navbar() {
                         ['Calendar', '/calendar', '2'],
                         ['Conversion', '/conversion', '3'],
                         ['Settings', '/settings', '4'],
+                        ['Articles', '/articles', '5'],
                     ].map(([title, url, id]) => (
                         <Link
                             href={url}
@@ -70,13 +71,15 @@ export default function Navbar() {
                             </Link>
                         </li>
                         <li className="list-none">
-                            <div><Link
-                                href="/signup"
-                                className="justify-self-right self-center font-Lato text-nb-val 
+                            <div>
+                                <Link
+                                    href="/signup"
+                                    className="justify-self-right self-center font-Lato text-nb-val 
                 text-black rounded-3xl py-2 px-8 border border-lm-yellow bg-lm-yellow"
-                            >
-                                Signup
-                            </Link></div>
+                                >
+                                    Signup
+                                </Link>
+                            </div>
                         </li>
                     </div>
                 </div>
@@ -97,7 +100,7 @@ export default function Navbar() {
                 <li className="nav-link hidden lg:block">
                     <Link href="/login">Login</Link>
                 </li>
-                
+
                 <li className="nav-link hidden lg:block">
                     <Link href="/signup">Sign-up</Link>
                 </li>
