@@ -1,5 +1,6 @@
 import { url } from 'inspector';
 import { marked } from 'marked';
+import { parse, HtmlGenerator } from 'latex.js';
 
 export default async function Page({
     params,
@@ -30,6 +31,7 @@ export default async function Page({
     const article = articleJSON.Blogs.find(
         (article: any) => article.title == articleParam
     );
+    let generator = new HtmlGenerator({ hyphenate: false });
     return (
         <>
             <div className="flex flex-col items-center justify-center">
@@ -37,7 +39,7 @@ export default async function Page({
                     className="text-4xl font-bold font-Chocolate mb-4 text-center text-lm-yellow-hl 
                             dark:text-dm-yellow-hl"
                 >
-                    Title: {article.title}
+                    {article.title}
                 </h1>
                 <h1 className="text-lm-p-text dark:text-white font-Lato mb-4 text-center">
                     Author: {article.author}
@@ -45,7 +47,11 @@ export default async function Page({
                 <div
                     className="text-white text-xl m-3 p-2"
                     dangerouslySetInnerHTML={{
-                        __html: marked(markdownFile),
+                        __html: marked(
+                            parse(markdownFile, {
+                                generator: generator,
+                            })
+                        ),
                     }}
                 ></div>
             </div>
