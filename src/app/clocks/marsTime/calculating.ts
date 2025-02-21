@@ -72,15 +72,124 @@ export function marsTimeMTCExtended(e: number) {
 }
 
 //
-export function marsConvertDecade(e: number) {
-    const MSD = marsStandardDate(e);
+export function marsConvertYear(e: number) {
+    var currentDay = marsStandardDate(e);
+   
+    // solsEra is the number of eras
+    // 334296 = 500 * 668.5920
+    var solsEra = Math.floor(currentDay/334296);
+    // make solsEraFract contain the fraction of an era, which is 500 years long
+    // all 'Fract' variables are temporary
+    var solsEraFract = Math.floor(currentDay-(solsEra * 334296));
 
-    const decade = MSD / 6686.0;
-    return decade;
+    
+    var solsCentury = 0;
+    var solsCenturyFract = solsEraFract;
+    if (solsEraFract != 0) {
+      // -1 because we start counting at 1 instead of 0
+      // solsCentury is the amount of centuries, not including Era
+      solsCentury = Math.floor((solsEraFract-1)/66859);
+    }
+    // make solsCenturyFract contain the fraction of a century
+    if (solsCentury != 0) {
+      // 66859 = 100 * 668.5920, rounded down
+      // +1 because we need to revert from counting from 0 to counting from 1
+      solsCenturyFract -= Math.floor(solsCentury*66859 + 1);
+    }
+
+    
+    var solsDecade = 0;
+    var solsDecadeFract = solsCenturyFract;
+    // if it is the last year of the century, which has the leap day
+    if (solsCentury != 0) {
+      // 6686 = 10 * 668.5920, rounded down, where 6/10 years will have an extra day
+      solsDecade = Math.floor((solsCenturyFract+1)/6686);
+      if (solsDecade != 0) {
+        solsDecadeFract -= Math.floor(solsDecade * 6686 - 1);
+      } 
+    // for the 99 cases where it isn't the last year of the century
+    } else {
+      solsDecade = Math.floor(solsCenturyFract/6686);
+      if (solsDecade != 0) {
+        solsDecadeFract -= Math.floor(solsDecade*6686);
+      }
+    }
+
+
+    var solsYearTwin = 0;
+    var solsYearTwinFract = solsDecadeFract;
+    // if its the last year of the decade, which has the leap day
+    if (solsDecade == 0 && solsCentury != 0) {
+      // 668 + 669 = 1337
+      // haha leet
+      solsYearTwin = Math.floor(solsDecadeFract/1337);
+      if (solsYearTwin != 0) {
+        solsYearTwinFract -= Math.floor(solsYearTwin*1337);
+      }
+    } else {
+      if (solsDecadeFract != 0) {
+        // -1 because its a leap year
+        solsYearTwin = Math.floor((solsDecadeFract-1)/1337);
+      }
+      if (solsYearTwin != 0) {
+        solsYearTwinFract -= Math.floor(solsYearTwin*1337+1);
+      }
+      
+    }
+
+
+    var solsYear = 0;
+    var solsYearFract = solsYearTwinFract;
+    // if it's year 0 or 1, AND (its not the first year of the decade (0) OR  if (its the first year of the decade but its not the last year of the century (100)))
+    if (solsYearTwin == 0 && (solsDecade != 0 || (solsDecade == 0 && solsCentury == 0))) {
+      solsYear = Math.floor(solsYearTwinFract/669);
+      
+      if (solsYear != 0) {
+        solsYearFract -= 669; 
+
+      }
+
+    } else {
+      // apply the opposite from ^^. this is the case for leap years
+      solsYear = Math.floor((solsYearTwinFract+1)/669);
+      if (solsYear != 0) {
+        solsYearFract -= 668;
+        
+      }
+
+    }
+
+
+    var marsYear = ((solsEra * 500) + (solsCentury * 100) + (solsDecade * 10) + (solsYearTwin * 2) + solsYear);
+    return solsYearFract;
+    
+
 }
 
-export function marsConvertDecYear(e: number) {
-    const MSD = marsStandardDate(e);
+// export function marsConvertQuarter(e: number) {
+//   const marsSols = marsConvertYear(e);
+//   const quarterTimings = [0, 167, 334, 501];
+//   var currentQuarter = -1;
+//     if (marsSols[1] < quarterTimings[1]) {
+//       currentQuarter = 0;
+//     } else if (marsSols[1] < quarterTimings[2]) {
+//       currentQuarter = 1;
+//     } else if (marsSols[1] < quarterTimings[3]) {
+//       currentQuarter = 2;
+//     } else {
+//       currentQuarter = 3;
+//     }
+//     return currentQuarter;
+// }
 
-    const decYear = (marsConvertDecade(e) * 10) % 10;
-}
+// export function marsConvertMonth(e: number) {
+//   const marsSols = marsConvertYear(e);
+//   const quarterTimings = [0, 167, 334, 501];
+//   const currentQuarter = marsConvertQuarter(e);
+
+//   var currentQuarterFract = marsSols[1] - quarterTimings[currentQuarter];
+
+//   var month = Math.floor(currentQuarterFract/42 + currentQuarter*4);
+//   return month;
+  
+// }

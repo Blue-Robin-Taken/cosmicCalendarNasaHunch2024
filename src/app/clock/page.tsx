@@ -8,8 +8,7 @@ import {
     marsStandardDate,
     marsTimeMTC24,
     marsTimeMTCExtended,
-    marsConvertDecade,
-    marsConvertDecYear,
+    marsConvertYear,
 } from '../clocks/marsTime/calculating';
 import {
     getJulianDate2000Epoch,
@@ -39,7 +38,7 @@ export default function Clock() {
         marsStandardDate(getTimeCC.epochMillis),
         marsTimeMTC24(getTimeCC.epochMillis),
         marsTimeMTCExtended(getTimeCC.epochMillis),
-        marsConvertDecade(getTimeCC.epochMillis),
+        marsConvertYear(getTimeCC.epochMillis),
     ];
 
     return (
@@ -144,7 +143,7 @@ export default function Clock() {
                     </p>
 
                     <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
-                        Mars Convert Decyear (MTC): {MarsTime[3]}
+                        Mars Convert Year (MTC): {MarsTime[3]}
                     </p>
 
                     <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
