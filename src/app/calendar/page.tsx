@@ -12,6 +12,15 @@ import { ChevronRightIcon } from '@heroicons/react/20/solid';
 
 export default function Calendar() {
     
+    interface Monkey {
+        year: number,
+        month: number,
+        day: number,
+        data: Array<string>,
+    }
+
+    const monkey : Array<Monkey> = useState([]);
+
     const typeCalendar = 'Earth';
 
     const [calMonth, setCalMonth] = useState(
@@ -44,8 +53,8 @@ export default function Calendar() {
             .map((date) => date)
     );
     
-    console.log(earthDaysTrunc)
-    console.log(typeof earthDaysTrunc)
+    var current_mm_yy = selectYear.year + "/" + String(calMonth);
+    console.log(current_mm_yy);
 
     // TODO: Check all pages and make sure we have at maximum two instances where we use the h1 element
     return (
