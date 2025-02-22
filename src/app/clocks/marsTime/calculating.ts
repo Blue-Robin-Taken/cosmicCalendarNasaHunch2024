@@ -161,7 +161,7 @@ export function marsConvertYear(e: number) {
 
 
     var marsYear = ((solsEra * 500) + (solsCentury * 100) + (solsDecade * 10) + (solsYearTwin * 2) + solsYear);
-    return [marsYear, solsYearFract];
+    return [marsYear, [marsYear, solsYearFract]];
     
 
 }
@@ -191,4 +191,5 @@ export function marsConvertMonth(e: number) {
 
   var month = Math.floor(currentQuarterFract/42 + currentQuarter*4);
   return month;
-}
+  
+ }
