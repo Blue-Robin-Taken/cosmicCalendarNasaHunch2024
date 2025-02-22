@@ -2,8 +2,6 @@ import { url } from 'inspector';
 import 'katex/dist/katex.min.css';
 import Latex from 'react-latex-next';
 import { marked } from 'marked';
-var lescape = require('escape-latex');
-
 export default async function Page({
     params,
 }: {
@@ -47,7 +45,7 @@ export default async function Page({
                 <h1 className="text-lm-p-text dark:text-white font-Lato mb-4 text-center">
                     Author: {article.author}
                 </h1>
-                <div className="text-white">
+                <div className="dark:text-white m-5 p-3">
                     <Latex>{marked(markdownFile).toString()}</Latex>
                 </div>
             </div>
