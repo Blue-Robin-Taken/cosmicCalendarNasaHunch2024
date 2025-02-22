@@ -161,35 +161,35 @@ export function marsConvertYear(e: number) {
 
 
     var marsYear = ((solsEra * 500) + (solsCentury * 100) + (solsDecade * 10) + (solsYearTwin * 2) + solsYear);
-    return solsYearFract;
+    return [marsYear, solsYearFract];
     
 
 }
 
-// export function marsConvertQuarter(e: number) {
-//   const marsSols = marsConvertYear(e);
-//   const quarterTimings = [0, 167, 334, 501];
-//   var currentQuarter = -1;
-//     if (marsSols[1] < quarterTimings[1]) {
-//       currentQuarter = 0;
-//     } else if (marsSols[1] < quarterTimings[2]) {
-//       currentQuarter = 1;
-//     } else if (marsSols[1] < quarterTimings[3]) {
-//       currentQuarter = 2;
-//     } else {
-//       currentQuarter = 3;
-//     }
-//     return currentQuarter;
-// }
+export function marsConvertQuarter(e: number) {
+  const marsSols = marsConvertYear(e);
+  const quarterTimings = [0, 167, 334, 501];
+  var currentQuarter = -1;
+    if (marsSols[1] < quarterTimings[1]) {
+      currentQuarter = 0;
+    } else if (marsSols[1] < quarterTimings[2]) {
+      currentQuarter = 1;
+    } else if (marsSols[1] < quarterTimings[3]) {
+      currentQuarter = 2;
+    } else {
+      currentQuarter = 3;
+    }
+    return currentQuarter;
+}
 
-// export function marsConvertMonth(e: number) {
-//   const marsSols = marsConvertYear(e);
-//   const quarterTimings = [0, 167, 334, 501];
-//   const currentQuarter = marsConvertQuarter(e);
+export function marsConvertMonth(e: number) {
+  const marsSols = marsConvertYear(e);
+  const quarterTimings = [0, 167, 334, 501];
+  const currentQuarter = marsConvertQuarter(e);
 
-//   var currentQuarterFract = marsSols[1] - quarterTimings[currentQuarter];
+  var currentQuarterFract = marsSols[1] - quarterTimings[currentQuarter];
 
-//   var month = Math.floor(currentQuarterFract/42 + currentQuarter*4);
-//   return month;
+  var month = Math.floor(currentQuarterFract/42 + currentQuarter*4);
+  return month;
   
-// }
+ }

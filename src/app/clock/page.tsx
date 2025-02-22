@@ -38,7 +38,7 @@ export default function Clock() {
         marsStandardDate(getTimeCC.epochMillis),
         marsTimeMTC24(getTimeCC.epochMillis),
         marsTimeMTCExtended(getTimeCC.epochMillis),
-        marsConvertYear(getTimeCC.epochMillis),
+        marsConvertYear(getTimeCC.epochMillis)[0],
     ];
 
     return (

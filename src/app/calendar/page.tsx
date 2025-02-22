@@ -1,12 +1,20 @@
 'use client';
 import ttime, { YMDDate } from '@tubular/time';
+import GetTimeCC from './../clock/tpsecond';
+
 import { useState, ChangeEvent } from 'react';
 import { earthMonths } from './data/earthMonths';
 import { earthDaysTrunc } from './data/earthDaysTrunc';
 import YearDropdown from './components/yearDropdown';
 import { earthYears } from './data/earthYears';
+import { marsYears } from './data/marsYears';
 import { ChevronLeftIcon } from '@heroicons/react/20/solid';
 import { ChevronRightIcon } from '@heroicons/react/20/solid';
+import {
+    marsConvertYear,
+    marsConvertQuarter,
+    marsConvertMonth
+} from '../clocks/marsTime/calculating';
 
 import { Tooltip } from '@geist-ui/core';
 import { Darian_Date } from 'darian-system';
@@ -15,13 +23,23 @@ import { Darian_Date } from 'darian-system';
 
 export default function Calendar() {
     const [getPlanetState, setPlanetState] = useState('Earth');
-    function changePage(event: ChangeEvent<HTMLSelectElement>) {
+    var getTimeCC = GetTimeCC();
+    var MarsTime = [
+            marsConvertYear(getTimeCC.epochMillis)[0],
+        ];
+   
+        function changePage(event: ChangeEvent<HTMLSelectElement>) {
             // current_page = formData.keys().;
             setPlanetState(event.target.value);
-            setSelectedYear(earthYears[Number(ttime().toLocale('en-us').format('YYYY')) - 1000])
+            if (getPlanetState.localeCompare("Earth")) {
+                setSelectedYear(earthYears[Number(ttime().toLocale('en-us').format('YYYY')) - 1000])
+            }
+            if (getPlanetState.localeCompare("Mars")) {
+                setSelectedYear(marsYears[MarsTime[0]])
+            }
+            
         }
-        
-    
+
 
     const [calMonth, setCalMonth] = useState(
         Number(ttime().toLocale('en-us').format('M'))
