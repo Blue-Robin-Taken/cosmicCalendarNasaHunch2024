@@ -30,6 +30,9 @@ dependencies:
   date-and-time:
     specifier: ^3.6.0
     version: 3.6.0
+  escape-latex:
+    specifier: ^1.2.0
+    version: 1.2.0
   fs:
     specifier: 0.0.1-security
     version: 0.0.1-security
@@ -1727,6 +1730,10 @@ packages:
       is-date-object: 1.1.0
       is-symbol: 1.1.1
     dev: true
+
+  /escape-latex@1.2.0:
+    resolution: {integrity: sha512-nV5aVWW1K0wEiUIEdZ4erkGGH8mDxGyxSeqPzRNtWP7ataw+/olFObw7hujFWlVjNsaDFw5VZ5NzVSIqRgfTiw==}
+    dev: false
 
   /escape-string-regexp@4.0.0:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
