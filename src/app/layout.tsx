@@ -24,15 +24,15 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-lm-back dark:bg-dm-back antialiased m-0 p-0`}
-      >
-        <Navbar />
-        <div className="flex flex-grow min-w-full h-0 mh-1 " ></div>
-        {children}
-      </body>
-    </html>
-  );
+    return (
+        <html lang="en">
+            <body
+                className={`${geistSans.variable} ${geistMono.variable} bg-lm-back dark:bg-dm-back antialiased m-0 p-0`}
+            >
+                <Navbar />
+                <div className="flex flex-grow min-w-full h-0 mh-1 "></div>
+                {children}
+            </body>
+        </html>
+    );
 }
