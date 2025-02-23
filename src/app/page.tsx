@@ -7,7 +7,7 @@ import './about/page.css';
 export default function Home() {
     return (
         <>
-            // https://stackoverflow.com/a/76827457/15982771
+            {/*https://stackoverflow.com/a/76827457/15982771*/}
             <div className="mt-40 flex w-auto items-center justify-center flex-col wrapper select-none overflow-x-auto ">
                 <h1
                     className="align-middle text-9xl font-bold font-CommeSemibold mb-4 text-center 
