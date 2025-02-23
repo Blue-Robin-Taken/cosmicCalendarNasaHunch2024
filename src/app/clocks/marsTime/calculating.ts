@@ -161,7 +161,7 @@ export function marsConvertYear(e: number) {
 
 
     var marsYear = ((solsEra * 500) + (solsCentury * 100) + (solsDecade * 10) + (solsYearTwin * 2) + solsYear);
-    return [marsYear, [marsYear, solsYearFract]];
+    return [marsYear, solsYearFract];
     
 
 }
@@ -190,6 +190,14 @@ export function marsConvertMonth(e: number) {
   var currentQuarterFract = marsSols[1] - quarterTimings[currentQuarter];
 
   var month = Math.floor(currentQuarterFract/42 + currentQuarter*4);
-  return month;
+
+  const monthNames = ["Primus", "Cotidianus", "Abnego", "Oraculi", "Limina", "Cetus", "Pericula", "Illecebra", "Obviam Eo", "Apotheosis", "Donum", "Mora", "Fuga", "Reunire", "Vivere", "Novissimus"];
+  if (month < 0 || month > 15) {
+    return "Invalid Month";
+  }
+
+  const solsMonthFract = currentQuarterFract%42;
+
+  return [monthNames[month], solsMonthFract];
   
  }
