@@ -1,12 +1,20 @@
 'use client';
 import ttime, { YMDDate } from '@tubular/time';
-import { useState } from 'react';
+import GetTimeCC from './../clock/tpsecond';
+
+import { useState, ChangeEvent } from 'react';
 import { earthMonths } from './data/earthMonths';
 import { earthDaysTrunc } from './data/earthDaysTrunc';
 import YearDropdown from './components/yearDropdown';
 import { earthYears } from './data/earthYears';
+import { marsYears } from './data/marsYears';
 import { ChevronLeftIcon } from '@heroicons/react/20/solid';
 import { ChevronRightIcon } from '@heroicons/react/20/solid';
+import {
+    marsConvertYear,
+    marsConvertQuarter,
+    marsConvertMonth
+} from '../clocks/marsTime/calculating';
 
 import { Tooltip } from '@geist-ui/core';
 import { Darian_Date } from 'darian-system';
@@ -14,8 +22,24 @@ import { Darian_Date } from 'darian-system';
 // discuss the fact that the Gregorian calendar
 
 export default function Calendar() {
-    
-    const typeCalendar = 'Earth';
+    const [getPlanetState, setPlanetState] = useState('Earth');
+    var getTimeCC = GetTimeCC();
+    var MarsTime = [
+            marsConvertYear(getTimeCC.epochMillis)[0],
+        ];
+   
+        function changePage(event: ChangeEvent<HTMLSelectElement>) {
+            // current_page = formData.keys().;
+            setPlanetState(event.target.value);
+            if (getPlanetState.localeCompare("Earth")) {
+                setSelectedYear(earthYears[Number(ttime().toLocale('en-us').format('YYYY')) - 1000])
+            }
+            if (getPlanetState.localeCompare("Mars")) {
+                setSelectedYear(marsYears[MarsTime[0]])
+            }
+            
+        }
+
 
     const [calMonth, setCalMonth] = useState(
         Number(ttime().toLocale('en-us').format('M'))
@@ -55,13 +79,21 @@ export default function Calendar() {
 
     // TODO: Check all pages and make sure we have at maximum two instances where we use the h1 element
     return (
+        
         <div>
+            <div>
+                <h1>Current Planet:</h1>
+                <select onChange={changePage}>
+                        <option>Earth</option>
+                        <option>Mars</option>
+                </select>
+            </div>
             <div className="flex flex-grow relative">
                 <h2
                     className="my-6 ml-8 text-lm-p-text dark:text-dm-p-text 
                     text-4xl font-CommeReg z-10"
                 >
-                    {typeCalendar} -&nbsp;{' '}
+                    {getPlanetState} -&nbsp;{' '}
                 </h2>
                 <YearDropdown
                     selected={selectYear}
@@ -69,9 +101,7 @@ export default function Calendar() {
                 />
                 <div className="flex w-full justify-center self-end absolute space-x-1">
                     {/* TODO: probably change these < and > into icons i think theres a resource called "react icons" */}
-                    {/* !!TODO!!: i also need help with making the <> icons not move when the middle month name changes
-                        bc the positions of the <> icons are dependent on the middle month name size.
-                        (we could maybe do something by rendering both buttons within the <h2> using <span>) */}
+
 
                     <button
                         onClick={clickMonthSub}
@@ -127,12 +157,12 @@ export default function Calendar() {
                             ) == 0 ? 
                             ' bg-dm-yellow rounded-md ml-2 my-1 py-0.5 px-0.5 font-Lato text-sm' : '') + 
                             "ml-2 my-1 py-0.5 px-0.5 grid place-content-center transition-all cursor-pointer max-w-6 max-h-6 font-Lato text-sm hover:bg-white hover:text-black rounded-md"}>
-                            <Tooltip text={convertToMarsTime(date)}>
+                            <Tooltip text={"243"}>
                                     <span>{date.d}</span>
                             </Tooltip>
                             {/* need to center double digits */}
                         </div>
-                            
+                        
                         
                     </div>
                 ))}
