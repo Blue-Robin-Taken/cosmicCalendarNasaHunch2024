@@ -57,7 +57,7 @@ export default function TimeManagement() {
                             id="startTimeS"
                             placeholder="seconds"
                             defaultValue={0}
-                            className="justify-center text-center p-3 m-2 bg-lm-grey rounded-sm font-lato text-sm"
+                            className="justify-center text-center p-3 m-2 bg-lm-grey rounded-sm font-lato text-sm dark:bg-dm-grey dark:text-dm-lightyellow text-lm-p-text"
                         />
                     </div>
                     <div>
@@ -66,7 +66,7 @@ export default function TimeManagement() {
                             id="startTimeM"
                             placeholder="minutes"
                             defaultValue={0}
-                            className="justify-center text-center p-3 m-2 bg-lm-grey rounded-sm font-lato text-sm"
+                            className="justify-center text-center p-3 m-2 bg-lm-grey rounded-sm font-lato text-sm  dark:bg-dm-grey dark:text-dm-lightyellow text-lm-p-text"
                         />
                     </div>
                     <div>
@@ -75,7 +75,7 @@ export default function TimeManagement() {
                             id="startTimeH"
                             placeholder="hours"
                             defaultValue={0}
-                            className="justify-center text-center p-3 m-2 bg-lm-grey rounded-sm font-lato text-sm"
+                            className="justify-center text-center p-3 m-2 bg-lm-grey rounded-sm font-lato text-sm  dark:bg-dm-grey dark:text-dm-lightyellow text-lm-p-text"
                         />
                     </div>
                     <div className="flex flex-col align-middle justify-center items-center justify-items-center">
@@ -101,23 +101,24 @@ export default function TimeManagement() {
                                             'startTimeS'
                                         ) as HTMLInputElement
                                     ).value
-                                ) +
-                                    parseInt(
-                                        (
-                                            document.getElementById(
-                                                'startTimeM'
-                                            ) as HTMLInputElement
-                                        ).value
-                                    ) *
-                                        60 +
-                                    parseInt(
-                                        (
-                                            document.getElementById(
-                                                'startTimeH'
-                                            ) as HTMLInputElement
-                                        ).value
-                                    ) *
-                                        3600
+                                ) ||
+                                    0 +
+                                        parseInt(
+                                            (
+                                                document.getElementById(
+                                                    'startTimeM'
+                                                ) as HTMLInputElement
+                                            ).value
+                                        ) ||
+                                    0 * 60 +
+                                        parseInt(
+                                            (
+                                                document.getElementById(
+                                                    'startTimeH'
+                                                ) as HTMLInputElement
+                                            ).value
+                                        ) ||
+                                    0 * 3600
                             );
                             setKey((prevKey) => prevKey + 1);
                             setPlaying(true);
