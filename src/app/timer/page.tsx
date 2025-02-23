@@ -36,7 +36,11 @@ export default function TimeManagement() {
             setShouldStopSound(false);
         }
     }, [shouldStopSound]);
-
+    // Helper to read integer from an input by ID safely
+    function getIntValueById(id: string): number {
+        const el = document.getElementById(id) as HTMLInputElement;
+        return el ? parseInt(el.value) || 0 : 0;
+    }
     return (
         <div className="align-middle text-center justify-items-center justify-center flex flex-col place-items-center m-3 font-lato">
             <h1 className="font-lato text-5xl p-5 m-5">Time Management</h1>
@@ -70,7 +74,6 @@ export default function TimeManagement() {
                         <input
                             id="startTimeS"
                             placeholder="seconds"
-                            defaultValue={0}
                             className="justify-center text-center p-3 m-2 bg-lm-grey rounded-sm font-lato text-sm dark:bg-dm-grey dark:text-dm-lightyellow text-lm-p-text"
                         />
                     </div>
@@ -79,7 +82,6 @@ export default function TimeManagement() {
                         <input
                             id="startTimeM"
                             placeholder="minutes"
-                            defaultValue={0}
                             className="justify-center text-center p-3 m-2 bg-lm-grey rounded-sm font-lato text-sm  dark:bg-dm-grey dark:text-dm-lightyellow text-lm-p-text"
                         />
                     </div>
@@ -88,7 +90,6 @@ export default function TimeManagement() {
                         <input
                             id="startTimeH"
                             placeholder="hours"
-                            defaultValue={0}
                             className="justify-center text-center p-3 m-2 bg-lm-grey rounded-sm font-lato text-sm  dark:bg-dm-grey dark:text-dm-lightyellow text-lm-p-text"
                         />
                     </div>
@@ -114,32 +115,14 @@ export default function TimeManagement() {
                         className="align-middle dark:bg-dm-yellow bg-lm-grey rounded-lg m-3 p-1"
                         type="button"
                         onClick={() => {
-                            setTime(
-                                parseInt(
-                                    (
-                                        document.getElementById(
-                                            'startTimeS'
-                                        ) as HTMLInputElement
-                                    ).value
-                                ) ||
-                                    0 +
-                                        parseInt(
-                                            (
-                                                document.getElementById(
-                                                    'startTimeM'
-                                                ) as HTMLInputElement
-                                            ).value
-                                        ) ||
-                                    0 * 60 +
-                                        parseInt(
-                                            (
-                                                document.getElementById(
-                                                    'startTimeH'
-                                                ) as HTMLInputElement
-                                            ).value
-                                        ) ||
-                                    0 * 3600
-                            );
+                            // Get hours, minutes, seconds, convert to total seconds
+                            const seconds = getIntValueById('startTimeS');
+                            const minutes = getIntValueById('startTimeM');
+                            const hours = getIntValueById('startTimeH');
+                            const totalSeconds =
+                                seconds + minutes * 60 + hours * 3600;
+
+                            setTime(totalSeconds);
                             setKey((prevKey) => prevKey + 1);
                             setPlaying(true);
                         }}
