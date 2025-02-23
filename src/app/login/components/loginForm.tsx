@@ -10,13 +10,14 @@ export default function LoginForm() {
         if (loginReturn) {
             setInvalid(true);
         } else {
+            alert('Logged in!');
             setInvalid(false);
         }
     }
     return (
         <>
             <div className="dark:bg-dm-back bg-white flex flex-grow flex-col justify-center align-center min-h-screen">
-                <h1 className="dark:text-darkmode-textlightlight text-center text-5xl text-gray-950">
+                <h1 className="dark:text-dm-h1-text text-center text-5xl text-gray-950">
                     Log In
                 </h1>
                 <form
@@ -27,7 +28,7 @@ export default function LoginForm() {
                         type="text"
                         name="username"
                         placeholder="username"
-                        className="text-black p-3 m-3 text-lg border-2 bg-white border-black rounded-md"
+                        className="text-black p-3 m-3 text-lg border-2 border-black rounded-md dark:text-dm-p-text"
                         onKeyDown={() => {
                             setInvalid(false);
                         }}
@@ -36,7 +37,7 @@ export default function LoginForm() {
                         type="password"
                         name="password"
                         placeholder="password"
-                        className="text-black p-3 m-3 text-lg border-2 bg-white border-black rounded-md"
+                        className="text-black p-3 m-3 text-lg border-2 border-black rounded-md dark:text-dm-p-text"
                         onKeyDown={() => {
                             setInvalid(false);
                         }}

@@ -1,41 +1,45 @@
-"use server"; // DO NOT REMOVE, it resolves to client. (endpoints must be secured here as well)
-import { db } from "@/app/database";
-import { SignJWT } from "jose";
-import { cookies } from "next/headers";
-
+'use server';
+import { db } from '@/app/database';
+import { SignJWT } from 'jose';
+import { cookies } from 'next/headers';
+import { useEffect } from 'react';
 export default async function loginServerAction(
-  formData: FormData
+    formData: FormData
 ): Promise<boolean> {
-  async function giveToken(user: string) {
-    const token = await new SignJWT({
-      username: user,
-    })
-      .setProtectedHeader({ alg: "HS256" })
-      .setIssuedAt()
-      .setExpirationTime("2h")
-      .sign(new TextEncoder().encode(process.env.JWT_KEY_SIGNATURE));
+    'use server';
 
-    cookies().set("token", token);
-    return Response.json({ loggedIn: true }); // For the redirect
-  }
+    const rawFormData = {
+        username: formData.get('username'),
+        password: formData.get('password'),
+    };
+    const user = await new Promise<{
+        username: string;
+        password: string;
+    } | null>((resolve, reject) => {
+        db.get(
+            'SELECT * FROM users WHERE username = ? AND password = ?',
+            [rawFormData.username, rawFormData.password],
+            (err, row) => {
+                if (err) reject(err);
+                resolve(row);
+            }
+        );
+    });
 
-  const rawFormData = {
-    username: formData.get("username"),
-    password: formData.get("password"),
-  };
-  const dbRetrieve: boolean = await new Promise(function (resolve) {
-    db.get(
-      "SELECT * FROM users WHERE username = ? AND password = ?",
-      [rawFormData.username?.toString(), rawFormData.password?.toString()],
-      (err, row: { username: string; password: string }) => {
-        if (row != null) {
-          giveToken(row.username);
-          resolve(false);
-        } else {
-          resolve(true);
-        }
-      }
-    );
-  });
-  return dbRetrieve;
+    if (user) {
+        // Generate JWT
+        const token = await new SignJWT({ username: user.username })
+            .setProtectedHeader({ alg: 'HS256' })
+            .setIssuedAt()
+            .setExpirationTime('2h')
+            .sign(new TextEncoder().encode(process.env.JWT_KEY_SIGNATURE!));
+
+        // Set the cookie inside the correct scope
+        let cookie = await cookies();
+        cookie.set('token', token);
+
+        return false;
+    } else {
+        return true;
+    }
 }

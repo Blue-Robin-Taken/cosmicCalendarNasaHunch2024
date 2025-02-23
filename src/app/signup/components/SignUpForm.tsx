@@ -39,7 +39,7 @@ export default function SignUpForm() {
                         type="text"
                         name="username"
                         placeholder="username"
-                        className="text-black  p-3 m-3 text-lg border-2 border-black rounded-md"
+                        className="text-black p-3 m-3 text-lg border-2 border-black rounded-md dark:text-dm-p-text"
                         onKeyDown={() => {
                             setInvalid(false);
                             setPassLengthInvalid(false);
@@ -49,7 +49,7 @@ export default function SignUpForm() {
                         type="password"
                         name="password"
                         placeholder="password"
-                        className="text-black p-3 m-3 text-lg border-2 border-black rounded-md"
+                        className="text-black p-3 m-3 text-lg border-2 border-black rounded-md dark:text-dm-p-text"
                         onKeyDown={() => {
                             setInvalid(false);
                             setPassLengthInvalid(false);
@@ -69,7 +69,7 @@ export default function SignUpForm() {
 
                     <button
                         type="submit"
-                        className="bg-slate-600 rounded-lg m-2 p-3 w-32"
+                        className="dark:bg-dm-grey bg-lm-yellow rounded-lg m-2 p-3 w-32"
                     >
                         Sign Up
                     </button>
