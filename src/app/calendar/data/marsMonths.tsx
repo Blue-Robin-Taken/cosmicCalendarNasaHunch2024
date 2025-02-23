@@ -1,0 +1,1 @@
+export const marsMonths = ["Primus", "Cotidianus", "Abnego", "Oraculi", "Limina", "Cetus", "Pericula", "Illecebra", "Obviam Eo", "Apotheosis", "Donum", "Mora", "Fuga", "Reunire", "Vivere", "Novissimus"];

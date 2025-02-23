@@ -3,8 +3,8 @@ import ttime, { YMDDate } from '@tubular/time';
 import GetTimeCC from './../clock/tpsecond';
 
 import { useState, ChangeEvent } from 'react';
-import { earthMonths } from './data/earthMonths';
-import { earthDaysTrunc } from './data/earthDaysTrunc';
+import { earthMonths, marsMonths } from './data/monthsData';
+import { earthDays, marsDays } from './data/weekdaysData';
 import YearDropdown from './components/yearDropdown';
 import { earthYears } from './data/earthYears';
 import { marsYears } from './data/marsYears';
@@ -13,7 +13,8 @@ import { ChevronRightIcon } from '@heroicons/react/20/solid';
 import {
     marsConvertYear,
     marsConvertQuarter,
-    marsConvertMonth
+    marsConvertMonth,
+    marsCalendar
 } from '../clocks/marsTime/calculating';
 
 import { Tooltip } from '@geist-ui/core';
@@ -31,9 +32,11 @@ export default function Calendar() {
             setPlanetState(event.target.value);
             if (getPlanetState.localeCompare("Earth")) {
                 setSelectedYear(earthYears[Number(ttime().toLocale('en-us').format('YYYY')) - 1000])
+                setCalMonth(Number(ttime().toLocale('en-us').format('M')))
             }
             if (getPlanetState.localeCompare("Mars")) {
-                setSelectedYear(marsYears[500])
+                setSelectedYear(marsYears[marsConvertYear(getTimeCC.epochMillis)[0]])
+                setCalMonth(marsConvertMonth(getTimeCC.epochMillis)[0])
             }
             
         }
@@ -46,37 +49,71 @@ export default function Calendar() {
         earthYears[Number(ttime().toLocale('en-us').format('YYYY')) - 1000]
     );
 
+    var calMonthDiff = 0
     function clickMonthAdd() {
-        setCalMonth(calMonth + 1);
-        if (calMonth == 12) {
-            setCalMonth(1);
-            setSelectedYear(earthYears[Number(selectYear.year) + 1 - 1000]);
+        if (getPlanetState == "Earth") {
+            setCalMonth(calMonth + 1);
+            if (calMonth == 12) {
+                setCalMonth(1);
+                setSelectedYear(earthYears[Number(selectYear.year) + 1 - 1000]);
+            }
         }
+        if (getPlanetState == "Mars") {
+            calMonthDiff += 1;
+            setCalMonth(calMonth + 1);
+            
+            if (calMonth == 16) {
+                setCalMonth(1);
+                setSelectedYear(marsYears[Number(selectYear.year) + 1]);
+            }
+        }
+
     }
 
     function clickMonthSub() {
-        setCalMonth(calMonth - 1);
-        if (calMonth == 1) {
-            setCalMonth(12);
-            setSelectedYear(earthYears[Number(selectYear.year) - 1 - 1000]);
+        if (getPlanetState == "Earth") {
+            setCalMonth(calMonth - 1);
+            if (calMonth == 1) {
+                setCalMonth(12);
+                setSelectedYear(earthYears[Number(selectYear.year) - 1 - 1000]);
+            }
         }
-    }
+        if (getPlanetState == "Mars") {
+            calMonthDiff -= 1;
+            setCalMonth(calMonth - 1);
+            
+            if (calMonth == 1) {
+                setCalMonth(16);
+                setSelectedYear(marsYears[Number(selectYear.year) - 1]);
+            }
+        }
 
+    }
     // guys we'll have to write our own custom mars calendar generation code...
-    var tupleDates = Object.entries(
-        ttime(selectYear.year + '-' + calMonth, null, 'en-us')
-            .getCalendarMonth()
-            .map((date) => date)
-    );
-    
+    // var tupleDates = Object.entries(
+    //     ttime(selectYear.year + '-' + calMonth, null, 'en-us')
+    //         .getCalendarMonth()
+    //         .map((date) => date)
+    // );
+    var tupleDates = 
+            (getPlanetState == "Earth") ? Object.entries(
+                ttime(selectYear.year + '-' + calMonth, null, 'en-us')
+                 .getCalendarMonth()
+                 .map((date) => date)) : 
+            (getPlanetState == "Mars") ? Object.entries(marsCalendar(getTimeCC.epochMillis + 88775244*41.25*calMonthDiff)) : [1337]
     const tooltipConvertToMarsTime = (date: YMDDate) => {
         if (Number(selectYear.year) > 1873) {
-            const solsMonth = marsConvertMonth(ttime(date.year+"-"+date.month+"-"+date.day, null, 'en-us').format('x'))
+            const solsMonth = (ttime(date.year+"-"+date.month+"-"+date.day, null, 'en-us').format('x'))
             return `${solsMonth[1]} ${solsMonth[0]}`
             // return "temp"
         }
         return "Data Not Available"
     }
+
+    var weekdaysData = 
+        (getPlanetState == "Earth") ? earthDays :
+        (getPlanetState == "Mars") ? marsDays : 
+        ["not"]
 
     // TODO: Check all pages and make sure we have at maximum two instances where we use the h1 element
     return (
@@ -85,8 +122,6 @@ export default function Calendar() {
             <div>
                 <h1>Current Planet:</h1>
                 <select onChange={changePage}>
-                        <option value="Earth">Earth</option>
-                        <option value="Mars">Mars</option>
                         <option value="Earth">Earth</option>
                         <option value="Mars">Mars</option>
                 </select>
@@ -118,7 +153,7 @@ export default function Calendar() {
                         className="min-w-40 my-6 text-lm-p-text dark:text-dm-p-text 
                         text-2xl font-CommeReg text-center"
                     >
-                        {earthMonths[calMonth - 1]}
+                        {getPlanetState == "Earth" ? earthMonths[calMonth - 1] : getPlanetState == "Mars" ? marsMonths[calMonth - 1] : "Null"}
                     </h2>
                     <button
                         onClick={clickMonthAdd}
@@ -138,7 +173,7 @@ export default function Calendar() {
                         dark:[&::-webkit-scrollbar-track]:bg-neutral-700
                         dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
             >
-                {earthDaysTrunc.map(({id, weekday}) => (
+                {weekdaysData.map(({id, weekday}) => (
                     
                     <div key={id} className='bg-lm-grey py-1 dark:bg-dm-grey border-b border-r border-white/[.75] dark:border-black/[.75]'> 
                         <p className='text-black dark:text-white font-Lato flex justify-center'>{weekday}</p> 
@@ -149,20 +184,25 @@ export default function Calendar() {
 
                         key={id} id={id}
                         className={
-                            (date.m == calMonth ? 'text-black dark:text-[#ffffff]' : 'text-[#7a7a7a]') +
+                            (getPlanetState == "Earth" && date.m == calMonth ? 'text-black dark:text-[#ffffff]' : getPlanetState=="Mars" && date[1].y == selectYear.year && date[1].m == calMonth ? 'text-black dark:text-[#ffffff]' : 'text-[#7a7a7a]') +
                             ' border-b border-r bg-lm-grey border-white/[.75] dark:border-black/[.75] dark:bg-dm-grey min-h-[8rem]'
                         }
                     >
-                    <div className={((
+                    <div className={(
                             
-                            (ttime().toLocale('us-en').format("D M YYYY"))
-                            .localeCompare
-                            ((date.d).toString() + " " + (calMonth.toString()) + " " + (selectYear.year.toString()))
-                            ) == 0 ? 
-                            ' bg-dm-yellow rounded-md ml-2 my-1 py-0.5 px-0.5 font-Lato text-sm' : '') + 
-                            "ml-2 my-1 py-0.5 px-0.5 grid place-content-center transition-all cursor-pointer max-w-6 max-h-6 font-Lato text-sm hover:bg-white hover:text-black rounded-md"}>
+                            getPlanetState == "Earth" && (ttime().toLocale('us-en').format("D M YYYY"))
+                                .localeCompare
+                                ((date.d).toString() + " " + (calMonth.toString()) + " " + (selectYear.year.toString()))
+                                 == 0 ? 
+                                ' bg-dm-yellow rounded-md ml-2 my-1 mx-1 py-0.5 px-0.5 font-Lato text-sm' 
+                            : (getPlanetState == "Mars" &&  date[1].y == selectYear.year && date[1].m == calMonth && date[1].d == marsConvertMonth(getTimeCC.epochMillis)[1]) ? 
+                                ' bg-dm-yellow rounded-md ml-2 my-1 mx-1 py-0.5 px-0.5 font-Lato text-sm ' 
+                            : '') +
+                            "ml-2 my-1 py-0.5 px-0.5 grid place-content-center transition-all cursor-pointer max-w-6 max-h-6 font-Lato text-sm hover:bg-white hover:text-black rounded-md"
+                            
+                            }>
                             <Tooltip text={tooltipConvertToMarsTime(date)}>
-                                    <span>{date.d}</span>
+                                    <span>{getPlanetState == "Earth" ? date.d : getPlanetState == "Mars" ? date[1].d : "1337"}</span>
                             </Tooltip>
                             {/* need to center double digits */}
                         </div>
