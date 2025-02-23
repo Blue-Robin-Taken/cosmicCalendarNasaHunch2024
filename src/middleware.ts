@@ -5,15 +5,19 @@ import { jwtVerify } from 'jose';
 export async function middleware(request: NextRequest) {
     console.log(request.url.split('/')[3]);
     console.log(request.cookies.get('token')!.value);
-    if (
-        request.url.split('/')[3] == 'login' &&
-        (await jwtVerify(
+    var checkToken;
+    try {
+        checkToken = await jwtVerify(
             request.cookies.get('token')!.value,
             new TextEncoder().encode(process.env.JWT_KEY_SIGNATURE?.toString())
-        ))
-    ) {
-        alert("You're already logged in!");
-        return NextResponse.redirect(new URL('/', request.url));
+        );
+    } catch (err) {
+        checkToken = false;
+    }
+    if (request.url.split('/')[3] == 'login' && checkToken) {
+        const sendURL = new URL('/login/error', request.url);
+        sendURL.searchParams.set('error', 'AlreadyLoggedIn');
+        return NextResponse.redirect(sendURL);
     }
 }
 

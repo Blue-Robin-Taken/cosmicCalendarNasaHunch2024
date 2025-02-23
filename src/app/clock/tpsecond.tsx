@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 //TO DO: Change setInterval to a more consistent function; maybe create own setInterval with setTimeout()
 
 export default function GetTimeCC() {
-    const [time, setTime] = useState(ttime(1));
+    const [time, setTime] = useState(ttime());
 
     useEffect(() => {
         const interval = setInterval(() => {

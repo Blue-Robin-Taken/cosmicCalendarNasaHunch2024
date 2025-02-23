@@ -15,7 +15,7 @@ import {
     getJulianDateTerrestrialTime,
     getJulianDate,
 } from '../clocks/earthTime/calculating';
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 
 export default function Clock() {
     const [getPlanetState, setPlanetState] = useState('Earth');
@@ -24,6 +24,7 @@ export default function Clock() {
         setPlanetState(event.target.value);
     }
     var getTimeCC = GetTimeCC(); // Only run this once
+
     var EarthTime = [
         getTimeCC.format('ZZZ'), // 0
         getTimeCC.format('hh:mm:ss'), // 1
@@ -43,7 +44,10 @@ export default function Clock() {
     ];
 
     return (
-        <div className="selection:bg-highlight-yellow-lm dark:selection:bg-highlight-yellow-dm ">
+        <div
+            className="selection:bg-highlight-yellow-lm dark:selection:bg-highlight-yellow-dm "
+            suppressHydrationWarning
+        >
             {/*Form for changing the selected clock*/}
 
             <div>
@@ -60,55 +64,85 @@ export default function Clock() {
                     </h2>
 
                     {/* timezone */}
-                    <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
+                    <p
+                        className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16"
+                        suppressHydrationWarning
+                    >
                         {EarthTime[0]}
                     </p>
 
                     {/* clock */}
-                    <h1 className="font-CommeReg text-[12rem] flex flex-col justify-start items-start text-lm-h1-text dark:text-dm-h1-text ps-16 ">
+                    <h1
+                        className="font-CommeReg text-[12rem] flex flex-col justify-start items-start text-lm-h1-text dark:text-dm-h1-text ps-16 "
+                        suppressHydrationWarning
+                    >
                         {EarthTime[1]}
                     </h1>
 
                     {/* date */}
-                    <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
+                    <p
+                        className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16"
+                        suppressHydrationWarning
+                    >
                         {EarthTime[2]}
                     </p>
 
-                    <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
+                    <p
+                        className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16"
+                        suppressHydrationWarning
+                    >
                         ---------------------------------
                     </p>
 
                     {/* difference from meridian */}
-                    <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
+                    <p
+                        className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16"
+                        suppressHydrationWarning
+                    >
                         UTC {EarthTime[3]}
                     </p>
 
                     {/* common name for difference from meridian */}
-                    <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pb-16">
+                    <p
+                        className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pb-16"
+                        suppressHydrationWarning
+                    >
                         {EarthTime[4]}
                     </p>
 
-                    <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pb-16">
+                    <p
+                        className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pb-16"
+                        suppressHydrationWarning
+                    >
                         {getTimeCC.epochMillis.toLocaleString(undefined, {
                             minimumFractionDigits: 0, // https://stackoverflow.com/questions/24758817/javascript-number-tolocalestring-with-4-digits-after-separator
                         })}
                     </p>
                     {/* Julian Date */}
-                    <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pb-16">
+                    <p
+                        className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pb-16"
+                        suppressHydrationWarning
+                    >
                         Julian Date:{' '}
                         {EarthTime[5].toLocaleString(undefined, {
                             minimumFractionDigits: 5,
                         })}
                     </p>
                     {/* Julian Date Terrestrial Time */}
-                    <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pb-16">
+                    <p
+                        className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pb-16"
+                        suppressHydrationWarning
+                    >
                         Julian Date Terrestrial Time:{' '}
                         {EarthTime[6].toLocaleString(undefined, {
                             minimumFractionDigits: 5,
                         })}
                     </p>
                     {/* Julian Date epoch of Jan 1st 2000 */}
-                    <p className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pb-16">
+                    <p
+                        className="font-Lato text-2xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pb-16"
+                        suppressHydrationWarning
+                    >
                         Julian Date Epoch of Jan 1st 2000:{' '}
                         {EarthTime[7].toLocaleString(undefined, {
                             minimumFractionDigits: 5,
