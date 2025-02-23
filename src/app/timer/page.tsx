@@ -11,24 +11,18 @@ export default function TimeManagement() {
     const [shouldPlaySoundInput, setShouldPlaySoundInput] = useState(false);
     useEffect(() => {
         if (shouldPlaySound) {
-            console.log(shouldPlaySoundInput);
-            if (shouldPlaySoundInput) {
-                const audio = document.getElementById(
-                    'timerEnd'
-                ) as HTMLAudioElement;
-                if (audio) {
-                    audio.currentTime = 0;
-                    audio
-                        .play()
-                        .catch((error) =>
-                            console.log('Audio play failed:', error)
-                        );
-
-                    setShouldPlaySound(false); // Reset after playing
-                }
+            const audio = document.getElementById(
+                'timerEnd'
+            ) as HTMLAudioElement;
+            if (audio && shouldPlaySoundInput) {
+                audio.currentTime = 0;
+                audio
+                    .play()
+                    .catch((error) => console.log('Audio play failed:', error));
             }
+            setShouldPlaySound(false); // Reset after playing
         }
-    }, [shouldPlaySound, shouldPlaySoundInput]); // Runs when shouldPlaySound changes to true
+    }, [shouldPlaySound]); // Runs when shouldPlaySound changes to true
 
     useEffect(() => {
         if (shouldStopSound) {
@@ -56,6 +50,8 @@ export default function TimeManagement() {
                     colorsTime={[7, 5, 2, 0]}
                     onComplete={() => {
                         setShouldPlaySound(true); // Trigger audio after timer ends
+                        setPlaying(false);
+                        setTime(1);
                         return { shouldRepeat: false };
                     }}
                 >
