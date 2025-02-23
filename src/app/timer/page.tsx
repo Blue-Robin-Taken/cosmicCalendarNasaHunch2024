@@ -31,6 +31,7 @@ export default function TimeManagement() {
             ) as HTMLAudioElement;
             if (audio) {
                 audio.pause();
+                audio.currentTime = 0;
             }
             setShouldStopSound(false);
         }
@@ -145,13 +146,19 @@ export default function TimeManagement() {
                     >
                         Set Time
                     </button>
-                    <button className="align-middle dark:bg-dm-yellow bg-lm-grey rounded-lg m-3 p-1">
+                    <button
+                        className="align-middle dark:bg-dm-yellow bg-lm-grey rounded-lg m-3 p-1"
+                        onClick={() => {
+                            setShouldStopSound(true);
+                        }}
+                    >
                         Stop Sound
                     </button>
                     <audio
                         id="timerEnd"
                         src={'/sounds/clock1.mp3'}
                         preload="auto"
+                        loop
                     />
                 </div>
             </div>
