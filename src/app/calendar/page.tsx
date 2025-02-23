@@ -24,9 +24,7 @@ import { Darian_Date } from 'darian-system';
 export default function Calendar() {
     const [getPlanetState, setPlanetState] = useState('Earth');
     var getTimeCC = GetTimeCC();
-    var MarsTime = [
-            marsConvertYear(getTimeCC.epochMillis)[0],
-        ];
+
    
         function changePage(event: ChangeEvent<HTMLSelectElement>) {
             // current_page = formData.keys().;
@@ -35,7 +33,7 @@ export default function Calendar() {
                 setSelectedYear(earthYears[Number(ttime().toLocale('en-us').format('YYYY')) - 1000])
             }
             if (getPlanetState.localeCompare("Mars")) {
-                setSelectedYear(marsYears[MarsTime[0]])
+                setSelectedYear(marsYears[500])
             }
             
         }
@@ -71,10 +69,13 @@ export default function Calendar() {
             .map((date) => date)
     );
     
-    const convertToMarsTime = (date: YMDDate) => {
-        const marsTime = new Darian_Date(date.year, date.month, date.day, 1, 1, 1)
-
-        return `${marsTime.mDay} ${marsTime.mMonthName}`
+    const tooltipConvertToMarsTime = (date: YMDDate) => {
+        if (Number(selectYear.year) > 1873) {
+            const solsMonth = marsConvertMonth(ttime(date.year+"-"+date.month+"-"+date.day, null, 'en-us').format('x'))
+            return `${solsMonth[1]} ${solsMonth[0]}`
+            // return "temp"
+        }
+        return "Data Not Available"
     }
 
     // TODO: Check all pages and make sure we have at maximum two instances where we use the h1 element
@@ -84,8 +85,8 @@ export default function Calendar() {
             <div>
                 <h1>Current Planet:</h1>
                 <select onChange={changePage}>
-                        <option>Earth</option>
-                        <option>Mars</option>
+                        <option value="Earth">Earth</option>
+                        <option value="Mars">Mars</option>
                 </select>
             </div>
             <div className="flex flex-grow relative">
@@ -98,6 +99,7 @@ export default function Calendar() {
                 <YearDropdown
                     selected={selectYear}
                     setSelected={setSelectedYear}
+                    planetState={{getPlanetState}}
                 />
                 <div className="flex w-full justify-center self-end absolute space-x-1">
                     {/* TODO: probably change these < and > into icons i think theres a resource called "react icons" */}
@@ -157,7 +159,7 @@ export default function Calendar() {
                             ) == 0 ? 
                             ' bg-dm-yellow rounded-md ml-2 my-1 py-0.5 px-0.5 font-Lato text-sm' : '') + 
                             "ml-2 my-1 py-0.5 px-0.5 grid place-content-center transition-all cursor-pointer max-w-6 max-h-6 font-Lato text-sm hover:bg-white hover:text-black rounded-md"}>
-                            <Tooltip text={"243"}>
+                            <Tooltip text={tooltipConvertToMarsTime(date)}>
                                     <span>{date.d}</span>
                             </Tooltip>
                             {/* need to center double digits */}

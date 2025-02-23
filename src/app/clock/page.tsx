@@ -15,6 +15,7 @@ import {
     getJulianDateTerrestrialTime,
     getJulianDate,
 } from '../clocks/earthTime/calculating';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 
 export default function Clock() {
     const [getPlanetState, setPlanetState] = useState('Earth');
@@ -134,10 +135,20 @@ export default function Clock() {
 
                     {/* Mars Universal Time MSD */}
                     <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
-                        Mars Universal Time (MTD): {MarsTime[1]}
+                        Mars Universal Time (MTC): {MarsTime[1]}
                     </p>
 
-                    {/* Mars Universal Time MTC */}
+                    {/* Mars Universal Time MTC https://headlessui.com/react/menu !!!MAKE SELECTABLE OPTIONS!!! */}
+                    {/*<Menu>
+                    <MenuButton className="data-[active]:bg-blue-200">My account</MenuButton>
+                    <MenuItems anchor="bottom">
+                        {links.map((link) => (
+                        <MenuItem key={link.href} className="block data-[focus]:bg-blue-100">
+                            <a href={link.href}>{link.label}</a>
+                        </MenuItem>
+                        ))}
+                    </MenuItems>
+                    </Menu> */}
                     <p className="font-Lato text-3xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16">
                         Mars Universal Time (MTC) (overflow): {MarsTime[2]}
                     </p>

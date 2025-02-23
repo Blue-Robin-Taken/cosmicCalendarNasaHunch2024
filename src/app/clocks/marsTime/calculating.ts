@@ -190,6 +190,22 @@ export function marsConvertMonth(e: number) {
   var currentQuarterFract = marsSols[1] - quarterTimings[currentQuarter];
 
   var month = Math.floor(currentQuarterFract/42 + currentQuarter*4);
-  return month;
+
+  const monthNames = ["Primus", "Cotidianus", "Abnego", "Oraculi", "Limina", "Cetus", "Pericula", "Illecebra", "Obviam Eo", "Apotheosis", "Donum", "Mora", "Fuga", "Reunire", "Vivere", "Novissimus"];
+  if (month < 0 || month > 15) {
+    return "Invalid Month";
+  }
+
+  const solsMonthFract = currentQuarterFract%42;
+
+  return [monthNames[month], solsMonthFract];
   
+ }
+
+ export function weekdayFromDays(e: number) {
+  const MSD = marsStandardDate(e)
+  const weekday = (MSD+1)%7
+  const weekdayNames = ["Dies Solis", "Dies Lunae", "Dies Martis", "Dies Mercuria", "Dies Jovis", "Dies Veneris", "Dies Saturni"]
+  const weekdayNamesTrunc = ["Sol", "Lun", "Mart", "Merc", "Jov", "Ven", "Satu"]
+  return [weekday, weekdayNames[weekday], weekdayNamesTrunc[weekday]]
  }

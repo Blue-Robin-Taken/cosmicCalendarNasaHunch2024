@@ -7,21 +7,27 @@ import {
 } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { earthYears } from '../data/earthYears';
+import {marsYears} from "../data/marsYears";
 import clsx from 'clsx';
 import { useState } from 'react';
 import ttime from '@tubular/time';
+import Calendar from './../page'
 
-export default function YearDropdown({ selected, setSelected }: any) {
+export default function YearDropdown({ selected, setSelected, planetState }: any) {
     const [query, setQuery] = useState('');
+    
+    
+        // const filteredYears = planetState === 'Earth'
+        //         ? earthYears
+        //         : earthYears.filter((yearYear) => {
+        //             return yearYear.year
+        //                 .toLowerCase()
+        //                 .includes(query.toLowerCase());
+        // });
+        const filteredYears = (planetState.getPlanetState == 'Earth') ? earthYears.filter(year => year.toString().toLowerCase().includes(query.toLowerCase())) 
+        : (planetState.getPlanetState == 'Mars') ? marsYears.filter(year => year.toString().toLowerCase().includes(query.toLowerCase())) 
+        : [43]; // Or handle other cases if needed
 
-    const filteredYears =
-        query === ''
-            ? earthYears
-            : earthYears.filter((yearYear) => {
-                  return yearYear.year
-                      .toLowerCase()
-                      .includes(query.toLowerCase());
-              });
 
     return (
         <div className="relative self-center w-36 z-10">
