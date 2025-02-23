@@ -1,16 +1,13 @@
 'use client';
-
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-
 import DarkmodeButton from './darkmodebutton';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleMenu = () => setIsOpen(!isOpen);
-
     return (
         <nav className="bg-lm-back dark:bg-dm-back p-3 py-5 relative min-h-[65px] text-navbar-text">
             <div className="flex items-center justify-between mx-10">
@@ -47,6 +44,7 @@ export default function Navbar() {
                         ['Conversion', '/conversion', '3'],
                         ['Settings', '/settings', '4'],
                         ['Articles', '/articles', '5'],
+                        ['Time Management', '/timer', '6'],
                     ].map(([title, url, id]) => (
                         <Link
                             href={url}
