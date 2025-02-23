@@ -16,8 +16,7 @@ import {
     marsConvertMonth
 } from '../clocks/marsTime/calculating';
 
-import { Tooltip } from '@geist-ui/core';
-import { Darian_Date } from 'darian-system';
+import { Tooltip } from 'antd';
 
 // discuss the fact that the Gregorian calendar
 
@@ -64,15 +63,15 @@ export default function Calendar() {
 
     // guys we'll have to write our own custom mars calendar generation code...
     var tupleDates = Object.entries(
-        ttime(selectYear.year + '-' + calMonth, null, 'en-us')
+        ttime(selectYear.year + '-' + calMonth, undefined, 'en-us')
             .getCalendarMonth()
             .map((date) => date)
     );
     
     const convertToMarsTime = (date: YMDDate) => {
         if (Number(selectYear.year) > 1873) {
-            const solsMonth = marsConvertMonth(ttime(date.year+"-"+date.month+"-"+date.day, null, 'en-us').format('x'))
-            const solsYear = marsConvertYear(ttime(date.year+"-"+date.month+"-"+date.day, null, 'en-us').format('x'))
+            const solsMonth = marsConvertMonth(ttime(date.year+"-"+date.month+"-"+date.day, undefined, 'en-us').epochMillis)
+            console.log(`${solsMonth[1]} ${solsMonth[0]}`)
             return `${solsMonth[1]} ${solsMonth[0]}`
             // return "temp"
         }
@@ -124,6 +123,10 @@ export default function Calendar() {
                     >
                         <ChevronRightIcon className="size-5 fill-black/60 dark:fill-white/60" />
                     </button>
+
+    
+                    {/*<Button className="self-center ml-40" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Add Event</Button>*/}
+                    {/*<EventModal></EventModal>*/}
                 </div>
             </div>
             {/* https://preline.co/docs/custom-scrollbar.html */}
@@ -153,14 +156,12 @@ export default function Calendar() {
                     >
                     <div className={((
                             
-                            (ttime().toLocale('us-en').format("D M YYYY"))
-                            .localeCompare
-                            ((date.d).toString() + " " + (calMonth.toString()) + " " + (selectYear.year.toString()))
-                            ) == 0 ? 
+                            (ttime().toLocale('us-en').format("D M YYYY")).localeCompare
+                            ((date.d)?.toString() + " " + (calMonth.toString()) + " " + (selectYear.year.toString()))) == 0 ? 
                             ' bg-dm-yellow rounded-md ml-2 my-1 py-0.5 px-0.5 font-Lato text-sm' : '') + 
                             "ml-2 my-1 py-0.5 px-0.5 grid place-content-center transition-all cursor-pointer max-w-6 max-h-6 font-Lato text-sm hover:bg-white hover:text-black rounded-md"}>
-                            <Tooltip text={convertToMarsTime(date)}>
-                                    <span>{date.d}</span>
+                            <Tooltip title={convertToMarsTime(date)} color={'gold'}>
+                                <span>{date.d}</span>
                             </Tooltip>
                             {/* need to center double digits */}
                         </div>
