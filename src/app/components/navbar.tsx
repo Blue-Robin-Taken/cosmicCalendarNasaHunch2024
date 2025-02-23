@@ -4,9 +4,8 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
-//https://blog.hubspot.com/website/screen-reader-accessibility add AVIA tags and alt text to imgs
-//also need to add aminations
-//theres more todo comments hanging around everywhere gl finding them
+import darkmodeimage from '@/app/images/darkmode&lightmode/darkmode.png';
+import darkmodeButton from './darkmodebutton';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -59,7 +58,6 @@ export default function Navbar() {
                         </Link>
                     ))}
 
-                    {/* someone figure out how to center these i give up (these are too low, making the navbar look uneven) */}
                     <div className="flex flex-grow space-x-12 justify-end items-center">
                         <li className="nav-link list-none">
                             <Link
@@ -80,6 +78,14 @@ export default function Navbar() {
                                     Signup
                                 </Link>
                             </div>
+                        </li>
+                        <li className="list-none">
+                            <button className="dark:text-dm-lightyellow">
+                                <img
+                                    src={darkmodeimage.src}
+                                    onClick={darkmodeButton}
+                                ></img>
+                            </button>
                         </li>
                     </div>
                 </div>

@@ -32,13 +32,13 @@ const config: Config = {
 
                 'lm-grey': '#D9D9D9',
                 'dm-grey': '#1c1c1c',
-                
+
                 'lm-h1-text': '#000000',
                 'dm-h1-text': '#FFFFFF',
 
                 'lm-p-text': '#000000',
                 'dm-p-text': '#FFFFFF',
-                
+
                 'highlight-yellow-lm': '#ffe770',
                 'highlight-yellow-dm': '#7d6905',
             },
@@ -91,5 +91,6 @@ const config: Config = {
         },
     },
     plugins: [],
+    darkMode: 'class',
 };
 export default config;
