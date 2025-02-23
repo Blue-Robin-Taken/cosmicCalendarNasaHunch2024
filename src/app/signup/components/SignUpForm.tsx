@@ -26,8 +26,8 @@ export default function SignUpForm() {
 
     return (
         <>
-            <div className="dark:bg-darkmode bg-white flex flex-grow flex-col justify-center align-center min-h-screen">
-                <h1 className="text-center dark:text-darkmode-textlightlight text-black text-5xl">
+            <div className="dark:bg-dm-back bg-white flex flex-grow flex-col justify-center align-center min-h-screen">
+                <h1 className="dark:text-dm-h1-text text-center dark:text-darkmode-textlightlight text-black text-5xl">
                     Sign Up!
                 </h1>
 
@@ -39,7 +39,7 @@ export default function SignUpForm() {
                         type="text"
                         name="username"
                         placeholder="username"
-                        className="text-black p-3 m-3 text-lg border-2 border-black rounded-md"
+                        className="text-black  p-3 m-3 text-lg border-2 border-black rounded-md"
                         onKeyDown={() => {
                             setInvalid(false);
                             setPassLengthInvalid(false);

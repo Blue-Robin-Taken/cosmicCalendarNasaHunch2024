@@ -15,7 +15,7 @@ export default function LoginForm() {
     }
     return (
         <>
-            <div className="flex flex-grow flex-col justify-center align-center min-h-screen">
+            <div className="dark:bg-dm-back bg-white flex flex-grow flex-col justify-center align-center min-h-screen">
                 <h1 className="dark:text-darkmode-textlightlight text-center text-5xl text-gray-950">
                     Log In
                 </h1>
