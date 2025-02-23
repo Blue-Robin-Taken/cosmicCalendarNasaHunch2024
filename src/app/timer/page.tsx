@@ -7,22 +7,40 @@ export default function TimeManagement() {
     const [isPlaying, setPlaying] = useState(false);
     const [key, setKey] = useState(0);
     const [shouldPlaySound, setShouldPlaySound] = useState(false);
-
+    const [shouldStopSound, setShouldStopSound] = useState(false);
+    const [shouldPlaySoundInput, setShouldPlaySoundInput] = useState(false);
     useEffect(() => {
         if (shouldPlaySound) {
+            console.log(shouldPlaySoundInput);
+            if (shouldPlaySoundInput) {
+                const audio = document.getElementById(
+                    'timerEnd'
+                ) as HTMLAudioElement;
+                if (audio) {
+                    audio.currentTime = 0;
+                    audio
+                        .play()
+                        .catch((error) =>
+                            console.log('Audio play failed:', error)
+                        );
+
+                    setShouldPlaySound(false); // Reset after playing
+                }
+            }
+        }
+    }, [shouldPlaySound, shouldPlaySoundInput]); // Runs when shouldPlaySound changes to true
+
+    useEffect(() => {
+        if (shouldStopSound) {
             const audio = document.getElementById(
                 'timerEnd'
             ) as HTMLAudioElement;
             if (audio) {
-                audio
-                    .play()
-                    .catch((error) => console.log('Audio play failed:', error));
+                audio.pause();
             }
-
-            setShouldPlaySound(false); // Reset after playing
-            console.log('played');
+            setShouldStopSound(false);
         }
-    }, [shouldPlaySound]); // Runs when shouldPlaySound changes to true
+    }, [shouldStopSound]);
 
     return (
         <div className="align-middle text-center justify-items-center justify-center flex flex-col place-items-center m-3 font-lato">
@@ -38,7 +56,6 @@ export default function TimeManagement() {
                     colorsTime={[7, 5, 2, 0]}
                     onComplete={() => {
                         setShouldPlaySound(true); // Trigger audio after timer ends
-                        console.log('beans');
                         return { shouldRepeat: false };
                     }}
                 >
@@ -85,6 +102,12 @@ export default function TimeManagement() {
                                 type="checkbox"
                                 value=""
                                 className="sr-only peer"
+                                id="playSoundInput"
+                                onClick={(x) => {
+                                    setShouldPlaySoundInput(
+                                        !shouldPlaySoundInput
+                                    );
+                                }}
                             />
                             <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
                         </label>{' '}
