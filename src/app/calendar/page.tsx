@@ -87,6 +87,8 @@ export default function Calendar() {
                 <select onChange={changePage}>
                         <option value="Earth">Earth</option>
                         <option value="Mars">Mars</option>
+                        <option value="Earth">Earth</option>
+                        <option value="Mars">Mars</option>
                 </select>
             </div>
             <div className="flex flex-grow relative">

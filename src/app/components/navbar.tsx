@@ -4,8 +4,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
-import darkmodeimage from '@/app/images/darkmode&lightmode/darkmode.png';
-import darkmodeButton from './darkmodebutton';
+import DarkmodeButton from './darkmodebutton';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -80,12 +79,8 @@ export default function Navbar() {
                             </div>
                         </li>
                         <li className="list-none">
-                            <button className="dark:text-dm-lightyellow">
-                                <img
-                                    src={darkmodeimage.src}
-                                    onClick={darkmodeButton}
-                                ></img>
-                            </button>
+                            <DarkmodeButton />{' '}
+                            {/* https://www.youtube.com/watch?v=7zqI4qMDdg8*/}
                         </li>
                     </div>
                 </div>
