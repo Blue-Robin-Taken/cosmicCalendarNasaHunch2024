@@ -1,18 +1,37 @@
 'use client';
-export default function darkmodeButton() {
-    // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-    document.documentElement.classList.toggle(
-        'dark',
-        localStorage.theme === 'dark' ||
-            (!('theme' in localStorage) &&
-                window.matchMedia('(prefers-color-scheme: dark)').matches)
-    );
-    // Whenever the user explicitly chooses light mode
-    if (localStorage.theme === 'dark') {
-        console.log(localStorage.theme);
-        localStorage.theme = 'light';
-    } else {
-        // Whenever the user explicitly chooses dark mode
-        localStorage.theme = 'dark';
+import { useState, useEffect } from 'react';
+import { useTheme } from 'next-themes';
+import Image from 'next/image';
+import darkmodeimage from '@/app/images/darkmode&lightmode/darkmode.png';
+
+export default function DarkmodeButton() {
+    const [mounted, setMounted] = useState(false);
+
+    const { setTheme, theme } = useTheme();
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+    if (!mounted) {
+        if (theme == 'dark' || true) {
+            return <>Loading</>;
+        }
+    }
+    if (theme === 'dark') {
+        return (
+            <>
+                <button className="dark:text-dm-lightyellow">
+                    <Image
+                        src={darkmodeimage.src}
+                        onClick={() => {
+                            setTheme('light');
+                        }}
+                        alt="DarkmodeImage"
+                        width={50}
+                        height={50}
+                    />
+                </button>
+            </>
+        );
     }
 }
