@@ -18,6 +18,7 @@ export default function TimeManagement() {
                     .play()
                     .catch((error) => console.log('Audio play failed:', error));
             }
+
             setShouldPlaySound(false); // Reset after playing
             console.log('played');
         }
@@ -56,6 +57,7 @@ export default function TimeManagement() {
                             id="startTimeS"
                             placeholder="seconds"
                             defaultValue={0}
+                            className="justify-center text-center p-3 m-2 bg-lm-grey rounded-sm font-lato text-sm"
                         />
                     </div>
                     <div>
@@ -64,6 +66,7 @@ export default function TimeManagement() {
                             id="startTimeM"
                             placeholder="minutes"
                             defaultValue={0}
+                            className="justify-center text-center p-3 m-2 bg-lm-grey rounded-sm font-lato text-sm"
                         />
                     </div>
                     <div>
@@ -72,9 +75,23 @@ export default function TimeManagement() {
                             id="startTimeH"
                             placeholder="hours"
                             defaultValue={0}
+                            className="justify-center text-center p-3 m-2 bg-lm-grey rounded-sm font-lato text-sm"
                         />
                     </div>
+                    <div className="flex flex-col align-middle justify-center items-center justify-items-center">
+                        <p className="align-middle">Play Sound</p>
+                        <label className="inline-flex items-center cursor-pointer align-middle">
+                            <input
+                                type="checkbox"
+                                value=""
+                                className="sr-only peer"
+                            />
+                            <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
+                        </label>{' '}
+                        {/*https://flowbite.com/docs/forms/toggle/*/}
+                    </div>
                     <button
+                        className="align-middle dark:bg-dm-yellow bg-lm-grey rounded-lg m-3 p-1"
                         type="button"
                         onClick={() => {
                             setTime(
@@ -107,6 +124,9 @@ export default function TimeManagement() {
                         }}
                     >
                         Set Time
+                    </button>
+                    <button className="align-middle dark:bg-dm-yellow bg-lm-grey rounded-lg m-3 p-1">
+                        Stop Sound
                     </button>
                     <audio
                         id="timerEnd"
