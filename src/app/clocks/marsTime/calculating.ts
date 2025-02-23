@@ -76,11 +76,11 @@ export function marsConvertYear(e: number) {
     var currentDay = marsStandardDate(e);
    
     // solsEra is the number of eras
-    // 334296 = 500 * 668.5920
-    var solsEra = Math.floor(currentDay/334296);
+    // 668591 = 500 * 668.5910
+    var solsEra = Math.floor(currentDay/668591);
     // make solsEraFract contain the fraction of an era, which is 500 years long
     // all 'Fract' variables are temporary
-    var solsEraFract = Math.floor(currentDay-(solsEra * 334296));
+    var solsEraFract = Math.floor(currentDay-(solsEra * 668591));
 
     
     var solsCentury = 0;
@@ -160,7 +160,7 @@ export function marsConvertYear(e: number) {
     }
 
 
-    var marsYear = ((solsEra * 500) + (solsCentury * 100) + (solsDecade * 10) + (solsYearTwin * 2) + solsYear);
+    var marsYear = ((solsEra * 1000) + (solsCentury * 100) + (solsDecade * 10) + (solsYearTwin * 2) + solsYear);
     return [marsYear, solsYearFract];
     
 
@@ -191,13 +191,110 @@ export function marsConvertMonth(e: number) {
 
   var month = Math.floor(currentQuarterFract/42 + currentQuarter*4);
 
-  const monthNames = ["Primus", "Cotidianus", "Abnego", "Oraculi", "Limina", "Cetus", "Pericula", "Illecebra", "Obviam Eo", "Apotheosis", "Donum", "Mora", "Fuga", "Reunire", "Vivere", "Novissimus"];
-  if (month < 0 || month > 15) {
-    return "Invalid Month";
-  }
-
   const solsMonthFract = currentQuarterFract%42;
 
-  return [monthNames[month], solsMonthFract];
+  return [month, solsMonthFract];
   
  }
+
+ export function marsWeekdayFromDays(MSD: number) {
+//  const MSD = marsStandardDate(e)
+  const weekday = (MSD+1)%7
+  const weekdayNames = ["Dies Solis", "Dies Lunae", "Dies Martis", "Dies Mercuria", "Dies Jovis", "Dies Veneris", "Dies Saturni"]
+  const weekdayNamesTrunc = ["Sol", "Lun", "Mart", "Merc", "Jov", "Ven", "Satu"]
+  return [weekday, weekdayNames[weekday], weekdayNamesTrunc[weekday]]
+ }
+
+ export function marsIsLeapYear(e: number) {
+  var currentYear = marsConvertYear(e)[1];
+
+  if((currentYear % 500) == 0) return true;
+  if((currentYear % 100) == 0) return false;
+  if((currentYear %  10) == 0) return true;
+  if((currentYear %   2) == 0) return false;
+  return true;
+
+ }
+
+
+export function marsCalendar(e: number) {
+  const referenceMSD = marsStandardDate(e)
+  const monthData = marsConvertMonth(e)
+  const currentYear = marsConvertYear(e)[0]
+  //splitting monthData
+  const solsMonthFract = (typeof monthData[1] == 'number') ? monthData[1] : -1
+  const currentMonth = (typeof monthData[0] == 'number') ? monthData[0] : -1
+
+  const firstSolofMonth = referenceMSD-solsMonthFract
+
+  let tempWeekdayFromDays = marsWeekdayFromDays(firstSolofMonth)[0]
+
+  const weekdayFirstSolofMonth = (typeof tempWeekdayFromDays == 'number') ? tempWeekdayFromDays : -1;
+
+  var currentMonthLength = 42;
+  if ((currentMonth+1) % 4 == 0) {
+    currentMonthLength = 41
+  }
+  if (currentMonth == 15 && !(marsIsLeapYear(e))) {
+    currentMonthLength = 42
+  }
+
+  var findPrevMonthData = true;
+  if (firstSolofMonth == 1) {
+    findPrevMonthData = false;
+  }
+
+  var prevMonth = currentMonth - 1;
+  var prevYear = currentYear;
+  if (prevMonth == -1) {
+    prevMonth = 15;
+    prevYear = currentYear-1
+  }
+
+  var prevMonthLength = 42;
+  if ((prevMonth+1) % 4 == 0) {
+    currentMonthLength = 41
+  }
+  
+
+  var nextMonth = currentMonth + 1;
+  var nextYear = currentYear;
+  if (nextMonth == 16) {
+    nextMonth = 1;
+    nextYear += 1;
+  }
+
+  // 88775244 apprx amount of ms in a martian sol
+  if (currentMonth == 15 && !(marsIsLeapYear(e-88775244))) {
+    currentMonthLength = 42
+  }
+
+  var count = 1;
+
+  var calendar = [{0: count, 1: {y: currentYear, m: currentMonth, d: 1}}]
+  var calendarStartAmt = weekdayFirstSolofMonth + 1;
+
+  if (findPrevMonthData) {
+    for (var i = 0; i < calendarStartAmt; i++ ) {
+      count += 1
+      calendar.unshift({0: prevMonthLength-i, 1: {y: prevYear, m: prevMonth, d: prevMonthLength-i}});
+    }
+  }
+  
+  for (var i = 2; i <= currentMonthLength; i++ ) {
+      count += 1
+      calendar[calendar.length] = {0: count, 1: {y: currentYear, m: currentMonth, d: i}};
+  }
+  
+  
+
+  var calendarEndAmt = 49 - (calendar.length) ;
+  if (43 < calendar.length) {
+      for (var i = 1; i <= calendarEndAmt; i++) {
+        calendar[calendar.length] = {0: count, 1: {y: nextYear, m: nextMonth, d: i}};
+      }
+  }
+
+  return calendar;
+
+}
