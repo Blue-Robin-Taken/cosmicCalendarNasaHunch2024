@@ -10,7 +10,7 @@ const config: Config = {
         extend: {
             colors: {
                 'lm-back': '#FFFFFF',
-                'dm-back': '#020202',
+                'dm-back': '#131313',
 
                 'lm-navbar-text': '#000000',
                 'dm-navbar-text': '#FFFFFF',

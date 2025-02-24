@@ -41,7 +41,7 @@ export default function Navbar() {
                     {[
                         ['Clock', '/clock', '1'],
                         ['Calendar', '/calendar', '2'],
-                        ['Conversion', '/conversion', '3'],
+                        ['Chat', '/chat', '3'],
                         ['Settings', '/settings', '4'],
                         ['Articles', '/articles', '5'],
                         ['Time Management', '/timer', '6'],
