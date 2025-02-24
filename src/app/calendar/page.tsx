@@ -13,17 +13,26 @@ import { ChevronRightIcon } from '@heroicons/react/20/solid';
 import {
     marsStandardDate,
     marsConvertYear,
-    marsConvertQuarter,
     marsConvertMonth,
     marsCalendar,
     marsYMDtoDays
 } from '../clocks/marsTime/calculating';
 
-import { Tooltip } from 'antd';
+import { Tag, Tooltip } from 'antd';
+import EventModal from './components/eventModal';
+
+export type CalendarEvent = {
+    day: number,
+    month: number,
+    year: number,
+    name: string
+}
 
 // discuss the fact that the Gregorian calendar
 
 export default function Calendar() {
+    const [eventArray, setEventArray] = useState<CalendarEvent[]>([])
+
     const [getPlanetState, setPlanetState] = useState('Earth');
     const currentMarsSol = marsStandardDate(GetTimeCC().epochMillis);
     
@@ -69,10 +78,19 @@ export default function Calendar() {
     const tooltipConvertToMarsTime = (date: YMDDate) => {
         if (Number(selectYear.year) > 1873) {
             const solsMonth = marsConvertMonth(marsStandardDate(ttime(date.year+"-"+date.month+"-"+date.day, undefined, 'en-us').epochMillis))
-            return `${solsMonth[1]} ${solsMonth[0]}`
+            return `${marsMonths[solsMonth[0]]} ${solsMonth[1]}`
             // return "temp"
         }
         return "Data Not Available"
+    }
+    function ifEventOrNull(day: number, month: number, year: number){
+        const event = eventArray.find((event) => {if(event.day === day && event.month === month && event.year === year){return true} return false})
+
+        if(event){
+            return <Tag color="gold">{event.name}</Tag>
+        } else {
+            return null
+        }
     }
 
     var weekdaysData = 
@@ -124,31 +142,31 @@ export default function Calendar() {
         }
     // TODO: Check all pages and make sure we have at maximum two instances where we use the h1 element
     return (
-        
         <div>
             <div className="font-CommeReg mx-6">
                 <h1 className="">Current Planet:</h1>
                 <select onChange={changePage}>
-                        <option value="Earth">Earth</option>
-                        <option value="Mars">Mars</option>
+                    <option value="Earth">Earth</option>
+                    <option value="Mars">Mars</option>
                 </select>
             </div>
-            <div className="flex flex-grow relative">
-                <h2
-                    className="my-6 ml-8 text-lm-p-text dark:text-dm-p-text 
-                    text-4xl font-CommeReg z-10"
-                >
-                    {getPlanetState} -&nbsp;{' '}
-                </h2>
-                <YearDropdown
-                    selected={selectYear}
-                    setSelected={setSelectedYear}
-                    planetState={{getPlanetState}}
+            <div className="flex flex-grow w-full justify-between place-content-stretch relative">
+                <div className="flex min-w-80">
+                    <h2
+                        className="my-6 ml-8 text-lm-p-text dark:text-dm-p-text 
+                        text-4xl font-CommeReg z-10"
+                    >
+                        {getPlanetState} -&nbsp;{' '}
+                    </h2>
+                    <YearDropdown
+                        selected={selectYear}
+                        setSelected={setSelectedYear}
+                        planetState={{getPlanetState}}
                 />
-                <div className="flex w-full justify-center self-end absolute space-x-1">
-                    {/* TODO: probably change these < and > into icons i think theres a resource called "react icons" */}
+                </div>
+                {/* TODO: probably change these < and > into icons i think theres a resource called "react icons" */}
 
-
+                <div className="flex">
                     <button
                         onClick={clickMonthSub}
                         className="h-14 self-center rounded-xl text-lm-p-text 
@@ -160,7 +178,11 @@ export default function Calendar() {
                         className="min-w-40 my-6 text-lm-p-text dark:text-dm-p-text 
                         text-2xl font-CommeReg text-center"
                     >
-                        {getPlanetState == "Earth" ? earthMonths[calMonth - 1] : getPlanetState == "Mars" ? marsMonths[calMonth - 1] : "Null"}
+                        {getPlanetState == 'Earth'
+                            ? earthMonths[calMonth - 1]
+                            : getPlanetState == 'Mars'
+                            ? marsMonths[calMonth - 1]
+                            : 'Null'}
                     </h2>
                     <button
                         onClick={clickMonthAdd}
@@ -169,10 +191,11 @@ export default function Calendar() {
                         <ChevronRightIcon className="size-5 fill-black/60 dark:fill-white/60" />
                     </button>
 
-    
                     {/*<Button className="self-center ml-40" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Add Event</Button>*/}
                     {/*<EventModal></EventModal>*/}
                 </div>
+    
+                <span>{getPlanetState == "Earth" ? <EventModal updateEvents={(event: CalendarEvent) => {setEventArray((prev) => {console.log([event, ...prev]); return [event, ...prev]})}}></EventModal>: ''}</span>
             </div>
             {/* https://preline.co/docs/custom-scrollbar.html */}
             <div
@@ -184,41 +207,76 @@ export default function Calendar() {
                         dark:[&::-webkit-scrollbar-track]:bg-neutral-700
                         dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
             >
-                {weekdaysData.map(({id, weekday}) => (
-                    
-                    <div key={id} className='bg-lm-grey py-1 dark:bg-dm-grey border-b border-r border-white/[.75] dark:border-black/[.75]'> 
-                        <p className='text-black dark:text-white font-Lato flex justify-center'>{weekday}</p> 
-                    </div>))}
-                
+                {weekdaysData.map(({ id, weekday }) => (
+                    <div
+                        key={id}
+                        className="bg-lm-grey py-1 dark:bg-dm-grey border-b border-r border-white/[.75] dark:border-black/[.75]"
+                    >
+                        <p className="text-black dark:text-white font-Lato flex justify-center">
+                            {weekday}
+                        </p>
+                    </div>
+                ))}
+
                 {tupleDates.map(([id, date]) => (
                     <div
-
-                        key={id} id={id}
+                        key={id}
+                        id={id}
                         className={
-                            (getPlanetState == "Earth" && date.m == calMonth ? 'text-black dark:text-[#ffffff]' : getPlanetState=="Mars" && date[1].y == selectYear.year && date[1].m == calMonth ? 'text-black dark:text-[#ffffff]' : 'text-[#7a7a7a]') +
+                            (getPlanetState == 'Earth' && date.m == calMonth
+                                ? 'text-black dark:text-[#ffffff]'
+                                : getPlanetState == 'Mars' &&
+                                  date[1].y == selectYear.year &&
+                                  date[1].m == calMonth
+                                ? 'text-black dark:text-[#ffffff]'
+                                : 'text-[#7a7a7a]') +
                             ' border-b border-r bg-lm-grey border-white/[.75] dark:border-black/[.75] dark:bg-dm-grey min-h-[8rem]'
                         }
                     >
-                    <div className={(
+                        <div
+                            className={
+                                (getPlanetState == 'Earth' &&
+                                ttime()
+                                    .toLocale('us-en')
+                                    .format('D M YYYY')
+                                    .localeCompare(
+                                        date.d.toString() +
+                                            ' ' +
+                                            calMonth.toString() +
+                                            ' ' +
+                                            selectYear.year.toString()
+                                    ) == 0
+                                    ? ' bg-dm-yellow rounded-md ml-2 my-1 mx-1 py-0.5 px-0.5 font-Lato text-sm'
+                                    : getPlanetState == 'Mars' &&
+                                      date[1].y == marsConvertYear(currentMarsSol)[0] &&
+                                      date[1].m == marsConvertMonth(currentMarsSol)[0] &&
+                                      date[1].d ==
+                                          marsConvertMonth(
+                                              currentMarsSol
+                                          )[1]
+                                    ? ' bg-dm-yellow rounded-md ml-2 my-1 mx-1 py-0.5 px-0.5 font-Lato text-sm '
+                                    : '') +
+                                'ml-2 my-1 py-0.5 px-0.5 grid place-content-center transition-all cursor-pointer max-w-6 max-h-6 font-Lato text-sm hover:bg-white hover:text-black rounded-md'
+                            }
+                        >
                             
-                            getPlanetState == "Earth" && (ttime().toLocale('us-en').format("D M YYYY"))
-                                .localeCompare
-                                ((date.d).toString() + " " + (calMonth.toString()) + " " + (selectYear.year.toString()))
-                                 == 0 ? 
-                                ' bg-dm-yellow rounded-md ml-2 my-1 mx-1 py-0.5 px-0.5 font-Lato text-sm' 
-                            : (getPlanetState == "Mars" &&  date[1].y == marsConvertYear(currentMarsSol)[0] && date[1].m == marsConvertMonth(currentMarsSol)[0] && date[1].d == marsConvertMonth(currentMarsSol)[1]) ? 
-                                ' bg-dm-yellow rounded-md ml-2 my-1 mx-1 py-0.5 px-0.5 font-Lato text-sm ' 
-                            : '') +
-                            "ml-2 my-1 py-0.5 px-0.5 grid place-content-center transition-all cursor-pointer max-w-6 max-h-6 font-Lato text-sm hover:bg-white hover:text-black rounded-md"
-                            
-                            }>
-                            <Tooltip text={tooltipConvertToMarsTime(date)}>
-                                    <span>{getPlanetState == "Earth" ? date.d : getPlanetState == "Mars" ? date[1].d : "1337"}</span>
+                            <Tooltip title={tooltipConvertToMarsTime(date)}>
+                                <span>
+                                    {getPlanetState == 'Earth'
+                                        ? date.d
+                                        : getPlanetState == 'Mars'
+                                        ? date[1].d
+                                        : '1337'}
+                                </span>
                             </Tooltip>
+
+                            
                             {/* need to center double digits */}
                         </div>
                         
-                        
+                        <div style={{paddingLeft: "10px"}}>
+                            {getPlanetState == "Earth" ? ifEventOrNull(date.d, date.m-1, date.y) : ''}
+                        </div>
                     </div>
                 ))}
             </div>

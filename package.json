@@ -1,58 +1,59 @@
 {
-  "name": "cosmic-calendar",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@geist-ui/core": "^2.3.8",
-    "@headlessui/react": "^2.2.0",
-    "@heroicons/react": "^2.2.0",
-    "@tubular/time": "^3.9.5",
-    "antd": "^5.24.1",
-    "clsx": "^2.1.1",
-    "darian-system": "^1.1.2",
-    "date-and-time": "^3.6.0",
-    "fs": "0.0.1-security",
-    "jose": "^5.10.0",
-    "jsonwebtoken": "^9.0.2",
-    "marked": "^15.0.7",
-    "next": "^15.1.7",
-    "next-themes": "^0.4.4",
-    "react": "^18.3.1",
-    "react-countdown-circle-timer": "^3.2.1",
-    "react-dom": "^18.3.1",
-    "react-latex-next": "^3.0.0",
-    "rgb": "^0.1.0",
-    "sqlite3": "^5.1.7",
-    "svgdom": "^0.1.20",
-    "use-sound": "^5.0.0"
-  },
-  "devDependencies": {
-    "@types/node": "^20.17.19",
-    "@types/react": "^18.3.18",
-    "@types/react-dom": "^18.3.5",
-    "autoprefixer": "^10.4.20",
-    "css-loader": "^7.1.2",
-    "eslint": "^8.57.1",
-    "eslint-config-next": "14.2.13",
-    "postcss": "^8.5.3",
-    "sass": "^1.85.0",
-    "sass-loader": "^16.0.5",
-    "style-loader": "^4.0.0",
-    "tailwindcss": "^3.4.17",
-    "typescript": "^5.7.3",
-    "webpack": "^5.98.0"
-  },
-  "packageManager": "pnpm@8.12.1+sha1.aa961ffce9b6eaa56307d9b5ff7e984f25b7eb58",
-  "pnpm": {
-    "overrides": {
-      "next@>=9.5.5 <14.2.15": ">=14.2.15",
-      "next@>=14.0.0 <14.2.21": ">=14.2.21"
+    "name": "cosmic-calendar",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@geist-ui/core": "^2.3.8",
+        "@headlessui/react": "^2.2.0",
+        "@heroicons/react": "^2.2.0",
+        "@tubular/time": "^3.9.5",
+        "antd": "^5.24.1",
+        "clsx": "^2.1.1",
+        "darian-system": "^1.1.2",
+        "date-and-time": "^3.6.0",
+        "fs": "0.0.1-security",
+        "jose": "^5.10.0",
+        "jsonwebtoken": "^9.0.2",
+        "marked": "^15.0.7",
+        "next": "^15.1.7",
+        "next-client-cookies": "^2.0.1",
+        "next-themes": "^0.4.4",
+        "react": "^18.3.1",
+        "react-countdown-circle-timer": "^3.2.1",
+        "react-dom": "^18.3.1",
+        "react-latex-next": "^3.0.0",
+        "rgb": "^0.1.0",
+        "sqlite3": "^5.1.7",
+        "svgdom": "^0.1.20",
+        "use-sound": "^5.0.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20.17.19",
+        "@types/react": "^18.3.18",
+        "@types/react-dom": "^18.3.5",
+        "autoprefixer": "^10.4.20",
+        "css-loader": "^7.1.2",
+        "eslint": "^8.57.1",
+        "eslint-config-next": "14.2.13",
+        "postcss": "^8.5.3",
+        "sass": "^1.85.0",
+        "sass-loader": "^16.0.5",
+        "style-loader": "^4.0.0",
+        "tailwindcss": "^3.4.17",
+        "typescript": "^5.7.3",
+        "webpack": "^5.98.0"
+    },
+    "packageManager": "pnpm@8.12.1+sha1.aa961ffce9b6eaa56307d9b5ff7e984f25b7eb58",
+    "pnpm": {
+        "overrides": {
+            "next@>=9.5.5 <14.2.15": ">=14.2.15",
+            "next@>=14.0.0 <14.2.21": ">=14.2.21"
+        }
     }
-  }
 }

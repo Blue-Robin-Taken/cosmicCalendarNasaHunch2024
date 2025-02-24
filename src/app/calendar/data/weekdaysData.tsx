@@ -1,4 +1,4 @@
-export var earthDays = [
+export let earthDays = [
     {id:'101', weekday:"Sun", weekdayFull:"Sunday"},
     {id:'102', weekday:"Mon", weekdayFull:"Monday"},
     {id:'103', weekday:"Tues", weekdayFull:"Tuesday"},
@@ -9,7 +9,7 @@ export var earthDays = [
     
 ];
 
-export var marsDays = [
+export let marsDays = [
     {id:'111', weekday:"Sol", weekdayFull:"Solis"},
     {id:'112', weekday:"Lun", weekdayFull:"Lunae"},
     {id:'113', weekday:"Mart", weekdayFull:"Martis"},
