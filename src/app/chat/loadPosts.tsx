@@ -5,12 +5,19 @@ export default function LoadPosts() {
 
     useEffect(() => {
         async function fetchData() {
-            const res = await fetch('chat/api');
+            const res = await fetch('/chat/api');
             const data = await res.json();
             setPosts(data);
         }
         fetchData();
     }, []);
     console.log(posts);
-    return <>{JSON.stringify(posts)}</>;
+    return (
+        <>
+            {posts &&
+                posts.map((post) => {
+                    post + 'a';
+                })}
+        </>
+    );
 }

@@ -1,6 +1,6 @@
 import { db } from '@/app/database';
 import { NextResponse } from 'next/server';
-export async function GET(request: Request) {
+export async function GET() {
     const rowed = await new Promise<{
         user: string;
         title: string;

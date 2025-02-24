@@ -125,7 +125,7 @@ export default function TimeManagement() {
                             />
                         </div>
                     </div>
-                    <div className="flex flex-col align-middle items-start justify-items-center">
+                    <div className="flex flex-col align-middle items-start justify-items-center m-2">
                         <p className="align-middle">Play Sound</p>
                         <label className="inline-flex items-center cursor-pointer align-middle">
                             <input

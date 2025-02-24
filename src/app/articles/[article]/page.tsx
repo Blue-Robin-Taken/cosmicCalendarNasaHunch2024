@@ -1,16 +1,15 @@
-import { url } from 'inspector';
 import 'katex/dist/katex.min.css';
 import Latex from 'react-latex-next';
 import { marked } from 'marked';
+import fs from 'fs';
 export default async function Page({
     params,
 }: {
     params: Promise<{ article: string }>;
 }) {
     const articleParam = decodeURI((await params).article);
-    var fs = require('fs');
 
-    var articleJSON = JSON.parse(
+    let articleJSON = JSON.parse(
         fs.readFileSync('./src/app/articles/blogs.json', 'utf8')
     );
 

@@ -7,16 +7,16 @@ export default async function chatServerComponent(formData: FormData) {
         title: formData.get('title'),
         body: formData.get('body'),
     };
-    var payload;
+    let payload;
     const cooked = await cookies();
     const jwt_token = cooked.get('token')?.value;
     console.log();
     try {
-        var { payload, protectedHeader } = await jwtVerify(
+        let { payload } = await jwtVerify(
             jwt_token,
             new TextEncoder().encode(process.env.JWT_KEY_SIGNATURE?.toString())
         );
-    } catch (err) {
+    } catch {
         payload = false;
     }
 
