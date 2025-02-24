@@ -14,14 +14,25 @@ import {
     marsConvertYear,
     marsConvertQuarter,
     marsConvertMonth,
-    marsCalendar
+    marsCalendar,
+    marsConvertMonthTooltip
 } from '../clocks/marsTime/calculating';
 
-import { Tooltip } from 'antd';
+import { Tag, Tooltip } from 'antd';
+import EventModal from './components/eventModal';
+
+export type CalendarEvent = {
+    day: number,
+    month: number,
+    year: number,
+    name: string
+}
 
 // discuss the fact that the Gregorian calendar
 
 export default function Calendar() {
+    const [eventArray, setEventArray] = useState<CalendarEvent[]>([])
+
     const [getPlanetState, setPlanetState] = useState('Earth');
     var getTimeCC = GetTimeCC();
 
@@ -103,7 +114,7 @@ export default function Calendar() {
     const tooltipConvertToMarsTime = (date: YMDDate) => {
         if (Number(selectYear.year) > 1873) {
             const solsMonth = marsConvertMonth(ttime(date.year+"-"+date.month+"-"+date.day, undefined, 'en-us').epochMillis)
-            console.log(`${solsMonth[1]} ${solsMonth[0]}`)
+          
             return `${solsMonth[1]} ${solsMonth[0]}`
             // return "temp"
         }
@@ -115,6 +126,16 @@ export default function Calendar() {
         (getPlanetState == "Mars") ? marsDays : 
         ["not"]
 
+
+    function ifEventOrNull(day: number, month: number, year: number){
+        const event = eventArray.find((event) => {if(event.day === day && event.month === month && event.year === year){return true} return false})
+        
+        if(event){
+            return <Tag color="gold">{event.name}</Tag>
+        } else {
+            return null
+        }
+    }
     // TODO: Check all pages and make sure we have at maximum two instances where we use the h1 element
     return (
         
@@ -126,46 +147,45 @@ export default function Calendar() {
                         <option value="Mars">Mars</option>
                 </select>
             </div>
-            <div className="flex flex-grow relative">
-                <h2
-                    className="my-6 ml-8 text-lm-p-text dark:text-dm-p-text 
-                    text-4xl font-CommeReg z-10"
-                >
-                    {getPlanetState} -&nbsp;{' '}
-                </h2>
-                <YearDropdown
-                    selected={selectYear}
-                    setSelected={setSelectedYear}
-                    planetState={{getPlanetState}}
-                />
-                <div className="flex w-full justify-center self-end absolute space-x-1">
-                    {/* TODO: probably change these < and > into icons i think theres a resource called "react icons" */}
-
-
-                    <button
-                        onClick={clickMonthSub}
-                        className="h-14 self-center rounded-xl text-lm-p-text 
-                        dark:text-dm-p-text text-4xl font-CommeReg"
-                    >
-                        <ChevronLeftIcon className="size-5 fill-black/60 dark:fill-white/60" />
-                    </button>
+            <div className="flex flex-grow w-full justify-between place-content-stretch relative">
+                <div className="flex min-w-80">
                     <h2
-                        className="min-w-40 my-6 text-lm-p-text dark:text-dm-p-text 
-                        text-2xl font-CommeReg text-center"
+                        className="my-6 ml-8 text-lm-p-text dark:text-dm-p-text 
+                        text-4xl font-CommeReg z-10"
                     >
-                        {getPlanetState == "Earth" ? earthMonths[calMonth - 1] : getPlanetState == "Mars" ? marsMonths[calMonth - 1] : "Null"}
+                        {getPlanetState} -&nbsp;{' '}
                     </h2>
-                    <button
-                        onClick={clickMonthAdd}
-                        className="h-14 self-center rounded-xl text-lm-p-text dark:text-dm-p-text text-4xl font-CommeReg"
-                    >
-                        <ChevronRightIcon className="size-5 fill-black/60 dark:fill-white/60" />
-                    </button>
-
-    
-                    {/*<Button className="self-center ml-40" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Add Event</Button>*/}
-                    {/*<EventModal></EventModal>*/}
+                    <YearDropdown
+                        selected={selectYear}
+                        setSelected={setSelectedYear}
+                        planetState={{getPlanetState}}
+                />
                 </div>
+                {/* TODO: probably change these < and > into icons i think theres a resource called "react icons" */}
+
+                <div className="flex">
+                    <button
+                            onClick={clickMonthSub}
+                            className="h-14 self-center rounded-xl text-lm-p-text 
+                            dark:text-dm-p-text text-4xl font-CommeReg"
+                        >
+                            <ChevronLeftIcon className="size-5 fill-black/60 dark:fill-white/60" />
+                        </button>
+                        <h2
+                            className="min-w-40 my-6 text-lm-p-text dark:text-dm-p-text 
+                            text-2xl font-CommeReg text-center"
+                        >
+                            {getPlanetState == "Earth" ? earthMonths[calMonth - 1] : getPlanetState == "Mars" ? marsMonths[calMonth - 1] : "Null"}
+                        </h2>
+                        <button
+                            onClick={clickMonthAdd}
+                            className="h-14 self-center rounded-xl text-lm-p-text dark:text-dm-p-text text-4xl font-CommeReg"
+                        >
+                            <ChevronRightIcon className="size-5 fill-black/60 dark:fill-white/60" />
+                        </button>
+                </div>
+    
+                <EventModal updateEvents={(event: CalendarEvent) => {setEventArray((prev) => {console.log([event, ...prev]); return [event, ...prev]})}}></EventModal>
             </div>
             {/* https://preline.co/docs/custom-scrollbar.html */}
             <div
@@ -205,13 +225,18 @@ export default function Calendar() {
                             "ml-2 my-1 py-0.5 px-0.5 grid place-content-center transition-all cursor-pointer max-w-6 max-h-6 font-Lato text-sm hover:bg-white hover:text-black rounded-md"
                             
                             }>
-                            <Tooltip text={tooltipConvertToMarsTime(date)}>
+                            
+                            <Tooltip title={tooltipConvertToMarsTime(date)}>
                                     <span>{getPlanetState == "Earth" ? date.d : getPlanetState == "Mars" ? date[1].d : "1337"}</span>
                             </Tooltip>
+
+                            
                             {/* need to center double digits */}
                         </div>
                         
-                        
+                        <div style={{paddingLeft: "10px"}}>
+                            {ifEventOrNull(date.d, date.m-1, date.y)}
+                        </div>
                     </div>
                 ))}
             </div>
