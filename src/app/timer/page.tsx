@@ -45,7 +45,7 @@ export default function TimeManagement() {
         <div className="align-middle text-center justify-items-center justify-center flex flex-col place-items-center m-3 font-lato">
             <h1 className="font-lato text-5xl p-5 m-5">Time Management</h1>
 
-            <div className="p-10 m-10 flex flex-col justify-items-center place-items-center">
+            <div className="p-10 m-10 flex flex-col justify-items-center place-items-center bg-slate-100 dark:bg-dm-grey rounded-md">
                 <h2 className="font-lato text-3xl p-3">Timer</h2>
                 <CountdownCircleTimer
                     key={key}
@@ -56,7 +56,6 @@ export default function TimeManagement() {
                     onComplete={() => {
                         setShouldPlaySound(true); // Trigger audio after timer ends
                         setPlaying(false);
-                        setTime(1);
                         return { shouldRepeat: false };
                     }}
                 >
@@ -74,7 +73,7 @@ export default function TimeManagement() {
                         <input
                             id="startTimeS"
                             placeholder="seconds"
-                            className="justify-center text-center p-3 m-2 bg-lm-grey rounded-sm font-lato text-sm dark:bg-dm-grey dark:text-dm-lightyellow text-lm-p-text"
+                            className="justify-center text-center p-3 m-2 bg-lm-grey rounded-sm font-lato text-sm dark:bg-dm-back dark:text-dm-lightyellow text-lm-p-text"
                         />
                     </div>
                     <div>
@@ -82,7 +81,7 @@ export default function TimeManagement() {
                         <input
                             id="startTimeM"
                             placeholder="minutes"
-                            className="justify-center text-center p-3 m-2 bg-lm-grey rounded-sm font-lato text-sm  dark:bg-dm-grey dark:text-dm-lightyellow text-lm-p-text"
+                            className="justify-center text-center p-3 m-2 bg-lm-grey rounded-sm font-lato text-sm  dark:bg-dm-back dark:text-dm-lightyellow text-lm-p-text"
                         />
                     </div>
                     <div>
@@ -90,7 +89,7 @@ export default function TimeManagement() {
                         <input
                             id="startTimeH"
                             placeholder="hours"
-                            className="justify-center text-center p-3 m-2 bg-lm-grey rounded-sm font-lato text-sm  dark:bg-dm-grey dark:text-dm-lightyellow text-lm-p-text"
+                            className="justify-center text-center p-3 m-2 bg-lm-grey rounded-sm font-lato text-sm  dark:bg-dm-back dark:text-dm-lightyellow text-lm-p-text"
                         />
                     </div>
                     <div className="flex flex-col align-middle justify-center items-center justify-items-center">

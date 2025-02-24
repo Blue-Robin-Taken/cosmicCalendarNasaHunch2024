@@ -3,6 +3,8 @@ import { db } from '@/app/database';
 import { SignJWT } from 'jose';
 import { cookies } from 'next/headers';
 import { useEffect } from 'react';
+import { redirect } from 'next/navigation';
+
 export default async function loginServerAction(
     formData: FormData
 ): Promise<boolean> {
@@ -38,7 +40,8 @@ export default async function loginServerAction(
         let cookie = await cookies();
         cookie.set('token', token);
 
-        return false;
+        redirect('/');
+        return false; 
     } else {
         return true;
     }
