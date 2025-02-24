@@ -1,7 +1,9 @@
 import 'katex/dist/katex.min.css';
 import Latex from 'react-latex-next';
 import { marked } from 'marked';
-import fs from 'fs';
+import { promises as fs } from 'fs';
+import path from 'path';
+
 export default async function Page({
     params,
 }: {
@@ -9,45 +11,40 @@ export default async function Page({
 }) {
     const articleParam = decodeURI((await params).article);
 
-    let articleJSON = JSON.parse(
-        fs.readFileSync('./src/app/articles/blogs.json', 'utf8')
+    // Construct absolute path
+    const jsonFilePath = path.join(
+        process.cwd(),
+        'src/app/articles/blogs.json'
     );
+    const articlesData = await fs.readFile(jsonFilePath, 'utf8');
+    const articleJSON = JSON.parse(articlesData);
 
-    if (
-        !articleJSON.Blogs.find((article: any) => article.title == articleParam)
-    ) {
-        console.log(articleJSON, articleParam);
-        return (
-            <>
-                <h1>Article Not Found!</h1>
-            </>
-        );
+    // Find article metadata
+    const article = articleJSON.Blogs.find(
+        (article: any) => article.title === articleParam
+    );
+    if (!article) {
+        return <h1>Article Not Found!</h1>;
     }
 
-    const markdownFile = fs.readFileSync(
-        `./src/app/articles/files/${articleParam}.md`,
-        'utf-8'
+    // Read Markdown file
+    const markdownFilePath = path.join(
+        process.cwd(),
+        `src/app/articles/files/${articleParam}.md`
     );
-    const article = articleJSON.Blogs.find(
-        (article: any) => article.title == articleParam
-    );
+    const markdownContent = await fs.readFile(markdownFilePath, 'utf8');
 
     return (
-        <>
-            <div className="flex flex-col items-center justify-center">
-                <h1
-                    className="text-4xl font-bold font-Chocolate mb-4 text-center text-lm-yellow-hl 
-                            dark:text-dm-yellow-hl"
-                >
-                    {article.title}
-                </h1>
-                <h1 className="text-lm-p-text dark:text-white font-Lato mb-4 text-center">
-                    Author: {article.author}
-                </h1>
-                <div className="flex flex-col font-Lato dark:text-white m-5 p-3 [&_p]:m-5 [&_p]:p-3 [&_p]:text-xl [&_h2]:text-5xl [&_h2]:p-3 [&_h2]:m-5 [&_h3]:text-3xl [&_h3]:p-2 [&_h3]:m-4 text-center justify-center [&>span]:flex [&>span]:flex-col [&>span]:p-3 w-3/4 [&_table]:table-fixed [&_table]:[&_thread]:justify-center">
-                    <Latex>{marked(markdownFile).toString()}</Latex>
-                </div>
+        <div className="flex flex-col items-center justify-center">
+            <h1 className="text-4xl font-bold font-Chocolate mb-4 text-center text-lm-yellow-hl dark:text-dm-yellow-hl">
+                {article.title}
+            </h1>
+            <h2 className="text-lm-p-text dark:text-white font-Lato mb-4 text-center">
+                Author: {article.author}
+            </h2>
+            <div className="flex flex-col font-Lato dark:text-white m-5 p-3 text-center justify-center w-3/4">
+                <Latex>{marked(markdownContent)}</Latex>
             </div>
-        </>
+        </div>
     );
 }
