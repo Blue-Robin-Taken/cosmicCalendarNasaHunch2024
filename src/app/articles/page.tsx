@@ -1,7 +1,6 @@
+import fs from 'fs';
 export default function articles() {
-    var fs = require('fs');
-
-    var articleJSON = JSON.parse(
+    let articleJSON = JSON.parse(
         fs.readFileSync('./src/app/articles/blogs.json', 'utf8')
     );
     return (
@@ -24,7 +23,7 @@ export default function articles() {
                 <div>
                     {articleJSON.Blogs.map(
                         (
-                            article: any // Note: remove any later or not hehe
+                            article // Note: remove any later or not hehe
                         ) => (
                             <div
                                 key={article.title}
