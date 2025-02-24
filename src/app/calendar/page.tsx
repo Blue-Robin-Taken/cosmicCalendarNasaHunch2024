@@ -11,10 +11,12 @@ import { marsYears } from './data/marsYears';
 import { ChevronLeftIcon } from '@heroicons/react/20/solid';
 import { ChevronRightIcon } from '@heroicons/react/20/solid';
 import {
+    marsStandardDate,
     marsConvertYear,
     marsConvertQuarter,
     marsConvertMonth,
-    marsCalendar
+    marsCalendar,
+    marsYMDtoDays
 } from '../clocks/marsTime/calculating';
 
 import { Tooltip } from 'antd';
@@ -23,7 +25,8 @@ import { Tooltip } from 'antd';
 
 export default function Calendar() {
     const [getPlanetState, setPlanetState] = useState('Earth');
-    var getTimeCC = GetTimeCC();
+    const currentMarsSol = marsStandardDate(GetTimeCC().epochMillis);
+    
 
    
         function changePage(event: ChangeEvent<HTMLSelectElement>) {
@@ -34,8 +37,8 @@ export default function Calendar() {
                 setCalMonth(Number(ttime().toLocale('en-us').format('M')))
             }
             if (getPlanetState.localeCompare("Mars")) {
-                setSelectedYear(marsYears[marsConvertYear(getTimeCC.epochMillis)[0]])
-                setCalMonth(marsConvertMonth(getTimeCC.epochMillis)[0])
+                setSelectedYear(marsYears[marsConvertYear(currentMarsSol)[0]])
+                setCalMonth(marsConvertMonth(currentMarsSol)[0])
             }
             
         }
@@ -49,45 +52,7 @@ export default function Calendar() {
     );
 
     var calMonthDiff = 0
-    function clickMonthAdd() {
-        if (getPlanetState == "Earth") {
-            setCalMonth(calMonth + 1);
-            if (calMonth == 12) {
-                setCalMonth(1);
-                setSelectedYear(earthYears[Number(selectYear.year) + 1 - 1000]);
-            }
-        }
-        if (getPlanetState == "Mars") {
-            calMonthDiff += 1;
-            setCalMonth(calMonth + 1);
-            
-            if (calMonth == 16) {
-                setCalMonth(1);
-                setSelectedYear(marsYears[Number(selectYear.year) + 1]);
-            }
-        }
 
-    }
-
-    function clickMonthSub() {
-        if (getPlanetState == "Earth") {
-            setCalMonth(calMonth - 1);
-            if (calMonth == 1) {
-                setCalMonth(12);
-                setSelectedYear(earthYears[Number(selectYear.year) - 1 - 1000]);
-            }
-        }
-        if (getPlanetState == "Mars") {
-            calMonthDiff -= 1;
-            setCalMonth(calMonth - 1);
-            
-            if (calMonth == 1) {
-                setCalMonth(16);
-                setSelectedYear(marsYears[Number(selectYear.year) - 1]);
-            }
-        }
-
-    }
     // guys we'll have to write our own custom mars calendar generation code...
     // var tupleDates = Object.entries(
     //     ttime(selectYear.year + '-' + calMonth, null, 'en-us')
@@ -99,11 +64,11 @@ export default function Calendar() {
                 ttime(selectYear.year + '-' + calMonth, null, 'en-us')
                  .getCalendarMonth()
                  .map((date) => date)) : 
-            (getPlanetState == "Mars") ? Object.entries(marsCalendar(getTimeCC.epochMillis + 88775244*41.25*calMonthDiff)) : [1337]
+            (getPlanetState == "Mars") ? Object.entries(marsCalendar(marsYMDtoDays( Number(selectYear.year),calMonth, marsConvertMonth(currentMarsSol)[1]))) : [1337]
+
     const tooltipConvertToMarsTime = (date: YMDDate) => {
         if (Number(selectYear.year) > 1873) {
-            const solsMonth = marsConvertMonth(ttime(date.year+"-"+date.month+"-"+date.day, undefined, 'en-us').epochMillis)
-            console.log(`${solsMonth[1]} ${solsMonth[0]}`)
+            const solsMonth = marsConvertMonth(marsStandardDate(ttime(date.year+"-"+date.month+"-"+date.day, undefined, 'en-us').epochMillis))
             return `${solsMonth[1]} ${solsMonth[0]}`
             // return "temp"
         }
@@ -114,13 +79,55 @@ export default function Calendar() {
         (getPlanetState == "Earth") ? earthDays :
         (getPlanetState == "Mars") ? marsDays : 
         ["not"]
-
+        function clickMonthAdd() {
+            if (getPlanetState == "Earth") {
+                setCalMonth(calMonth + 1);
+                if (calMonth == 12) {
+                    setCalMonth(1);
+                    setSelectedYear(earthYears[Number(selectYear.year) + 1 - 1000]);
+                }
+            }
+            if (getPlanetState == "Mars") {
+                calMonthDiff += 1;
+                setCalMonth(calMonth + 1);
+                
+                if (calMonth == 16) {
+                    setCalMonth(1);
+                    setSelectedYear(marsYears[Number(selectYear.year) + 1]);
+                    
+                }
+                console.log(tupleDates)
+            }
+    
+        }
+    
+        function clickMonthSub() {
+            if (getPlanetState == "Earth") {
+                setCalMonth(calMonth - 1);
+                if (calMonth == 1) {
+                    setCalMonth(12);
+                    setSelectedYear(earthYears[Number(selectYear.year) - 1 - 1000]);
+                }
+            }
+            if (getPlanetState == "Mars") {
+                calMonthDiff -= 1;
+                setCalMonth(calMonth - 1);
+                
+                if (calMonth == 1) {
+                    setCalMonth(16);
+                    setSelectedYear(marsYears[Number(selectYear.year) - 1]);
+                    
+                }
+                console.log(tupleDates)
+            }
+    
+        }
     // TODO: Check all pages and make sure we have at maximum two instances where we use the h1 element
     return (
         
         <div>
-            <div>
-                <h1>Current Planet:</h1>
+            <div className="font-CommeReg mx-6">
+                <h1 className="">Current Planet:</h1>
                 <select onChange={changePage}>
                         <option value="Earth">Earth</option>
                         <option value="Mars">Mars</option>
@@ -199,7 +206,7 @@ export default function Calendar() {
                                 ((date.d).toString() + " " + (calMonth.toString()) + " " + (selectYear.year.toString()))
                                  == 0 ? 
                                 ' bg-dm-yellow rounded-md ml-2 my-1 mx-1 py-0.5 px-0.5 font-Lato text-sm' 
-                            : (getPlanetState == "Mars" &&  date[1].y == selectYear.year && date[1].m == calMonth && date[1].d == marsConvertMonth(getTimeCC.epochMillis)[1]) ? 
+                            : (getPlanetState == "Mars" &&  date[1].y == marsConvertYear(currentMarsSol)[0] && date[1].m == marsConvertMonth(currentMarsSol)[0] && date[1].d == marsConvertMonth(currentMarsSol)[1]) ? 
                                 ' bg-dm-yellow rounded-md ml-2 my-1 mx-1 py-0.5 px-0.5 font-Lato text-sm ' 
                             : '') +
                             "ml-2 my-1 py-0.5 px-0.5 grid place-content-center transition-all cursor-pointer max-w-6 max-h-6 font-Lato text-sm hover:bg-white hover:text-black rounded-md"

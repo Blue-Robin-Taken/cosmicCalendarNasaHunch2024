@@ -72,8 +72,7 @@ export function marsTimeMTCExtended(e: number) {
 }
 
 //
-export function marsConvertYear(e: number) {
-    var currentDay = marsStandardDate(e);
+export function marsConvertYear(currentDay: number) {
    
     // solsEra is the number of eras
     // 668591 = 500 * 668.5910
@@ -166,15 +165,15 @@ export function marsConvertYear(e: number) {
 
 }
 
-export function marsConvertQuarter(e: number) {
-  const marsSols = marsConvertYear(e);
+export function marsConvertQuarter(referenceSol: number) {
+  const marsSols = marsConvertYear(referenceSol)[1];
   const quarterTimings = [0, 167, 334, 501];
   var currentQuarter = -1;
-    if (marsSols[1] < quarterTimings[1]) {
+    if (marsSols< quarterTimings[1]) {
       currentQuarter = 0;
-    } else if (marsSols[1] < quarterTimings[2]) {
+    } else if (marsSols < quarterTimings[2]) {
       currentQuarter = 1;
-    } else if (marsSols[1] < quarterTimings[3]) {
+    } else if (marsSols < quarterTimings[3]) {
       currentQuarter = 2;
     } else {
       currentQuarter = 3;
@@ -182,12 +181,12 @@ export function marsConvertQuarter(e: number) {
     return currentQuarter;
 }
 
-export function marsConvertMonth(e: number) {
-  const marsSols = marsConvertYear(e);
+export function marsConvertMonth(referenceSol: number) {
+  const marsSols = marsConvertYear(referenceSol)[1];
   const quarterTimings = [0, 167, 334, 501];
-  const currentQuarter = marsConvertQuarter(e);
+  const currentQuarter = marsConvertQuarter(referenceSol);
 
-  var currentQuarterFract = marsSols[1] - quarterTimings[currentQuarter];
+  var currentQuarterFract = marsSols - quarterTimings[currentQuarter];
 
   var month = Math.floor(currentQuarterFract/42 + currentQuarter*4);
 
@@ -205,8 +204,7 @@ export function marsConvertMonth(e: number) {
   return [weekday, weekdayNames[weekday], weekdayNamesTrunc[weekday]]
  }
 
- export function marsIsLeapYear(e: number) {
-  var currentYear = marsConvertYear(e)[1];
+ export function marsIsLeapYear(currentYear: number) {
 
   if((currentYear % 500) == 0) return true;
   if((currentYear % 100) == 0) return false;
@@ -217,30 +215,27 @@ export function marsConvertMonth(e: number) {
  }
 
 
-export function marsCalendar(e: number) {
-  const referenceMSD = marsStandardDate(e)
-  const monthData = marsConvertMonth(e)
-  const currentYear = marsConvertYear(e)[0]
+export function marsCalendar(referenceSol: number) {
+  const monthData = marsConvertMonth(referenceSol)
+  const currentYear = marsConvertYear(referenceSol)[0]
   //splitting monthData
   const solsMonthFract = (typeof monthData[1] == 'number') ? monthData[1] : -1
   const currentMonth = (typeof monthData[0] == 'number') ? monthData[0] : -1
 
-  const firstSolofMonth = referenceMSD-solsMonthFract
-
+  const firstSolofMonth = referenceSol-solsMonthFract
   let tempWeekdayFromDays = marsWeekdayFromDays(firstSolofMonth)[0]
-
   const weekdayFirstSolofMonth = (typeof tempWeekdayFromDays == 'number') ? tempWeekdayFromDays : -1;
 
   var currentMonthLength = 42;
   if ((currentMonth+1) % 4 == 0) {
     currentMonthLength = 41
   }
-  if (currentMonth == 15 && !(marsIsLeapYear(e))) {
+  if (currentMonth == 15 && !(marsIsLeapYear(currentYear))) {
     currentMonthLength = 42
   }
 
   var findPrevMonthData = true;
-  if (firstSolofMonth == 1) {
+  if (weekdayFirstSolofMonth == 0) {
     findPrevMonthData = false;
   }
 
@@ -253,7 +248,7 @@ export function marsCalendar(e: number) {
 
   var prevMonthLength = 42;
   if ((prevMonth+1) % 4 == 0) {
-    currentMonthLength = 41
+    prevMonthLength = 41
   }
   
 
@@ -265,14 +260,14 @@ export function marsCalendar(e: number) {
   }
 
   // 88775244 apprx amount of ms in a martian sol
-  if (currentMonth == 15 && !(marsIsLeapYear(e-88775244))) {
-    currentMonthLength = 42
+  if (prevMonth == 15 && !(marsIsLeapYear(prevYear))) {
+    prevMonthLength = 42
   }
 
   var count = 1;
 
   var calendar = [{0: count, 1: {y: currentYear, m: currentMonth, d: 1}}]
-  var calendarStartAmt = weekdayFirstSolofMonth + 1;
+  var calendarStartAmt = weekdayFirstSolofMonth;
 
   if (findPrevMonthData) {
     for (var i = 0; i < calendarStartAmt; i++ ) {
@@ -289,12 +284,33 @@ export function marsCalendar(e: number) {
   
 
   var calendarEndAmt = 49 - (calendar.length) ;
-  if (43 < calendar.length) {
+  if (calendar.length>42) {
       for (var i = 1; i <= calendarEndAmt; i++) {
         calendar[calendar.length] = {0: count, 1: {y: nextYear, m: nextMonth, d: i}};
       }
   }
 
   return calendar;
+
+}
+
+export function marsYMDtoDays(yyyy: number, m: number, dd: number) {
+  // 
+  // number of years * length of mays year in sols * #ms om 1 sol
+  // #ms om 1 sol: 86400 seconds in 1 earth day * 1000 ms in 1 sec * 1.027491251 ratio mars sol to earth day
+  var solValue = Math.floor(yyyy*668.5910) + dd
+  if ((m/4 == 4)) {
+    if (marsIsLeapYear(yyyy)) {
+      solValue += 3*167 + 168
+    } else {
+      solValue += 167*4
+    }
+
+  } else{
+    // m/4 for number of quarters; m%4 for number of monthFracts
+    solValue += (Math.floor(m/4))*167 + (m%4)*42
+  }
+  return solValue;
+
 
 }

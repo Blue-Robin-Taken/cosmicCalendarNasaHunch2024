@@ -50,7 +50,7 @@ export default function Clock() {
         >
             {/*Form for changing the selected clock*/}
 
-            <div>
+            <div className="font-CommeReg ps-16 pt-12">
                 <h1>Current Planet:</h1>
                 <select onChange={changePage}>
                     <option>Earth</option>
@@ -59,7 +59,7 @@ export default function Clock() {
             </div>
             {getPlanetState == 'Earth' && (
                 <div>
-                    <h2 className="font-Lato text-6xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pt-16">
+                    <h2 className="font-Lato text-6xl flex flex-col justify-center items-start text-lm-h1-text dark:text-dm-h1-text ps-16 pt-8">
                         Earth
                     </h2>
 
